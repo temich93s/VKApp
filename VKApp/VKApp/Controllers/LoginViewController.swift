@@ -17,6 +17,11 @@ final class LoginViewController: UIViewController {
         static let passwordPlaceholderText = "Пароль"
         static let enterButtonText = "Войти"
         static let forgotPasswordButtonText = "Забыли пароль?"
+        static let loginSegueIdentifier = "LoginSegue"
+        static let titleAlertText = "Ошибка"
+        static let messageAlertText = "Логин или пароль неверные"
+        static let correctLoginText = "admin"
+        static let correctPasswordText = "12345"
     }
 
     // MARK: - Private Outlets
@@ -56,6 +61,14 @@ final class LoginViewController: UIViewController {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+
+    @IBAction func loginButtonAction(_ sender: UIButton) {
+        if checkLoginInfo() {
+            performSegue(withIdentifier: Constants.loginSegueIdentifier, sender: self)
+        } else {
+            showAlert(title: Constants.titleAlertText, message: Constants.messageAlertText)
+        }
     }
 
     // MARK: - Private Methods
@@ -118,6 +131,15 @@ final class LoginViewController: UIViewController {
     @objc private func hideKeyboard() {
         mainScrollView.endEditing(true)
     }
+
+    private func checkLoginInfo() -> Bool {
+        guard let loginText = loginTextField.text, let passwordText = passwordTextField.text else { return false }
+        if loginText == Constants.correctLoginText, passwordText == Constants.correctPasswordText {
+            return true
+        } else {
+            return false
+        }
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -126,5 +148,15 @@ extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+// MARK: - Alert
+
+extension LoginViewController {
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alertController, animated: true)
     }
 }
