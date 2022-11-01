@@ -22,6 +22,7 @@ final class LoginViewController: UIViewController {
         static let messageAlertText = "Логин или пароль неверные"
         static let correctLoginText = "admin"
         static let correctPasswordText = "12345"
+        static let okText = "OK"
     }
 
     // MARK: - Private Outlets
@@ -156,7 +157,7 @@ extension LoginViewController: UITextFieldDelegate {
 extension LoginViewController {
     private func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: Constants.okText, style: .cancel, handler: nil))
         present(alertController, animated: true)
     }
 }
