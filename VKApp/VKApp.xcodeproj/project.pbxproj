@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA73C24529127F2600715351 /* FriendsUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C24429127F2600715351 /* FriendsUserTableViewCell.swift */; };
+		AA73C2482912831E00715351 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C2472912831E00715351 /* User.swift */; };
+		AA73C24A2912839E00715351 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C2492912839E00715351 /* Group.swift */; };
+		AA73C24C291287E200715351 /* PhotosUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73C24B291287E200715351 /* PhotosUserCollectionViewCell.swift */; };
 		AA8441AC290FD9B400F2F135 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8441AB290FD9B400F2F135 /* AppDelegate.swift */; };
 		AA8441AE290FD9B400F2F135 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8441AD290FD9B400F2F135 /* SceneDelegate.swift */; };
 		AA8441B3290FD9B400F2F135 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA8441B1290FD9B400F2F135 /* Main.storyboard */; };
@@ -20,6 +24,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA73C24429127F2600715351 /* FriendsUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsUserTableViewCell.swift; sourceTree = "<group>"; };
+		AA73C2472912831E00715351 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		AA73C2492912839E00715351 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		AA73C24B291287E200715351 /* PhotosUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosUserCollectionViewCell.swift; sourceTree = "<group>"; };
 		AA8441A8290FD9B400F2F135 /* VKApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8441AB290FD9B400F2F135 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA8441AD290FD9B400F2F135 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +53,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA73C24329127F1000715351 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AA73C24429127F2600715351 /* FriendsUserTableViewCell.swift */,
+				AA73C24B291287E200715351 /* PhotosUserCollectionViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AA73C2462912830F00715351 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AA73C2472912831E00715351 /* User.swift */,
+				AA73C2492912839E00715351 /* Group.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		AA84419F290FD9B400F2F135 = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +90,8 @@
 		AA8441AA290FD9B400F2F135 /* VKApp */ = {
 			isa = PBXGroup;
 			children = (
+				AA73C2462912830F00715351 /* Models */,
+				AA73C24329127F1000715351 /* Views */,
 				AA844201290FEB0D00F2F135 /* Controllers */,
 				AA8441AB290FD9B400F2F135 /* AppDelegate.swift */,
 				AA8441AD290FD9B400F2F135 /* SceneDelegate.swift */,
@@ -202,9 +230,13 @@
 				AABC597D291013A70014890B /* FriendsUserTableViewController.swift in Sources */,
 				AABC597F291014000014890B /* GroupUserTableViewController.swift in Sources */,
 				AA844203290FEB3B00F2F135 /* LoginViewController.swift in Sources */,
+				AA73C24A2912839E00715351 /* Group.swift in Sources */,
 				AA8441AC290FD9B400F2F135 /* AppDelegate.swift in Sources */,
 				AA8441AE290FD9B400F2F135 /* SceneDelegate.swift in Sources */,
+				AA73C24C291287E200715351 /* PhotosUserCollectionViewCell.swift in Sources */,
+				AA73C2482912831E00715351 /* User.swift in Sources */,
 				AABC5984291014360014890B /* PhotosUserCollectionViewController.swift in Sources */,
+				AA73C24529127F2600715351 /* FriendsUserTableViewCell.swift in Sources */,
 				AABC5981291014140014890B /* SearchGroupTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
