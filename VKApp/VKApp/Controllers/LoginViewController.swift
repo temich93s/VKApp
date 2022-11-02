@@ -3,8 +3,6 @@
 
 import UIKit
 
-// MARK: - LoginViewController
-
 /// Окно авторизации пользователя
 final class LoginViewController: UIViewController {
     // MARK: - Constants
@@ -23,6 +21,7 @@ final class LoginViewController: UIViewController {
         static let correctLoginText = "admin"
         static let correctPasswordText = "12345"
         static let okText = "OK"
+        static let fontSizeForTextNumber: CGFloat = 18
     }
 
     // MARK: - Private Outlets
@@ -42,29 +41,17 @@ final class LoginViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillShown(notification:)),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillHide(notification:)),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-        mainScrollView.addGestureRecognizer(tapGesture)
+        keyboardManager()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        removeKeyboardObserver()
     }
 
-    @IBAction func loginButtonAction(_ sender: UIButton) {
+    // MARK: - IBAction
+
+    @IBAction private func loginButtonAction(_ sender: UIButton) {
         if checkLoginInfo() {
             performSegue(withIdentifier: Constants.loginSegueIdentifier, sender: self)
         } else {
@@ -73,47 +60,6 @@ final class LoginViewController: UIViewController {
     }
 
     // MARK: - Private Methods
-
-    private func setupUI() {
-        setupMainView()
-        setupLoginTextField()
-        setupPasswordTextField()
-        setupEnterButton()
-        setupForgotPasswordButton()
-    }
-
-    private func setupMainView() {
-        view.backgroundColor = UIColor(named: Constants.lightBlueColorName)
-    }
-
-    private func setupLoginTextField() {
-        loginTextField.delegate = self
-        loginTextField.placeholder = Constants.loginPlaceholderText
-        loginTextField.font = UIFont.systemFont(ofSize: 18)
-    }
-
-    private func setupPasswordTextField() {
-        passwordTextField.delegate = self
-        passwordTextField.placeholder = Constants.passwordPlaceholderText
-        passwordTextField.font = UIFont.systemFont(ofSize: 18)
-        passwordTextField.isSecureTextEntry = true
-    }
-
-    private func setupEnterButton() {
-        enterButton.setTitle(Constants.enterButtonText, for: .normal)
-        enterButton.setTitleColor(UIColor(named: Constants.whiteColorName), for: .normal)
-        enterButton.backgroundColor = UIColor(named: Constants.darkBlueColorName)
-        enterButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        enterButton.layer.cornerRadius = 10
-    }
-
-    private func setupForgotPasswordButton() {
-        forgotPasswordButton.setTitle(Constants.forgotPasswordButtonText, for: .normal)
-        forgotPasswordButton.setTitleColor(UIColor(named: Constants.whiteColorName), for: .normal)
-        forgotPasswordButton.backgroundColor = UIColor(named: Constants.darkBlueColorName)
-        forgotPasswordButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        forgotPasswordButton.layer.cornerRadius = 10
-    }
 
     @objc private func keyboardWillShown(notification: Notification) {
         guard let info = notification.userInfo as? NSDictionary,
@@ -133,13 +79,79 @@ final class LoginViewController: UIViewController {
         mainScrollView.endEditing(true)
     }
 
+    private func setupUI() {
+        setupMainView()
+        setupLoginTextField()
+        setupPasswordTextField()
+        setupEnterButton()
+        setupForgotPasswordButton()
+    }
+
+    private func setupMainView() {
+        view.backgroundColor = UIColor(named: Constants.lightBlueColorName)
+    }
+
+    private func setupLoginTextField() {
+        loginTextField.delegate = self
+        loginTextField.placeholder = Constants.loginPlaceholderText
+        loginTextField.font = UIFont.systemFont(ofSize: Constants.fontSizeForTextNumber)
+    }
+
+    private func setupPasswordTextField() {
+        passwordTextField.delegate = self
+        passwordTextField.placeholder = Constants.passwordPlaceholderText
+        passwordTextField.font = UIFont.systemFont(ofSize: Constants.fontSizeForTextNumber)
+        passwordTextField.isSecureTextEntry = true
+    }
+
+    private func setupEnterButton() {
+        enterButton.setTitle(Constants.enterButtonText, for: .normal)
+        enterButton.setTitleColor(UIColor(named: Constants.whiteColorName), for: .normal)
+        enterButton.backgroundColor = UIColor(named: Constants.darkBlueColorName)
+        enterButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.fontSizeForTextNumber)
+        enterButton.layer.cornerRadius = 10
+    }
+
+    private func setupForgotPasswordButton() {
+        forgotPasswordButton.setTitle(Constants.forgotPasswordButtonText, for: .normal)
+        forgotPasswordButton.setTitleColor(UIColor(named: Constants.whiteColorName), for: .normal)
+        forgotPasswordButton.backgroundColor = UIColor(named: Constants.darkBlueColorName)
+        forgotPasswordButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.fontSizeForTextNumber)
+        forgotPasswordButton.layer.cornerRadius = 10
+    }
+
     private func checkLoginInfo() -> Bool {
-        guard let loginText = loginTextField.text, let passwordText = passwordTextField.text else { return false }
-        if loginText == Constants.correctLoginText, passwordText == Constants.correctPasswordText {
-            return true
-        } else {
+        guard
+            let loginText = loginTextField.text,
+            let passwordText = passwordTextField.text,
+            loginText == Constants.correctLoginText,
+            passwordText == Constants.correctPasswordText
+        else {
             return false
         }
+        return true
+    }
+
+    private func keyboardManager() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShown(notification:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide(notification:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        mainScrollView.addGestureRecognizer(tapGesture)
+    }
+
+    private func removeKeyboardObserver() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
     }
 }
 
@@ -154,8 +166,16 @@ extension LoginViewController: UITextFieldDelegate {
 
 // MARK: - Alert
 
-extension LoginViewController {
-    private func showAlert(title: String, message: String) {
+extension UIViewController {
+    // MARK: - Constants
+
+    private enum Constants {
+        static let okText = "OK"
+    }
+
+    // MARK: - Public Methods
+
+    func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: Constants.okText, style: .cancel, handler: nil))
         present(alertController, animated: true)

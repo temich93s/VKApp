@@ -3,11 +3,5 @@
 
 import UIKit
 
-// MARK: - GroupUserTableViewController
-
 /// Экран с группами пользователя
-final class GroupUserTableViewController: UITableViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-}
+final class GroupUserTableViewController: UITableViewController {}
