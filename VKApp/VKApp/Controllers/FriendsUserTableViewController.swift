@@ -38,7 +38,7 @@ final class FriendsUserTableViewController: UITableViewController {
         User(userName: Constants.friendPhotoThirdName, userPhotoName: Constants.friendPhotoThirdName),
         User(userName: Constants.friendPhotoOneName, userPhotoName: Constants.friendPhotoOneName),
         User(userName: Constants.friendPhotoSecondName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendPhotoThirdName, userPhotoName: Constants.friendPhotoThirdName),
+        User(userName: Constants.friendPhotoThirdName, userPhotoName: Constants.friendPhotoThirdName)
     ]
 
     // MARK: - Lifecycle
