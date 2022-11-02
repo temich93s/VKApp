@@ -103,45 +103,53 @@
         <scene sceneID="Xw0-gA-XMk">
             <objects>
                 <tableViewController id="hiZ-0M-NfD" customClass="FriendsUserTableViewController" customModule="VKApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="iHO-IL-f01">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="iHO-IL-f01">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendsUserCell" rowHeight="50" id="gXP-sb-ErF" customClass="FriendsUserTableViewCell" customModule="VKApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="50"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendsUserCell" rowHeight="60" id="gXP-sb-ErF" customClass="FriendsUserTableViewCell" customModule="VKApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gXP-sb-ErF" id="Kof-E6-g5R">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWh-1w-GEj">
-                                            <rect key="frame" x="20" y="11" width="332" height="28"/>
+                                            <rect key="frame" x="20" y="20" width="332" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TWg-yy-Aar">
+                                            <rect key="frame" x="352" y="0.0" width="50" height="60"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        </view>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="izL-Ii-ova">
-                                            <rect key="frame" x="352" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="352" y="0.0" width="50" height="60"/>
                                             <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="rt6-3z-TV7"/>
                                                 <constraint firstAttribute="width" constant="50" id="vz8-Lu-dau"/>
                                             </constraints>
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="izL-Ii-ova" firstAttribute="rightMargin" secondItem="Kof-E6-g5R" secondAttribute="rightMargin" id="4y3-TA-KSj"/>
-                                        <constraint firstAttribute="height" secondItem="CWh-1w-GEj" secondAttribute="height" multiplier="1.78571" id="8z3-zD-qxL"/>
-                                        <constraint firstItem="izL-Ii-ova" firstAttribute="leading" secondItem="CWh-1w-GEj" secondAttribute="trailing" id="JfJ-SK-hav"/>
-                                        <constraint firstItem="CWh-1w-GEj" firstAttribute="top" secondItem="Kof-E6-g5R" secondAttribute="topMargin" id="M5d-7p-3Ij"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="CWh-1w-GEj" secondAttribute="bottom" id="WS8-Ge-obt"/>
-                                        <constraint firstItem="izL-Ii-ova" firstAttribute="top" secondItem="Kof-E6-g5R" secondAttribute="top" id="la7-Ak-vml"/>
+                                        <constraint firstItem="izL-Ii-ova" firstAttribute="leading" secondItem="CWh-1w-GEj" secondAttribute="trailing" id="2HF-cF-sEF"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="izL-Ii-ova" secondAttribute="trailingMargin" id="5Nq-Wo-gxS"/>
+                                        <constraint firstItem="TWg-yy-Aar" firstAttribute="width" secondItem="izL-Ii-ova" secondAttribute="width" id="Vr1-WZ-vEC"/>
+                                        <constraint firstItem="izL-Ii-ova" firstAttribute="centerY" secondItem="Kof-E6-g5R" secondAttribute="centerY" id="WXj-5g-Xyr"/>
+                                        <constraint firstItem="TWg-yy-Aar" firstAttribute="height" secondItem="izL-Ii-ova" secondAttribute="height" id="diG-Db-cww"/>
+                                        <constraint firstItem="TWg-yy-Aar" firstAttribute="centerX" secondItem="izL-Ii-ova" secondAttribute="centerX" id="oQX-dQ-biW"/>
+                                        <constraint firstItem="izL-Ii-ova" firstAttribute="height" secondItem="Kof-E6-g5R" secondAttribute="height" id="qba-pR-ac1"/>
                                         <constraint firstItem="CWh-1w-GEj" firstAttribute="leading" secondItem="Kof-E6-g5R" secondAttribute="leadingMargin" id="qrQ-jq-CG1"/>
-                                        <constraint firstAttribute="bottom" secondItem="izL-Ii-ova" secondAttribute="bottom" id="rO0-nd-gQE"/>
+                                        <constraint firstItem="TWg-yy-Aar" firstAttribute="centerY" secondItem="izL-Ii-ova" secondAttribute="centerY" id="tb7-2w-Y0P"/>
+                                        <constraint firstItem="CWh-1w-GEj" firstAttribute="centerY" secondItem="izL-Ii-ova" secondAttribute="centerY" id="vX5-oi-OFj"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="friendNameLabel" destination="CWh-1w-GEj" id="xbh-rG-9C5"/>
                                     <outlet property="friendPhotoImageView" destination="izL-Ii-ova" id="UeO-Ye-Opy"/>
+                                    <outlet property="friendsPhotoView" destination="TWg-yy-Aar" id="iEl-NF-uuD"/>
                                     <segue destination="U6c-z8-IMm" kind="show" identifier="GoToPhotosUserCollectionVC" id="vYE-Ri-we3"/>
                                 </connections>
                             </tableViewCell>
