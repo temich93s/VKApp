@@ -22,7 +22,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
         user = currentUser
     }
 
-    // MARK: - Private Methods
+    // MARK: - Public Methods
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         1

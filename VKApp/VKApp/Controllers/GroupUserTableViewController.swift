@@ -8,6 +8,7 @@ final class GroupUserTableViewController: UITableViewController {
     // MARK: - Constants
 
     private enum Constants {
+        static let segueID = "GoToSearchGroupTableVC"
         static let groupUserCellID = "GroupUserCell"
         static let addGroupSegueID = "AddGroup"
         static let groupUserPhotoOneName = "FriendPhotoOne"
@@ -16,6 +17,9 @@ final class GroupUserTableViewController: UITableViewController {
         static let groupUserNameOneName = "Новости"
         static let groupUserNameSecondName = "Программирование"
         static let groupUserNameThirdName = "Отдых"
+        static let groupUserNameFourName = "Питание"
+        static let groupUserNameFiveName = "Спорт"
+        static let groupUserNameSixName = "Путешествия"
     }
 
     // MARK: - IBAction
@@ -26,33 +30,34 @@ final class GroupUserTableViewController: UITableViewController {
             let source = segue.source as? SearchGroupTableViewController,
             let indexPath = source.tableView.indexPathForSelectedRow,
             let group = source.returnGroup(index: indexPath.row),
-            !groups.contains(group)
+            !userGroups.contains(group)
         else { return }
-        groups.append(group)
+        for (index, groupFromAllGroups) in allGroups.enumerated() {
+            guard group == groupFromAllGroups else { continue }
+            allGroups.remove(at: index)
+        }
+        userGroups.append(group)
         tableView.reloadData()
     }
 
     // MARK: - Private Properties
 
-    private var groups = [
+    private var allGroups = [
+        Group(groupName: Constants.groupUserNameFourName, groupPhotoName: Constants.groupUserPhotoOneName),
+        Group(groupName: Constants.groupUserNameFiveName, groupPhotoName: Constants.groupUserPhotoSecondName),
+        Group(groupName: Constants.groupUserNameSixName, groupPhotoName: Constants.groupUserPhotoThirdName)
+    ]
+
+    private var userGroups = [
         Group(groupName: Constants.groupUserNameOneName, groupPhotoName: Constants.groupUserPhotoOneName),
         Group(groupName: Constants.groupUserNameSecondName, groupPhotoName: Constants.groupUserPhotoSecondName),
-        Group(groupName: Constants.groupUserNameThirdName, groupPhotoName: Constants.groupUserPhotoThirdName),
-        Group(groupName: Constants.groupUserNameOneName, groupPhotoName: Constants.groupUserPhotoOneName),
-        Group(groupName: Constants.groupUserNameSecondName, groupPhotoName: Constants.groupUserPhotoSecondName),
-        Group(groupName: Constants.groupUserNameThirdName, groupPhotoName: Constants.groupUserPhotoThirdName),
-        Group(groupName: Constants.groupUserNameOneName, groupPhotoName: Constants.groupUserPhotoOneName),
-        Group(groupName: Constants.groupUserNameSecondName, groupPhotoName: Constants.groupUserPhotoSecondName),
-        Group(groupName: Constants.groupUserNameThirdName, groupPhotoName: Constants.groupUserPhotoThirdName),
-        Group(groupName: Constants.groupUserNameOneName, groupPhotoName: Constants.groupUserPhotoOneName),
-        Group(groupName: Constants.groupUserNameSecondName, groupPhotoName: Constants.groupUserPhotoSecondName),
-        Group(groupName: Constants.groupUserNameThirdName, groupPhotoName: Constants.groupUserPhotoThirdName),
+        Group(groupName: Constants.groupUserNameThirdName, groupPhotoName: Constants.groupUserPhotoThirdName)
     ]
 
     // MARK: - Public Methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        groups.count
+        userGroups.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,9 +67,9 @@ final class GroupUserTableViewController: UITableViewController {
                 withIdentifier: Constants.groupUserCellID,
                 for: indexPath
             ) as? GroupUserTableViewCell,
-            indexPath.row < groups.count
+            indexPath.row < userGroups.count
         else { return UITableViewCell() }
-        cell.configureCell(group: groups[indexPath.row])
+        cell.configureCell(group: userGroups[indexPath.row])
         return cell
     }
 
@@ -74,8 +79,16 @@ final class GroupUserTableViewController: UITableViewController {
         forRowAt indexPath: IndexPath
     ) {
         if editingStyle == .delete {
-            groups.remove(at: indexPath.row)
+            allGroups.append(userGroups.remove(at: indexPath.row))
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard
+            segue.identifier == Constants.segueID,
+            let destination = segue.destination as? SearchGroupTableViewController
+        else { return }
+        destination.configureSearchGroupTableVC(groups: allGroups)
     }
 }
