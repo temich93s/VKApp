@@ -52,6 +52,13 @@ import UIKit
         setupView()
     }
 
+    // MARK: - Public Methods
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        stackView.frame = bounds
+    }
+
     // MARK: - Private Methods
 
     @objc private func selectLike(_ sender: UIButton) {
@@ -77,10 +84,5 @@ import UIKit
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fillEqually
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        stackView.frame = bounds
     }
 }
