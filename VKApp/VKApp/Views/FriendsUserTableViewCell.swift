@@ -15,7 +15,7 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     @IBOutlet private var friendNameLabel: UILabel!
     @IBOutlet private var friendPhotoImageView: UIImageView!
-    @IBOutlet var friendsPhotoView: UIView!
+    @IBOutlet private var friendsPhotoView: ShadowView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,11 +38,6 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     private func setupFriendPhoto() {
         friendPhotoImageView.layer.cornerRadius = friendPhotoImageView.frame.width / 2
-        friendsPhotoView.layer.cornerRadius = friendPhotoImageView.frame.width / 2
-        friendsPhotoView.layer.shadowColor = UIColor.black.cgColor
-        friendsPhotoView.layer.shadowOpacity = 1
-        friendsPhotoView.layer.shadowRadius = 5
-        friendsPhotoView.layer.shadowOffset = CGSize.zero
-        friendsPhotoView.layer.masksToBounds = false
+        friendsPhotoView.shadowColor = .blue
     }
 }
