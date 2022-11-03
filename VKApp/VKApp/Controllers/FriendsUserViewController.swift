@@ -3,6 +3,8 @@
 
 import UIKit
 
+typealias Closure = (Character) -> ()
+
 /// Экран с друзьями пользователя
 class FriendsUserViewController: UIViewController {
     // MARK: - Constants
@@ -18,7 +20,7 @@ class FriendsUserViewController: UIViewController {
         static let friendNameThirdName = "Никита"
         static let friendNameFourName = "Артем"
         static let friendNameFiveName = "Иван"
-        static let friendNameSixName = "Андрей"
+        static let friendNameSixName = "Семен"
         static let friendNameSevenName = "Антон"
         static let friendNameEightName = "Олег"
         static let friendNameNineName = "Виталя"
@@ -52,10 +54,40 @@ class FriendsUserViewController: UIViewController {
         User(userName: Constants.friendNameEightName, userPhotoName: Constants.friendPhotoOneName),
         User(userName: Constants.friendNameSevenName, userPhotoName: Constants.friendPhotoSecondName),
         User(userName: Constants.friendNameNineName, userPhotoName: Constants.friendPhotoThirdName),
+        User(userName: Constants.friendNameTenName, userPhotoName: Constants.friendPhotoOneName),
+        User(userName: Constants.friendNameOneName, userPhotoName: Constants.friendPhotoOneName),
+        User(userName: Constants.friendNameSecondName, userPhotoName: Constants.friendPhotoSecondName),
+        User(userName: Constants.friendNameThirdName, userPhotoName: Constants.friendPhotoThirdName),
+        User(userName: Constants.friendNameFourName, userPhotoName: Constants.friendPhotoOneName),
+        User(userName: Constants.friendNameFiveName, userPhotoName: Constants.friendPhotoSecondName),
+        User(userName: Constants.friendNameSixName, userPhotoName: Constants.friendPhotoThirdName),
+        User(userName: Constants.friendNameEightName, userPhotoName: Constants.friendPhotoOneName),
+        User(userName: Constants.friendNameSevenName, userPhotoName: Constants.friendPhotoSecondName),
+        User(userName: Constants.friendNameNineName, userPhotoName: Constants.friendPhotoThirdName),
+        User(userName: Constants.friendNameTenName, userPhotoName: Constants.friendPhotoOneName),
+        User(userName: Constants.friendNameOneName, userPhotoName: Constants.friendPhotoOneName),
+        User(userName: Constants.friendNameSecondName, userPhotoName: Constants.friendPhotoSecondName),
+        User(userName: Constants.friendNameThirdName, userPhotoName: Constants.friendPhotoThirdName),
+        User(userName: Constants.friendNameFourName, userPhotoName: Constants.friendPhotoOneName),
+        User(userName: Constants.friendNameFiveName, userPhotoName: Constants.friendPhotoSecondName),
+        User(userName: Constants.friendNameSixName, userPhotoName: Constants.friendPhotoThirdName),
+        User(userName: Constants.friendNameEightName, userPhotoName: Constants.friendPhotoOneName),
+        User(userName: Constants.friendNameSevenName, userPhotoName: Constants.friendPhotoSecondName),
+        User(userName: Constants.friendNameNineName, userPhotoName: Constants.friendPhotoThirdName),
         User(userName: Constants.friendNameTenName, userPhotoName: Constants.friendPhotoOneName)
     ]
 
     private var characters: [Character] = []
+
+    private lazy var scrollFromCharacterClousure: Closure? = { [weak self] character in
+        guard let self = self else { return }
+        let index = self.friends.firstIndex { user -> Bool in
+            user.userName.first == character
+        }
+        guard let safeIndex = index else { return }
+        let indexPath = IndexPath(row: safeIndex, section: 0)
+        self.friendsTableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
 
     // MARK: - Lifecycle
 
@@ -81,6 +113,10 @@ class FriendsUserViewController: UIViewController {
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
         setupCharacters()
+        friends.sort {
+            $0.userName < $1.userName
+        }
+        characterSetControl.scrollFromCharacterClousure = scrollFromCharacterClousure
     }
 
     private func setupCharacters() {
@@ -102,8 +138,7 @@ class FriendsUserViewController: UIViewController {
 
 extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        setupCharacters()
-        return friends.count
+        friends.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

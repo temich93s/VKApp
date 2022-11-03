@@ -10,6 +10,8 @@ import UIKit
     private enum Constants {
         static let heartText = "heart"
         static let heartFillText = "heart.fill"
+        static let lightBlueColorName = "LightBlueColor"
+        static let redColorName = "RedColor"
     }
 
     // MARK: - Private Visual Properties
@@ -20,14 +22,14 @@ import UIKit
         let label = UILabel()
         label.text = "\(countLike)"
         label.textAlignment = .center
-        label.textColor = .blue
+        label.textColor = UIColor(named: Constants.lightBlueColorName)
         return label
     }()
 
     private lazy var likeButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: Constants.heartText), for: .normal)
-        button.tintColor = .blue
+        button.tintColor = UIColor(named: Constants.lightBlueColorName)
         button.addTarget(self, action: #selector(selectLike(_:)), for: .touchUpInside)
         return button
     }()
@@ -66,12 +68,14 @@ import UIKit
             likeWasPressed.toggle()
             countLike -= 1
             countLikeLabel.text = "\(countLike)"
+            countLikeLabel.textColor = UIColor(named: Constants.lightBlueColorName)
             likeButton.setImage(UIImage(systemName: Constants.heartText), for: .normal)
             likeButton.tintColor = .blue
         } else {
             likeWasPressed.toggle()
             countLike += 1
             countLikeLabel.text = "\(countLike)"
+            countLikeLabel.textColor = UIColor(named: Constants.redColorName)
             likeButton.setImage(UIImage(systemName: Constants.heartFillText), for: .normal)
             likeButton.tintColor = .red
         }

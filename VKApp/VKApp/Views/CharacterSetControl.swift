@@ -18,6 +18,8 @@ import UIKit
         }
     }
 
+    var scrollFromCharacterClousure: Closure?
+
     // MARK: - Initializers
 
     override init(frame: CGRect) {
@@ -41,12 +43,10 @@ import UIKit
 
     @objc private func selectCharacterAction(_ sender: UIButton) {
         for (index, button) in buttons.enumerated() {
-            if sender.tag == index {
-                button.isSelected = true
-            } else {
-                button.isSelected = false
-            }
+            button.isSelected = sender.tag == index
         }
+        guard sender.tag < characterSet.count else { return }
+        scrollFromCharacterClousure?(characterSet[sender.tag])
     }
 
     private func setupView() {
@@ -67,5 +67,4 @@ import UIKit
         stackView.alignment = .center
         stackView.distribution = .fillEqually
     }
-
 }
