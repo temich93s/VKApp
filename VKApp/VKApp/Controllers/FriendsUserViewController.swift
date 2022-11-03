@@ -16,32 +16,46 @@ class FriendsUserViewController: UIViewController {
         static let friendNameOneName = "Андрей"
         static let friendNameSecondName = "Егор"
         static let friendNameThirdName = "Никита"
+        static let friendNameFourName = "Артем"
+        static let friendNameFiveName = "Иван"
+        static let friendNameSixName = "Андрей"
+        static let friendNameSevenName = "Антон"
+        static let friendNameEightName = "Олег"
+        static let friendNameNineName = "Виталя"
+        static let friendNameTenName = "Максим"
     }
 
-    @IBOutlet var friendsTableView: UITableView!
+    // MARK: - IBOutlet
+
+    @IBOutlet private var characterSetControl: CharacterSetControl!
+    @IBOutlet private var friendsTableView: UITableView!
 
     // MARK: - Private Properties
 
     private var friends = [
-        User(userName: Constants.friendPhotoOneName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendPhotoSecondName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendPhotoThirdName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendPhotoOneName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendPhotoSecondName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendPhotoThirdName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendPhotoOneName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendPhotoSecondName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendPhotoThirdName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendPhotoOneName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendPhotoSecondName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendPhotoThirdName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendPhotoOneName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendPhotoSecondName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendPhotoThirdName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendPhotoOneName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendPhotoSecondName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendPhotoThirdName, userPhotoName: Constants.friendPhotoThirdName)
+        User(userName: Constants.friendNameOneName, userPhotoName: Constants.friendPhotoOneName),
+        User(userName: Constants.friendNameSecondName, userPhotoName: Constants.friendPhotoSecondName),
+        User(userName: Constants.friendNameThirdName, userPhotoName: Constants.friendPhotoThirdName),
+        User(userName: Constants.friendNameFourName, userPhotoName: Constants.friendPhotoOneName),
+        User(userName: Constants.friendNameFiveName, userPhotoName: Constants.friendPhotoSecondName),
+        User(userName: Constants.friendNameSixName, userPhotoName: Constants.friendPhotoThirdName),
+        User(userName: Constants.friendNameEightName, userPhotoName: Constants.friendPhotoOneName),
+        User(userName: Constants.friendNameSevenName, userPhotoName: Constants.friendPhotoSecondName),
+        User(userName: Constants.friendNameNineName, userPhotoName: Constants.friendPhotoThirdName),
+        User(userName: Constants.friendNameTenName, userPhotoName: Constants.friendPhotoOneName),
+        User(userName: Constants.friendNameOneName, userPhotoName: Constants.friendPhotoOneName),
+        User(userName: Constants.friendNameSecondName, userPhotoName: Constants.friendPhotoSecondName),
+        User(userName: Constants.friendNameThirdName, userPhotoName: Constants.friendPhotoThirdName),
+        User(userName: Constants.friendNameFourName, userPhotoName: Constants.friendPhotoOneName),
+        User(userName: Constants.friendNameFiveName, userPhotoName: Constants.friendPhotoSecondName),
+        User(userName: Constants.friendNameSixName, userPhotoName: Constants.friendPhotoThirdName),
+        User(userName: Constants.friendNameEightName, userPhotoName: Constants.friendPhotoOneName),
+        User(userName: Constants.friendNameSevenName, userPhotoName: Constants.friendPhotoSecondName),
+        User(userName: Constants.friendNameNineName, userPhotoName: Constants.friendPhotoThirdName),
+        User(userName: Constants.friendNameTenName, userPhotoName: Constants.friendPhotoOneName)
     ]
+
+    private var characters: [Character] = []
 
     // MARK: - Lifecycle
 
@@ -66,6 +80,21 @@ class FriendsUserViewController: UIViewController {
     private func setupView() {
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
+        setupCharacters()
+    }
+
+    private func setupCharacters() {
+        characters = []
+        for friend in friends {
+            guard
+                !friend.userName.isEmpty,
+                let safeChatacter = friend.userName.first,
+                !characters.contains(safeChatacter)
+            else { continue }
+            characters.append(safeChatacter)
+        }
+        characters.sort()
+        characterSetControl.characterSet = characters
     }
 }
 
@@ -73,7 +102,8 @@ class FriendsUserViewController: UIViewController {
 
 extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        friends.count
+        setupCharacters()
+        return friends.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

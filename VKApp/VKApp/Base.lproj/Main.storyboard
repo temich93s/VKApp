@@ -110,7 +110,6 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ff-fU-9PD" customClass="CharacterSetControl" customModule="VKApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="50"/>
-                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="WR5-1U-9j8"/>
                                 </constraints>
@@ -195,6 +194,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="rS4-5X-qmW"/>
                     <connections>
+                        <outlet property="characterSetControl" destination="5ff-fU-9PD" id="0hc-mf-CNL"/>
                         <outlet property="friendsTableView" destination="6mO-Nr-dxd" id="aaU-xN-XC8"/>
                     </connections>
                 </viewController>

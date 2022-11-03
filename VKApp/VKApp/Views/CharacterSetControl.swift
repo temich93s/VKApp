@@ -12,9 +12,9 @@ import UIKit
 
     // MARK: - Public Properties
 
-    var characterSet: [Character] = ["a", "b", "c", "d"] {
+    var characterSet: [Character] = [] {
         didSet {
-            self.updateCharacterSet()
+            setupView()
         }
     }
 
@@ -40,13 +40,20 @@ import UIKit
     // MARK: - Private Methods
 
     @objc private func selectCharacterAction(_ sender: UIButton) {
-        print("111")
+        for (index, button) in buttons.enumerated() {
+            if sender.tag == index {
+                button.isSelected = true
+            } else {
+                button.isSelected = false
+            }
+        }
     }
 
-    // метод, отвечающий за создание UIStackView и кнопок:
     private func setupView() {
-        for character in characterSet {
+        buttons = []
+        for (index, character) in characterSet.enumerated() {
             let button = UIButton(type: .system)
+            button.tag = index
             button.setTitle("\(character)", for: .normal)
             button.setTitleColor(.lightGray, for: .normal)
             button.setTitleColor(.white, for: .selected)
@@ -61,11 +68,4 @@ import UIKit
         stackView.distribution = .fillEqually
     }
 
-    // метод, который будет обновлять интерфейс в соответствии с выбранной кнопкой
-    private func updateCharacterSet() {
-//        for (index, button) in self.buttons.enumerated() {
-//            guard let day = Day(rawValue: index) else { continue }
-//            button.isSelected = day == self.selectedDay
-//        }
-    }
 }
