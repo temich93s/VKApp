@@ -19,7 +19,6 @@
 		AA8441B5290FD9B400F2F135 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8441B4290FD9B400F2F135 /* Assets.xcassets */; };
 		AA8441B8290FD9B400F2F135 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA8441B6290FD9B400F2F135 /* LaunchScreen.storyboard */; };
 		AA844203290FEB3B00F2F135 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA844202290FEB3B00F2F135 /* LoginViewController.swift */; };
-		AABC597D291013A70014890B /* FriendsUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC597C291013A70014890B /* FriendsUserTableViewController.swift */; };
 		AABC597F291014000014890B /* GroupUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC597E291014000014890B /* GroupUserTableViewController.swift */; };
 		AABC5981291014140014890B /* SearchGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC5980291014140014890B /* SearchGroupTableViewController.swift */; };
 		AABC5984291014360014890B /* PhotosUserCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC5983291014360014890B /* PhotosUserCollectionViewController.swift */; };
@@ -44,7 +43,6 @@
 		AA8441B7290FD9B400F2F135 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA8441B9290FD9B400F2F135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA844202290FEB3B00F2F135 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		AABC597C291013A70014890B /* FriendsUserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsUserTableViewController.swift; sourceTree = "<group>"; };
 		AABC597E291014000014890B /* GroupUserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserTableViewController.swift; sourceTree = "<group>"; };
 		AABC5980291014140014890B /* SearchGroupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroupTableViewController.swift; sourceTree = "<group>"; };
 		AABC5983291014360014890B /* PhotosUserCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosUserCollectionViewController.swift; sourceTree = "<group>"; };
@@ -124,7 +122,6 @@
 			isa = PBXGroup;
 			children = (
 				AA844202290FEB3B00F2F135 /* LoginViewController.swift */,
-				AABC597C291013A70014890B /* FriendsUserTableViewController.swift */,
 				AABC597E291014000014890B /* GroupUserTableViewController.swift */,
 				AABC5980291014140014890B /* SearchGroupTableViewController.swift */,
 				AABC5983291014360014890B /* PhotosUserCollectionViewController.swift */,
@@ -245,7 +242,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AABC597D291013A70014890B /* FriendsUserTableViewController.swift in Sources */,
 				AABC597F291014000014890B /* GroupUserTableViewController.swift in Sources */,
 				AA73C250291298BA00715351 /* GroupUserTableViewCell.swift in Sources */,
 				AA844203290FEB3B00F2F135 /* LoginViewController.swift in Sources */,
