@@ -3,7 +3,7 @@
 
 import UIKit
 /// ячейка с группой и фотографией группы в которых пользователь не состоит
-class SearchGroupTableViewCell: UITableViewCell {
+final class SearchGroupTableViewCell: UITableViewCell {
     // MARK: - Constants
 
     private enum Constants {

@@ -11,4 +11,6 @@ struct Group {
     let groupPhotoName: String
 }
 
+// MARK: - Equatable
+
 extension Group: Equatable {}

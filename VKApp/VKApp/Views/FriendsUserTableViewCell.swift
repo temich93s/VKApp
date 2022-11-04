@@ -17,6 +17,8 @@ final class FriendsUserTableViewCell: UITableViewCell {
     @IBOutlet private var friendPhotoImageView: UIImageView!
     @IBOutlet private var friendsPhotoView: ShadowView!
 
+    // MARK: - Lifecycle
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setupFriendPhoto()

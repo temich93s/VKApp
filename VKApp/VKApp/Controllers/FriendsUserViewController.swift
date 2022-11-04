@@ -3,10 +3,12 @@
 
 import UIKit
 
+// MARK: - typealias
+
 typealias Closure = (Character) -> ()
 
 /// Экран с друзьями пользователя
-class FriendsUserViewController: UIViewController {
+final class FriendsUserViewController: UIViewController {
     // MARK: - Constants
 
     private enum Constants {

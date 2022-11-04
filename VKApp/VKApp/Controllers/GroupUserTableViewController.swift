@@ -22,9 +22,23 @@ final class GroupUserTableViewController: UITableViewController {
         static let groupUserNameSixName = "Путешествия"
     }
 
+    // MARK: - Private Properties
+
+    private var allGroups = [
+        Group(groupName: Constants.groupUserNameFourName, groupPhotoName: Constants.groupUserPhotoOneName),
+        Group(groupName: Constants.groupUserNameFiveName, groupPhotoName: Constants.groupUserPhotoSecondName),
+        Group(groupName: Constants.groupUserNameSixName, groupPhotoName: Constants.groupUserPhotoThirdName)
+    ]
+
+    private var userGroups = [
+        Group(groupName: Constants.groupUserNameOneName, groupPhotoName: Constants.groupUserPhotoOneName),
+        Group(groupName: Constants.groupUserNameSecondName, groupPhotoName: Constants.groupUserPhotoSecondName),
+        Group(groupName: Constants.groupUserNameThirdName, groupPhotoName: Constants.groupUserPhotoThirdName)
+    ]
+
     // MARK: - IBAction
 
-    @IBAction func addGroup(segue: UIStoryboardSegue) {
+    @IBAction private func addGroup(segue: UIStoryboardSegue) {
         guard
             segue.identifier == Constants.addGroupSegueID,
             let source = segue.source as? SearchGroupTableViewController,
@@ -39,20 +53,6 @@ final class GroupUserTableViewController: UITableViewController {
         userGroups.append(group)
         tableView.reloadData()
     }
-
-    // MARK: - Private Properties
-
-    private var allGroups = [
-        Group(groupName: Constants.groupUserNameFourName, groupPhotoName: Constants.groupUserPhotoOneName),
-        Group(groupName: Constants.groupUserNameFiveName, groupPhotoName: Constants.groupUserPhotoSecondName),
-        Group(groupName: Constants.groupUserNameSixName, groupPhotoName: Constants.groupUserPhotoThirdName)
-    ]
-
-    private var userGroups = [
-        Group(groupName: Constants.groupUserNameOneName, groupPhotoName: Constants.groupUserPhotoOneName),
-        Group(groupName: Constants.groupUserNameSecondName, groupPhotoName: Constants.groupUserPhotoSecondName),
-        Group(groupName: Constants.groupUserNameThirdName, groupPhotoName: Constants.groupUserPhotoThirdName)
-    ]
 
     // MARK: - Public Methods
 
