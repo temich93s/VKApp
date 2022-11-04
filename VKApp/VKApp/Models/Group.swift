@@ -6,11 +6,7 @@ import Foundation
 /// Group: данные о группе
 /// - groupName: имя группы
 /// - groupPhotoName: имя фото группы
-struct Group {
+struct Group: Equatable {
     let groupName: String
     let groupPhotoName: String
 }
-
-// MARK: - Equatable
-
-extension Group: Equatable {}
