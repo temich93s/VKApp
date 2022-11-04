@@ -5,7 +5,7 @@ import UIKit
 
 // MARK: - typealias
 
-typealias Closure = (Character) -> ()
+typealias CharacterHandler = (Character) -> ()
 
 /// Экран с друзьями пользователя
 final class FriendsUserViewController: UIViewController {
@@ -81,7 +81,7 @@ final class FriendsUserViewController: UIViewController {
 
     private var characters: [Character] = []
 
-    private lazy var scrollFromCharacterClousure: Closure? = { [weak self] character in
+    private lazy var scrollFromCharacterHandler: CharacterHandler? = { [weak self] character in
         guard let self = self else { return }
         let index = self.friends.firstIndex { user -> Bool in
             user.userName.first == character
@@ -118,7 +118,7 @@ final class FriendsUserViewController: UIViewController {
         friends.sort {
             $0.userName < $1.userName
         }
-        characterSetControl.scrollFromCharacterClousure = scrollFromCharacterClousure
+        characterSetControl.scrollFromCharacterHandler = scrollFromCharacterHandler
     }
 
     private func setupCharacters() {

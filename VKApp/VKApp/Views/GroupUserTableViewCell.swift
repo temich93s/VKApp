@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// ячейка с группой и фотографией группы в которых пользователь не состоит
+/// Ячейка с группой и фотографией группы в которых пользователь не состоит
 final class GroupUserTableViewCell: UITableViewCell {
     // MARK: - Constants
 

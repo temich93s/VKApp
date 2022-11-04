@@ -3,10 +3,10 @@
 
 import Foundation
 
-/// Group: данные о группе
-/// - groupName: имя группы
-/// - groupPhotoName: имя фото группы
+/// Данные о группе
 struct Group: Equatable {
+    /// Имя группы
     let groupName: String
+    /// Имя фото группы
     let groupPhotoName: String
 }

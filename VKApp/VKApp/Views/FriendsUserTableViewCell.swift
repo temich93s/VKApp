@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// ячейка с именем и фотографией друга
+/// Ячейка с именем и фотографией друга
 final class FriendsUserTableViewCell: UITableViewCell {
     // MARK: - Constants
 
@@ -15,7 +15,7 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     @IBOutlet private var friendNameLabel: UILabel!
     @IBOutlet private var friendPhotoImageView: UIImageView!
-    @IBOutlet private var friendsPhotoView: ShadowView!
+    @IBOutlet private var shadowView: ShadowView!
 
     // MARK: - Lifecycle
 
@@ -40,6 +40,6 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     private func setupFriendPhoto() {
         friendPhotoImageView.layer.cornerRadius = friendPhotoImageView.frame.width / 2
-        friendsPhotoView.shadowColor = .blue
+        shadowView.shadowColor = .blue
     }
 }

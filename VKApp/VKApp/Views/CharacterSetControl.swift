@@ -18,7 +18,7 @@ import UIKit
         }
     }
 
-    var scrollFromCharacterClousure: Closure?
+    var scrollFromCharacterHandler: CharacterHandler?
 
     // MARK: - Initializers
 
@@ -46,7 +46,7 @@ import UIKit
             button.isSelected = sender.tag == index
         }
         guard sender.tag < characterSet.count else { return }
-        scrollFromCharacterClousure?(characterSet[sender.tag])
+        scrollFromCharacterHandler?(characterSet[sender.tag])
     }
 
     private func setupView() {

@@ -173,7 +173,7 @@
                                         <connections>
                                             <outlet property="friendNameLabel" destination="dcD-p1-TVI" id="kDt-K4-rpJ"/>
                                             <outlet property="friendPhotoImageView" destination="D8G-Au-qtU" id="aXw-I2-qc9"/>
-                                            <outlet property="friendsPhotoView" destination="jc9-rp-CnA" id="KIb-vp-N8Y"/>
+                                            <outlet property="shadowView" destination="jc9-rp-CnA" id="KIb-vp-N8Y"/>
                                             <segue destination="U6c-z8-IMm" kind="show" identifier="GoToPhotosUserCollectionVC" id="mjH-E6-Bmt"/>
                                         </connections>
                                     </tableViewCell>

@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// ячейка с фотографией пользователя
+/// Ячейка с фотографией пользователя
 final class PhotosUserCollectionViewCell: UICollectionViewCell {
     // MARK: - Private Outlets
 

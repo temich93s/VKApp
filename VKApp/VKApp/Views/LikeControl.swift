@@ -20,7 +20,7 @@ import UIKit
 
     private lazy var countLikeLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(countLike)"
+        label.text = "\(likeCount)"
         label.textAlignment = .center
         label.textColor = UIColor(named: Constants.lightBlueColorName)
         return label
@@ -36,11 +36,11 @@ import UIKit
 
     // MARK: - Public Properties
 
-    var countLike = 0
+    var likeCount = 0
 
     // MARK: - Private Properties
 
-    private var likeWasPressed = false
+    private var islikePressed = false
 
     // MARK: - Initializers
 
@@ -64,21 +64,18 @@ import UIKit
     // MARK: - Private Methods
 
     @objc private func selectLike(_ sender: UIButton) {
-        if likeWasPressed {
-            likeWasPressed.toggle()
-            countLike -= 1
-            countLikeLabel.text = "\(countLike)"
-            countLikeLabel.textColor = UIColor(named: Constants.lightBlueColorName)
+        likeCount = islikePressed ? likeCount - 1 : likeCount + 1
+        countLikeLabel.textColor = islikePressed ?
+            UIColor(named: Constants.lightBlueColorName) :
+            UIColor(named: Constants.redColorName)
+        if islikePressed {
             likeButton.setImage(UIImage(systemName: Constants.heartText), for: .normal)
-            likeButton.tintColor = .blue
         } else {
-            likeWasPressed.toggle()
-            countLike += 1
-            countLikeLabel.text = "\(countLike)"
-            countLikeLabel.textColor = UIColor(named: Constants.redColorName)
             likeButton.setImage(UIImage(systemName: Constants.heartFillText), for: .normal)
-            likeButton.tintColor = .red
         }
+        likeButton.tintColor = islikePressed ? .blue : .red
+        countLikeLabel.text = "\(likeCount)"
+        islikePressed.toggle()
     }
 
     private func setupView() {

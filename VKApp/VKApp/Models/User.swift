@@ -3,10 +3,10 @@
 
 import Foundation
 
-/// User: данные о пользователе
-/// - userName: имя пользователя
-/// - userPhotoName: имя фото пользователя
+/// Данные о пользователе
 struct User {
+    /// Имя пользователя
     let userName: String
+    /// Имя фото пользователя
     let userPhotoName: String
 }
