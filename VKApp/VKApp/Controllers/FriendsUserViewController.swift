@@ -27,16 +27,19 @@ final class FriendsUserViewController: UIViewController {
         static let friendNameEightName = "Олег"
         static let friendNameNineName = "Виталя"
         static let friendNameTenName = "Максим"
+        static let whiteColorName = "WhiteColor"
+        static let darkBlueColorName = "DarkBlueColor"
     }
 
     // MARK: - IBOutlet
 
     @IBOutlet private var characterSetControl: CharacterSetControl!
     @IBOutlet private var friendsTableView: UITableView!
+    @IBOutlet private var friendsSearchBar: UISearchBar!
 
     // MARK: - Private Properties
 
-    private var friends = [
+    private var allFriends = [
         User(userName: Constants.friendNameOneName, userPhotoName: Constants.friendPhotoOneName),
         User(userName: Constants.friendNameSecondName, userPhotoName: Constants.friendPhotoSecondName),
         User(userName: Constants.friendNameThirdName, userPhotoName: Constants.friendPhotoThirdName),
@@ -79,15 +82,18 @@ final class FriendsUserViewController: UIViewController {
         User(userName: Constants.friendNameTenName, userPhotoName: Constants.friendPhotoOneName)
     ]
 
-    private var characters: [Character] = []
+    private lazy var friends = allFriends
+
+    private var friendsForSection: [Character: [User]] = [:]
+
+    private var charactersName: [Character] = []
 
     private lazy var scrollFromCharacterHandler: CharacterHandler? = { [weak self] character in
-        guard let self = self else { return }
-        let index = self.friends.firstIndex { user -> Bool in
-            user.userName.first == character
-        }
-        guard let safeIndex = index else { return }
-        let indexPath = IndexPath(row: safeIndex, section: 0)
+        guard
+            let self = self,
+            let section = self.charactersName.firstIndex(of: character)
+        else { return }
+        let indexPath = IndexPath(row: 0, section: section)
         self.friendsTableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 
@@ -114,7 +120,9 @@ final class FriendsUserViewController: UIViewController {
     private func setupView() {
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
+        friendsSearchBar.delegate = self
         setupCharacters()
+        makeFriendsForSection()
         friends.sort {
             $0.userName < $1.userName
         }
@@ -122,25 +130,48 @@ final class FriendsUserViewController: UIViewController {
     }
 
     private func setupCharacters() {
-        characters = []
+        charactersName = []
         for friend in friends {
             guard
                 !friend.userName.isEmpty,
                 let safeChatacter = friend.userName.first,
-                !characters.contains(safeChatacter)
+                !charactersName.contains(safeChatacter)
             else { continue }
-            characters.append(safeChatacter)
+            charactersName.append(safeChatacter)
         }
-        characters.sort()
-        characterSetControl.characterSet = characters
+        charactersName.sort()
+        characterSetControl.characterSet = charactersName
+    }
+
+    private func makeFriendsForSection() {
+        for character in charactersName {
+            var friendsForCharacter: [User] = []
+            for friend in friends {
+                guard
+                    !friend.userName.isEmpty,
+                    let safeChatacter = friend.userName.first,
+                    character == safeChatacter
+                else { continue }
+                friendsForCharacter.append(friend)
+            }
+            friendsForSection[character] = friendsForCharacter
+        }
     }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 
 extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        charactersName.count
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        friends.count
+        guard
+            section < charactersName.count,
+            let countFriendsForSection = friendsForSection[charactersName[section]]?.count
+        else { return 0 }
+        return countFriendsForSection
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -150,9 +181,50 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
                 withIdentifier: Constants.friendsUserCellID,
                 for: indexPath
             ) as? FriendsUserTableViewCell,
-            indexPath.row < friends.count
+            indexPath.row < friends.count,
+            indexPath.section < charactersName.count,
+            let friendsForSection = friendsForSection[charactersName[indexPath.section]]
         else { return UITableViewCell() }
-        cell.configureCell(user: friends[indexPath.row])
+        cell.configureCell(user: friendsForSection[indexPath.row])
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard section < charactersName.count else { return nil }
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 30))
+        let label = UILabel()
+        headerView.backgroundColor = UIColor(named: Constants.darkBlueColorName)?.withAlphaComponent(0.5)
+        label.frame = CGRect(x: 19, y: 5, width: headerView.frame.width - 38, height: headerView.frame.height - 10)
+        label.text = "\(charactersName[section])"
+        label.font = .systemFont(ofSize: 18)
+        label.textColor = UIColor(named: Constants.whiteColorName)
+        headerView.addSubview(label)
+        return headerView
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        30
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension FriendsUserViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        friends = allFriends
+        if searchText.isEmpty {
+            searchBar.endEditing(true)
+        } else {
+            friends = friends.filter { user in
+                user.userName.range(of: searchText, options: .caseInsensitive) != nil
+            }
+        }
+        setupCharacters()
+        makeFriendsForSection()
+        friendsTableView.reloadData()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
     }
 }
