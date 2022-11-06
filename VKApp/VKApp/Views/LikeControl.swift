@@ -64,6 +64,7 @@ import UIKit
     // MARK: - Private Methods
 
     @objc private func selectLike(_ sender: UIButton) {
+        animateCountLikeLabel()
         likeCount = islikePressed ? likeCount - 1 : likeCount + 1
         countLikeLabel.textColor = islikePressed ?
             UIColor(named: Constants.lightBlueColorName) :
@@ -85,5 +86,13 @@ import UIKit
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fillEqually
+    }
+
+    private func animateCountLikeLabel() {
+        UIView.animate(withDuration: 1) {
+            self.countLikeLabel.transform = self.countLikeLabel.transform.rotated(by: CGFloat.pi)
+            self.countLikeLabel.transform = self.countLikeLabel.transform.rotated(by: CGFloat.pi)
+            self.countLikeLabel.frame.origin.y += 100
+        }
     }
 }

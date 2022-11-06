@@ -46,7 +46,25 @@ final class NewsTableViewCell: UITableViewCell {
 
     // MARK: - Private Methods
 
-    func setupCell() {
+    @objc private func userPhotoTapped(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            animateUserPhotoNameImageView()
+        }
+    }
+
+    private func animateUserPhotoNameImageView() {
+        let animation = CASpringAnimation(keyPath: "transform.scale")
+        animation.fromValue = 0.5
+        animation.toValue = 1
+        animation.stiffness = 100
+        animation.mass = 2
+        animation.duration = 1
+        animation.beginTime = CACurrentMediaTime()
+        animation.fillMode = CAMediaTimingFillMode.forwards
+        userPhotoNameImageView.layer.add(animation, forKey: nil)
+    }
+
+    private func setupCell() {
         userPhotoNameImageView.layer.cornerRadius = userPhotoNameImageView.frame.height / 2
         newsImagesCollectionView.delegate = self
         newsImagesCollectionView.dataSource = self
@@ -54,6 +72,10 @@ final class NewsTableViewCell: UITableViewCell {
             UINib(nibName: Constants.newsImageCollectionViewCellID, bundle: nil),
             forCellWithReuseIdentifier: Constants.newsImageCollectionViewCellID
         )
+        selectionStyle = .none
+        let tap = UITapGestureRecognizer(target: self, action: #selector(userPhotoTapped))
+        userPhotoNameImageView.addGestureRecognizer(tap)
+        userPhotoNameImageView.isUserInteractionEnabled = true
     }
 }
 

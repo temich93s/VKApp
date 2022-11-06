@@ -26,7 +26,11 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     // MARK: - Public Properties
 
-    var user = User(userName: Constants.emptyText, userPhotoName: Constants.emptyText)
+    var user = User(
+        userName: Constants.emptyText,
+        userPhotoName: Constants.emptyText,
+        userPhotosName: ["FriendPhotoOne"]
+    )
 
     // MARK: - Public Methods
 
@@ -39,6 +43,7 @@ final class FriendsUserTableViewCell: UITableViewCell {
     // MARK: - Private Methods
 
     private func setupFriendPhoto() {
+        selectionStyle = .none
         friendPhotoImageView.layer.cornerRadius = friendPhotoImageView.frame.width / 2
         shadowView.shadowColor = .blue
     }

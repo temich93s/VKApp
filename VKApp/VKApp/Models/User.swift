@@ -7,6 +7,8 @@ import Foundation
 struct User {
     /// Имя пользователя
     let userName: String
-    /// Имя фото пользователя
+    /// Имя фото самого пользователя
     let userPhotoName: String
+    /// Имена фотографий пользователя
+    let userPhotosName: [String]
 }

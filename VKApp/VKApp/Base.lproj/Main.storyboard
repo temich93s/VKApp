@@ -57,13 +57,46 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="DuZ-j3-Yub">
+                                                <rect key="frame" x="142" y="488" width="130" height="20"/>
+                                                <subviews>
+                                                    <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nqT-FA-ogP">
+                                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                        <color key="backgroundColor" name="DarkBlueColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="nqT-FA-ogP" secondAttribute="height" multiplier="1:1" id="0Hj-0F-xxx"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view alpha="0.0" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TJv-pk-qqK">
+                                                        <rect key="frame" x="55" y="0.0" width="20" height="20"/>
+                                                        <color key="backgroundColor" name="DarkBlueColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="TJv-pk-qqK" secondAttribute="height" multiplier="1:1" id="gi4-7Q-Js7"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view alpha="0.0" tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gO5-vI-Coq">
+                                                        <rect key="frame" x="110" y="0.0" width="20" height="20"/>
+                                                        <color key="backgroundColor" name="DarkBlueColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="gO5-vI-Coq" secondAttribute="height" multiplier="1:1" id="i4v-f4-6u1"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="P2E-Ul-mtj"/>
+                                                    <constraint firstAttribute="width" constant="130" id="ZWx-Ui-Sp8"/>
+                                                    <constraint firstItem="gO5-vI-Coq" firstAttribute="width" secondItem="gO5-vI-Coq" secondAttribute="height" multiplier="1:1" id="n8z-rS-ltl"/>
+                                                </constraints>
+                                            </stackView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="DuZ-j3-Yub" firstAttribute="centerX" secondItem="oMP-fh-Pna" secondAttribute="centerX" id="0Ru-uX-GLN"/>
                                             <constraint firstAttribute="trailing" secondItem="vBD-fY-sjr" secondAttribute="trailing" constant="20" id="0wB-gE-kbN"/>
                                             <constraint firstItem="lIf-Ka-kpR" firstAttribute="centerY" secondItem="oMP-fh-Pna" secondAttribute="centerY" id="7aF-Xu-Vue"/>
                                             <constraint firstItem="lIf-Ka-kpR" firstAttribute="leading" secondItem="oMP-fh-Pna" secondAttribute="leading" constant="20" id="EI1-Hb-hFM"/>
                                             <constraint firstAttribute="trailing" secondItem="lIf-Ka-kpR" secondAttribute="trailing" constant="20" id="Ir1-ML-qw4"/>
                                             <constraint firstAttribute="bottom" secondItem="vBD-fY-sjr" secondAttribute="bottom" id="K1a-vX-M2i"/>
+                                            <constraint firstItem="DuZ-j3-Yub" firstAttribute="top" secondItem="lIf-Ka-kpR" secondAttribute="bottom" constant="40" id="so1-M6-6VP"/>
                                             <constraint firstItem="vBD-fY-sjr" firstAttribute="leading" secondItem="oMP-fh-Pna" secondAttribute="leading" constant="20" id="vXQ-gX-DE3"/>
                                         </constraints>
                                     </view>
@@ -90,9 +123,12 @@
                     <connections>
                         <outlet property="enterButton" destination="7zH-3P-YHX" id="K5w-G4-sHl"/>
                         <outlet property="forgotPasswordButton" destination="vY3-0v-IPC" id="PB3-hB-Ecl"/>
+                        <outlet property="leftPointView" destination="nqT-FA-ogP" id="0lo-RH-vUZ"/>
                         <outlet property="loginTextField" destination="bV4-QJ-1NL" id="ITC-uJ-Db5"/>
                         <outlet property="mainScrollView" destination="evk-FG-enR" id="4aY-rL-ZSG"/>
+                        <outlet property="middlePointView" destination="TJv-pk-qqK" id="auJ-mw-C4Q"/>
                         <outlet property="passwordTextField" destination="1FY-mm-BBA" id="Z2p-RD-77Q"/>
+                        <outlet property="rightPointView" destination="gO5-vI-Coq" id="he2-1g-dQ7"/>
                         <segue destination="QuM-xg-hIc" kind="presentation" identifier="LoginSegue" modalPresentationStyle="fullScreen" id="9Zv-3l-sVj"/>
                     </connections>
                 </viewController>
@@ -220,7 +256,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="t0S-P7-h6o">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="t0S-P7-h6o">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -237,8 +273,7 @@
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7AU-8M-lTg">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="128" id="1j5-Ig-sNy"/>
-                                                <constraint firstAttribute="height" constant="128" id="cpm-L4-uxu"/>
+                                                <constraint firstAttribute="width" secondItem="7AU-8M-lTg" secondAttribute="height" multiplier="1:1" id="BGk-cd-Sf5"/>
                                             </constraints>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rsv-a7-Bkp" customClass="LikeControl" customModule="VKApp" customModuleProvider="target">
@@ -515,6 +550,9 @@
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>
         <image name="person.3.sequence.fill" catalog="system" width="128" height="58"/>
         <image name="person.fill.checkmark" catalog="system" width="128" height="88"/>
+        <namedColor name="DarkBlueColor">
+            <color red="0.29199999570846558" green="0.50700002908706665" blue="0.74400001764297485" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="LightBlueColor">
             <color red="0.67598739821251996" green="0.78103801216034308" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

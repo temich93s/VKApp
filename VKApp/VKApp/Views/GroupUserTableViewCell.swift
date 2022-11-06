@@ -23,8 +23,21 @@ final class GroupUserTableViewCell: UITableViewCell {
     // MARK: - Public Methods
 
     func configureCell(group: Group) {
+        selectionStyle = .none
         groupNameLabel.text = group.groupName
         groupPhotoImageView.image = UIImage(named: group.groupPhotoName)
         self.group = group
+    }
+
+    func animateGroupPhotoImageView() {
+        let animation = CASpringAnimation(keyPath: "transform.scale")
+        animation.fromValue = 0.5
+        animation.toValue = 1
+        animation.stiffness = 100
+        animation.mass = 2
+        animation.duration = 1
+        animation.beginTime = CACurrentMediaTime()
+        animation.fillMode = CAMediaTimingFillMode.forwards
+        groupPhotoImageView.layer.add(animation, forKey: nil)
     }
 }

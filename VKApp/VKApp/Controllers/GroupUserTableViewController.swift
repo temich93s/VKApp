@@ -91,4 +91,9 @@ final class GroupUserTableViewController: UITableViewController {
         else { return }
         destination.configureSearchGroupTableVC(groups: allGroups)
     }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? GroupUserTableViewCell else { return }
+        cell.animateGroupPhotoImageView()
+    }
 }

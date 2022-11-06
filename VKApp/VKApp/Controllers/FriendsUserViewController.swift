@@ -29,6 +29,38 @@ final class FriendsUserViewController: UIViewController {
         static let friendNameTenName = "Максим"
         static let whiteColorName = "WhiteColor"
         static let darkBlueColorName = "DarkBlueColor"
+        static let photosName = [
+            "FriendPhotoOne",
+            "FriendPhotoSecond",
+            "FriendPhotoThird",
+            "FriendPhotoOne",
+            "FriendPhotoSecond",
+            "FriendPhotoThird",
+            "FriendPhotoOne",
+            "FriendPhotoSecond",
+            "FriendPhotoThird",
+            "FriendPhotoOne",
+            "FriendPhotoSecond",
+            "FriendPhotoThird",
+            "FriendPhotoOne",
+            "FriendPhotoSecond",
+            "FriendPhotoThird",
+            "FriendPhotoOne",
+            "FriendPhotoSecond",
+            "FriendPhotoThird",
+            "FriendPhotoOne",
+            "FriendPhotoSecond",
+            "FriendPhotoThird",
+            "FriendPhotoOne",
+            "FriendPhotoSecond",
+            "FriendPhotoThird",
+            "FriendPhotoOne",
+            "FriendPhotoSecond",
+            "FriendPhotoThird",
+            "FriendPhotoOne",
+            "FriendPhotoSecond",
+            "FriendPhotoThird"
+        ]
     }
 
     // MARK: - IBOutlet
@@ -40,46 +72,206 @@ final class FriendsUserViewController: UIViewController {
     // MARK: - Private Properties
 
     private var allFriends = [
-        User(userName: Constants.friendNameOneName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendNameSecondName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendNameThirdName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendNameFourName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendNameFiveName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendNameSixName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendNameEightName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendNameSevenName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendNameNineName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendNameTenName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendNameOneName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendNameSecondName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendNameThirdName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendNameFourName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendNameFiveName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendNameSixName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendNameEightName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendNameSevenName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendNameNineName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendNameTenName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendNameOneName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendNameSecondName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendNameThirdName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendNameFourName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendNameFiveName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendNameSixName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendNameEightName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendNameSevenName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendNameNineName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendNameTenName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendNameOneName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendNameSecondName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendNameThirdName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendNameFourName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendNameFiveName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendNameSixName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendNameEightName, userPhotoName: Constants.friendPhotoOneName),
-        User(userName: Constants.friendNameSevenName, userPhotoName: Constants.friendPhotoSecondName),
-        User(userName: Constants.friendNameNineName, userPhotoName: Constants.friendPhotoThirdName),
-        User(userName: Constants.friendNameTenName, userPhotoName: Constants.friendPhotoOneName)
+        User(
+            userName: Constants.friendNameOneName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameSecondName,
+            userPhotoName: Constants.friendPhotoSecondName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameThirdName,
+            userPhotoName: Constants.friendPhotoThirdName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameFourName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameFiveName,
+            userPhotoName: Constants.friendPhotoSecondName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameSixName,
+            userPhotoName: Constants.friendPhotoThirdName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameEightName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameSevenName,
+            userPhotoName: Constants.friendPhotoSecondName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameNineName,
+            userPhotoName: Constants.friendPhotoThirdName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameTenName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameOneName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameSecondName,
+            userPhotoName: Constants.friendPhotoSecondName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameThirdName,
+            userPhotoName: Constants.friendPhotoThirdName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameFourName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameFiveName,
+            userPhotoName: Constants.friendPhotoSecondName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameSixName,
+            userPhotoName: Constants.friendPhotoThirdName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameEightName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameSevenName,
+            userPhotoName: Constants.friendPhotoSecondName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameNineName,
+            userPhotoName: Constants.friendPhotoThirdName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameTenName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameOneName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameSecondName,
+            userPhotoName: Constants.friendPhotoSecondName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameThirdName,
+            userPhotoName: Constants.friendPhotoThirdName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameFourName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameFiveName,
+            userPhotoName: Constants.friendPhotoSecondName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameSixName,
+            userPhotoName: Constants.friendPhotoThirdName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameEightName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameSevenName,
+            userPhotoName: Constants.friendPhotoSecondName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameNineName,
+            userPhotoName: Constants.friendPhotoThirdName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameTenName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameOneName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameSecondName,
+            userPhotoName: Constants.friendPhotoSecondName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameThirdName,
+            userPhotoName: Constants.friendPhotoThirdName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameFourName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameFiveName,
+            userPhotoName: Constants.friendPhotoSecondName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameSixName,
+            userPhotoName: Constants.friendPhotoThirdName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameEightName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameSevenName,
+            userPhotoName: Constants.friendPhotoSecondName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameNineName,
+            userPhotoName: Constants.friendPhotoThirdName,
+            userPhotosName: Constants.photosName
+        ),
+        User(
+            userName: Constants.friendNameTenName,
+            userPhotoName: Constants.friendPhotoOneName,
+            userPhotosName: Constants.photosName
+        )
     ]
 
     private lazy var friends = allFriends
