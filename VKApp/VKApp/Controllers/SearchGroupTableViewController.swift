@@ -17,9 +17,21 @@ final class SearchGroupTableViewController: UITableViewController {
         static let groupUserNameThirdName = "Путешествия"
     }
 
+    // MARK: - IBOutlet
+
+    @IBOutlet var searchGroupSearchBar: UISearchBar!
+
     // MARK: - Private Properties
 
     private var groups: [Group] = []
+    private var allGroups: [Group] = []
+
+    // MARK: - Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
 
     // MARK: - Public Methods
 
@@ -32,7 +44,8 @@ final class SearchGroupTableViewController: UITableViewController {
     }
 
     func configureSearchGroupTableVC(groups: [Group]) {
-        self.groups = groups
+        allGroups = groups
+        self.groups = allGroups
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,5 +63,31 @@ final class SearchGroupTableViewController: UITableViewController {
         else { return UITableViewCell() }
         cell.configureCell(group: groups[indexPath.row])
         return cell
+    }
+
+    // MARK: - Private Methods
+
+    private func setupView() {
+        searchGroupSearchBar.delegate = self
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension SearchGroupTableViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        groups = allGroups
+        if searchText.isEmpty {
+            searchBar.endEditing(true)
+        } else {
+            groups = groups.filter { group in
+                group.groupName.range(of: searchText, options: .caseInsensitive) != nil
+            }
+        }
+        tableView.reloadData()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
     }
 }

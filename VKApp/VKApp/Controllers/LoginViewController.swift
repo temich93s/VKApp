@@ -21,6 +21,7 @@ final class LoginViewController: UIViewController {
         static let correctLoginText = "admin"
         static let correctPasswordText = "12345"
         static let okText = "OK"
+        static let emptyText = ""
         static let fontSizeForTextNumber: CGFloat = 18
     }
 
