@@ -57,37 +57,7 @@ final class LoginViewController: UIViewController {
 
     @IBAction private func loginButtonAction(_ sender: UIButton) {
         if checkLoginInfo() {
-            UIView.animateKeyframes(
-                withDuration: 3,
-                delay: 0,
-                options: [],
-                animations: {
-                    UIView.addKeyframe(
-                        withRelativeStartTime: 0,
-                        relativeDuration: 0.33,
-                        animations: {
-                            self.leftPointView.alpha = 1
-                        }
-                    )
-                    UIView.addKeyframe(
-                        withRelativeStartTime: 0.33,
-                        relativeDuration: 0.66,
-                        animations: {
-                            self.middlePointView.alpha = 1
-                        }
-                    )
-                    UIView.addKeyframe(
-                        withRelativeStartTime: 0.66,
-                        relativeDuration: 1,
-                        animations: {
-                            self.rightPointView.alpha = 1
-                        }
-                    )
-                },
-                completion: { _ in
-                    self.performSegue(withIdentifier: Constants.loginSegueIdentifier, sender: self)
-                }
-            )
+            threePointsAnination()
         } else {
             showAlert(title: Constants.titleAlertText, message: Constants.messageAlertText)
         }
@@ -159,6 +129,40 @@ final class LoginViewController: UIViewController {
         forgotPasswordButton.backgroundColor = UIColor(named: Constants.darkBlueColorName)
         forgotPasswordButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.fontSizeForTextNumber)
         forgotPasswordButton.layer.cornerRadius = 10
+    }
+
+    private func threePointsAnination() {
+        UIView.animateKeyframes(
+            withDuration: 3,
+            delay: 0,
+            options: [],
+            animations: {
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0,
+                    relativeDuration: 0.33,
+                    animations: {
+                        self.leftPointView.alpha = 1
+                    }
+                )
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0.33,
+                    relativeDuration: 0.66,
+                    animations: {
+                        self.middlePointView.alpha = 1
+                    }
+                )
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0.66,
+                    relativeDuration: 1,
+                    animations: {
+                        self.rightPointView.alpha = 1
+                    }
+                )
+            },
+            completion: { _ in
+                self.performSegue(withIdentifier: Constants.loginSegueIdentifier, sender: self)
+            }
+        )
     }
 
     private func checkLoginInfo() -> Bool {

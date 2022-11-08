@@ -9,6 +9,7 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     private enum Constants {
         static let emptyText = ""
+        static let friendPhotoOneText = "FriendPhotoOne"
     }
 
     // MARK: - Private Outlets
@@ -29,7 +30,7 @@ final class FriendsUserTableViewCell: UITableViewCell {
     var user = User(
         userName: Constants.emptyText,
         userPhotoName: Constants.emptyText,
-        userPhotosName: ["FriendPhotoOne"]
+        userPhotosName: [Constants.friendPhotoOneText]
     )
 
     // MARK: - Public Methods

@@ -38,7 +38,7 @@ final class GroupUserTableViewController: UITableViewController {
 
     // MARK: - IBAction
 
-    @IBAction private func addGroup(segue: UIStoryboardSegue) {
+    @IBAction private func addGroupAction(segue: UIStoryboardSegue) {
         guard
             segue.identifier == Constants.addGroupSegueID,
             let source = segue.source as? SearchGroupTableViewController,

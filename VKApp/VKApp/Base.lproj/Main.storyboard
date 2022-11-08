@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QuM-xg-hIc">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -430,7 +430,7 @@
                                 <connections>
                                     <outlet property="groupNameLabel" destination="GlQ-Zz-5UI" id="3qd-n4-6D3"/>
                                     <outlet property="groupPhotoImageView" destination="13i-Ks-Thr" id="BeY-WL-jkh"/>
-                                    <segue destination="PFq-Jf-iVd" kind="unwind" identifier="AddGroup" unwindAction="addGroupWithSegue:" id="nIS-1l-ivD"/>
+                                    <segue destination="PFq-Jf-iVd" kind="unwind" identifier="AddGroup" unwindAction="addGroupActionWithSegue:" id="Y3G-is-dSz"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

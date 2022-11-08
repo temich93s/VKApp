@@ -7,7 +7,7 @@ import UIKit
 final class NewsImageCollectionViewCell: UICollectionViewCell {
     // MARK: - Private Outlets
 
-    @IBOutlet var newsImageView: UIImageView!
+    @IBOutlet private var newsImageView: UIImageView!
 
     // MARK: - Public Methods
 

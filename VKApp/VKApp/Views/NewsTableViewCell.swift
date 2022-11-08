@@ -46,7 +46,7 @@ final class NewsTableViewCell: UITableViewCell {
 
     // MARK: - Private Methods
 
-    @objc private func userPhotoTapped(sender: UITapGestureRecognizer) {
+    @objc private func userPhotoTappedAction(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             animateUserPhotoNameImageView()
         }
@@ -73,7 +73,7 @@ final class NewsTableViewCell: UITableViewCell {
             forCellWithReuseIdentifier: Constants.newsImageCollectionViewCellID
         )
         selectionStyle = .none
-        let tap = UITapGestureRecognizer(target: self, action: #selector(userPhotoTapped))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(userPhotoTappedAction))
         userPhotoNameImageView.addGestureRecognizer(tap)
         userPhotoNameImageView.isUserInteractionEnabled = true
     }

@@ -30,7 +30,7 @@ import UIKit
         let button = UIButton()
         button.setImage(UIImage(systemName: Constants.heartText), for: .normal)
         button.tintColor = UIColor(named: Constants.lightBlueColorName)
-        button.addTarget(self, action: #selector(selectLike(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(selectLikeAction(_:)), for: .touchUpInside)
         return button
     }()
 
@@ -63,7 +63,7 @@ import UIKit
 
     // MARK: - Private Methods
 
-    @objc private func selectLike(_ sender: UIButton) {
+    @objc private func selectLikeAction(_ sender: UIButton) {
         animateCountLikeLabel()
         likeCount = islikePressed ? likeCount - 1 : likeCount + 1
         countLikeLabel.textColor = islikePressed ?

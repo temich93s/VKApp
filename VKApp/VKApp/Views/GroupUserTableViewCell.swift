@@ -9,6 +9,7 @@ final class GroupUserTableViewCell: UITableViewCell {
 
     private enum Constants {
         static let emptyText = ""
+        static let transformScaleText = "transform.scale"
     }
 
     // MARK: - Private Outlets
@@ -30,7 +31,7 @@ final class GroupUserTableViewCell: UITableViewCell {
     }
 
     func animateGroupPhotoImageView() {
-        let animation = CASpringAnimation(keyPath: "transform.scale")
+        let animation = CASpringAnimation(keyPath: Constants.transformScaleText)
         animation.fromValue = 0.5
         animation.toValue = 1
         animation.stiffness = 100

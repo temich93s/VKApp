@@ -18,7 +18,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     private var user = User(
         userName: Constants.emptyText,
         userPhotoName: Constants.emptyText,
-        userPhotosName: ["FriendPhotoOne"]
+        userPhotosName: [Constants.friendPhotoOneName]
     )
 
     // MARK: - Public Methods
