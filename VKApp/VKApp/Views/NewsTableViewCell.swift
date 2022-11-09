@@ -9,7 +9,6 @@ final class NewsTableViewCell: UITableViewCell {
 
     private enum Constants {
         static let newsImageCollectionViewCellID = "NewsImageCollectionViewCell"
-        static let transformScaleText = "transform.scale"
     }
 
     // MARK: - Private Outlets
@@ -54,7 +53,7 @@ final class NewsTableViewCell: UITableViewCell {
     }
 
     private func animateUserPhotoNameImageView() {
-        let animation = CASpringAnimation(keyPath: Constants.transformScaleText)
+        let animation = CASpringAnimation(keyPath: "transform.scale")
         animation.fromValue = 0.5
         animation.toValue = 1
         animation.stiffness = 100

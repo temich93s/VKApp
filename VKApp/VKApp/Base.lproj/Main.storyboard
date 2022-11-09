@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QuM-xg-hIc">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -255,7 +255,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="7U6-zj-mwB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="LightBlueColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="t0S-P7-h6o">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -307,10 +307,58 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Photos User" id="Ygq-iH-1vR"/>
+                    <connections>
+                        <segue destination="yqU-Ij-US6" kind="showDetail" identifier="GoToBigPhotosUserVC" id="BRy-F5-kcR"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jq0-pP-DDn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3331.884057971015" y="-297.32142857142856"/>
+        </scene>
+        <!--Big Photos User View Controller-->
+        <scene sceneID="GT1-lF-Pdc">
+            <objects>
+                <viewController id="yqU-Ij-US6" customClass="BigPhotosUserViewController" customModule="VKApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="svq-aC-Vle">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FriendPhotoOne" translatesAutoresizingMaskIntoConstraints="NO" id="T5K-qJ-b7q">
+                                <rect key="frame" x="0.0" y="236" width="414" height="414"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="T5K-qJ-b7q" secondAttribute="height" multiplier="1:1" id="8jb-ss-2QE"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DiD-XP-Gzt">
+                                <rect key="frame" x="0.0" y="236" width="414" height="414"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="DiD-XP-Gzt" secondAttribute="height" multiplier="1:1" id="qWu-YO-WkN"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="5PS-w8-mIi"/>
+                        <color key="backgroundColor" name="LightBlueColor"/>
+                        <constraints>
+                            <constraint firstItem="5PS-w8-mIi" firstAttribute="trailing" secondItem="DiD-XP-Gzt" secondAttribute="trailing" id="2m2-si-vTm"/>
+                            <constraint firstItem="DiD-XP-Gzt" firstAttribute="leading" secondItem="5PS-w8-mIi" secondAttribute="leading" id="Ik2-LL-QCc"/>
+                            <constraint firstItem="DiD-XP-Gzt" firstAttribute="centerY" secondItem="5PS-w8-mIi" secondAttribute="centerY" id="UC2-7S-Dm4"/>
+                            <constraint firstItem="5PS-w8-mIi" firstAttribute="trailing" secondItem="T5K-qJ-b7q" secondAttribute="trailing" id="YoC-xm-cjI"/>
+                            <constraint firstItem="T5K-qJ-b7q" firstAttribute="centerY" secondItem="5PS-w8-mIi" secondAttribute="centerY" id="emP-YJ-YTR"/>
+                            <constraint firstItem="T5K-qJ-b7q" firstAttribute="leading" secondItem="5PS-w8-mIi" secondAttribute="leading" id="tgf-rO-2tH"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="currentUserPhotoImageView" destination="T5K-qJ-b7q" id="6LX-Xq-KLq"/>
+                        <outlet property="currentUserPhotoLeadingConstraint" destination="tgf-rO-2tH" id="0lN-F8-ch5"/>
+                        <outlet property="currentUserPhotoTrailingConstraint" destination="YoC-xm-cjI" id="Hd5-06-mAr"/>
+                        <outlet property="nextUserPhotoImageView" destination="DiD-XP-Gzt" id="hXQ-3Z-BTz"/>
+                        <outlet property="nextUserPhotoLeadingConstraint" destination="Ik2-LL-QCc" id="YSp-PV-6fv"/>
+                        <outlet property="nextUserPhotoTrailingConstraint" destination="2m2-si-vTm" id="c8Q-aG-pta"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yw2-Wi-sLW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4151" y="-296"/>
         </scene>
         <!--Group User-->
         <scene sceneID="wbJ-m7-FV7">
@@ -556,6 +604,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="FriendPhotoOne" width="1440" height="810"/>
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>
         <image name="person.3.sequence.fill" catalog="system" width="128" height="58"/>
         <image name="person.fill.checkmark" catalog="system" width="128" height="88"/>
