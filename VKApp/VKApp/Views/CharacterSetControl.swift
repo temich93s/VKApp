@@ -50,12 +50,13 @@ import UIKit
     }
 
     private func setupView() {
+        buttons.map { $0.removeFromSuperview() }
         buttons = []
         for (index, character) in characterSet.enumerated() {
             let button = UIButton(type: .system)
             button.tag = index
             button.setTitle("\(character)", for: .normal)
-            button.setTitleColor(.lightGray, for: .normal)
+            button.setTitleColor(.white, for: .normal)
             button.setTitleColor(.white, for: .selected)
             button.addTarget(self, action: #selector(selectCharacterAction(_:)), for: .touchUpInside)
             buttons.append(button)

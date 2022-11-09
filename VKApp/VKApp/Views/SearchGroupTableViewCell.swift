@@ -23,8 +23,15 @@ final class SearchGroupTableViewCell: UITableViewCell {
     // MARK: - Public Methods
 
     func configureCell(group: Group) {
+        selectionStyle = .none
         groupNameLabel.text = group.groupName
-        groupPhotoImageView.image = UIImage(named: group.groupPhotoName)
+        groupPhotoImageView.image = getImage(by: group.groupPhotoName)
         self.group = group
+    }
+
+    // MARK: - Private Methods
+
+    private func getImage(by name: String) -> UIImage? {
+        UIImage(named: name)
     }
 }
