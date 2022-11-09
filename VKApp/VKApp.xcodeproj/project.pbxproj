@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA0D998E291BD71C009877B2 /* CustomPushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D998D291BD71C009877B2 /* CustomPushAnimator.swift */; };
+		AA0D9990291BD729009877B2 /* CustomPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D998F291BD729009877B2 /* CustomPopAnimator.swift */; };
 		AA5090EC291789B0005E7DC4 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5090EB291789B0005E7DC4 /* NewsViewController.swift */; };
 		AA5090EF29178A1E005E7DC4 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5090ED29178A1E005E7DC4 /* NewsTableViewCell.swift */; };
 		AA5090F029178A1E005E7DC4 /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA5090EE29178A1E005E7DC4 /* NewsTableViewCell.xib */; };
@@ -39,6 +41,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA0D998D291BD71C009877B2 /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; };
+		AA0D998F291BD729009877B2 /* CustomPopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimator.swift; sourceTree = "<group>"; };
 		AA5090EB291789B0005E7DC4 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		AA5090ED29178A1E005E7DC4 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		AA5090EE29178A1E005E7DC4 /* NewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsTableViewCell.xib; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 			children = (
 				AA76FCA5291BC05600400F30 /* CustomInteractiveTransition.swift */,
 				AA76FCA7291BC49B00400F30 /* CustomNavigationController.swift */,
+				AA0D998D291BD71C009877B2 /* CustomPushAnimator.swift */,
+				AA0D998F291BD729009877B2 /* CustomPopAnimator.swift */,
 			);
 			path = CustomUIComponents;
 			sourceTree = "<group>";
@@ -307,7 +313,9 @@
 				AA73C25229129E2800715351 /* SearchGroupTableViewCell.swift in Sources */,
 				AAEF7F632913D8E7001AB6CD /* FriendsUserViewController.swift in Sources */,
 				AA73C24C291287E200715351 /* PhotosUserCollectionViewCell.swift in Sources */,
+				AA0D9990291BD729009877B2 /* CustomPopAnimator.swift in Sources */,
 				AA72A193291A72B300B24EB2 /* BigPhotosUserViewController.swift in Sources */,
+				AA0D998E291BD71C009877B2 /* CustomPushAnimator.swift in Sources */,
 				AA73C2482912831E00715351 /* User.swift in Sources */,
 				AA5090EC291789B0005E7DC4 /* NewsViewController.swift in Sources */,
 				AABC5984291014360014890B /* PhotosUserCollectionViewController.swift in Sources */,
