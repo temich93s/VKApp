@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// класс, который будет управляет интерактивным перехходом между экранами
+/// Класс, который будет управляет интерактивным перехходом между экранами
 final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
     // MARK: - Public Properties
 
@@ -19,7 +19,10 @@ final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
     }
 
     var hasStarted: Bool = false
-    var shouldFinish: Bool = false
+
+    // MARK: - Private Properties
+
+    private var shouldFinish: Bool = false
 
     // MARK: - Private methods
 

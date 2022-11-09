@@ -5,15 +5,15 @@ import UIKit
 
 /// Наш кастомный UINavigationController который наполнен анимациями
 final class CustomNavigationController: UINavigationController, UINavigationControllerDelegate {
-    // MARK: - Publick Properties
+    // MARK: - Private Properties
 
-    let interactiveTransition = CustomInteractiveTransition()
+    private let interactiveTransition = CustomInteractiveTransition()
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
+        setupNavigationController()
     }
 
     // MARK: - Public Methods
@@ -42,5 +42,11 @@ final class CustomNavigationController: UINavigationController, UINavigationCont
             return CustomPopAnimator()
         }
         return nil
+    }
+
+    // MARK: - Private Methods
+
+    func setupNavigationController() {
+        delegate = self
     }
 }
