@@ -73,6 +73,10 @@ final class NewsTableViewCell: UITableViewCell {
             forCellWithReuseIdentifier: Constants.newsImageCollectionViewCellID
         )
         selectionStyle = .none
+        setupTapGestureRecognizer()
+    }
+
+    private func setupTapGestureRecognizer() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(userPhotoTappedAction))
         userPhotoNameImageView.addGestureRecognizer(tap)
         userPhotoNameImageView.isUserInteractionEnabled = true
