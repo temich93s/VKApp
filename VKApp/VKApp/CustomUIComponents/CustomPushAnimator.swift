@@ -17,7 +17,12 @@ final class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning 
 
         transitionContext.containerView.addSubview(destination.view)
         destination.view.frame = source.view.frame
-        destination.view.transform = CGAffineTransform(translationX: source.view.frame.width, y: 0)
+        let rotation = CGAffineTransform(rotationAngle: -.pi / 2)
+        let translation = CGAffineTransform(
+            translationX: destination.view.frame.width * 1.5,
+            y: -destination.view.frame.width / 4
+        )
+        destination.view.transform = rotation.concatenating(translation)
 
         UIView.animateKeyframes(
             withDuration: transitionDuration(using: transitionContext),
@@ -26,25 +31,14 @@ final class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning 
             animations: {
                 UIView.addKeyframe(
                     withRelativeStartTime: 0,
-                    relativeDuration: 0.75,
+                    relativeDuration: 1,
                     animations: {
-                        let translation = CGAffineTransform(translationX: -200, y: 0)
-                        let scale = CGAffineTransform(scaleX: 0.8, y: 0.8)
-                        source.view.transform = translation.concatenating(scale)
+                        source.view.transform = CGAffineTransform(translationX: source.view.frame.width, y: 0)
                     }
                 )
                 UIView.addKeyframe(
-                    withRelativeStartTime: 0.2,
-                    relativeDuration: 0.4,
-                    animations: {
-                        let translation = CGAffineTransform(translationX: source.view.frame.width / 2, y: 0)
-                        let scale = CGAffineTransform(scaleX: 1.2, y: 1.2)
-                        destination.view.transform = translation.concatenating(scale)
-                    }
-                )
-                UIView.addKeyframe(
-                    withRelativeStartTime: 0.6,
-                    relativeDuration: 0.4,
+                    withRelativeStartTime: 0,
+                    relativeDuration: 1,
                     animations: {
                         destination.view.transform = .identity
                     }
