@@ -36,24 +36,6 @@ final class GroupUserTableViewController: UITableViewController {
         Group(groupName: Constants.groupUserNameThirdName, groupPhotoName: Constants.groupUserPhotoThirdName)
     ]
 
-    // MARK: - IBAction
-
-    @IBAction private func addGroupAction(segue: UIStoryboardSegue) {
-        guard
-            segue.identifier == Constants.addGroupSegueID,
-            let source = segue.source as? SearchGroupTableViewController,
-            let indexPath = source.tableView.indexPathForSelectedRow,
-            let group = source.returnGroup(index: indexPath.row),
-            !userGroups.contains(group)
-        else { return }
-        for (index, groupFromAllGroups) in allGroups.enumerated() {
-            guard group == groupFromAllGroups else { continue }
-            allGroups.remove(at: index)
-        }
-        userGroups.append(group)
-        tableView.reloadData()
-    }
-
     // MARK: - Public Methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -95,5 +77,23 @@ final class GroupUserTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? GroupUserTableViewCell else { return }
         cell.animateGroupPhotoImageView()
+    }
+
+    // MARK: - IBAction
+
+    @IBAction private func addGroupAction(segue: UIStoryboardSegue) {
+        guard
+            segue.identifier == Constants.addGroupSegueID,
+            let source = segue.source as? SearchGroupTableViewController,
+            let indexPath = source.tableView.indexPathForSelectedRow,
+            let group = source.returnGroup(index: indexPath.row),
+            !userGroups.contains(group)
+        else { return }
+        for (index, groupFromAllGroups) in allGroups.enumerated() {
+            guard group == groupFromAllGroups else { continue }
+            allGroups.remove(at: index)
+        }
+        userGroups.append(group)
+        tableView.reloadData()
     }
 }

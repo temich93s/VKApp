@@ -19,7 +19,7 @@ final class SearchGroupTableViewController: UITableViewController {
 
     // MARK: - IBOutlet
 
-    @IBOutlet var searchGroupSearchBar: UISearchBar!
+    @IBOutlet private var searchGroupSearchBar: UISearchBar!
 
     // MARK: - Private Properties
 

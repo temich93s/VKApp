@@ -9,6 +9,7 @@ final class NewsTableViewCell: UITableViewCell {
 
     private enum Constants {
         static let newsImageCollectionViewCellID = "NewsImageCollectionViewCell"
+        static let transformScaleText = "transform.scale"
     }
 
     // MARK: - Private Outlets
@@ -34,7 +35,7 @@ final class NewsTableViewCell: UITableViewCell {
     // MARK: - Public Methods
 
     func configureCell(news: News, viewHight: CGFloat) {
-        userPhotoNameImageView.image = UIImage(named: news.userPhotoName)
+        userPhotoNameImageView.image = getImage(by: news.userPhotoName)
         userNameLabel.text = news.userName
         userNewsDateTextLabel.text = news.userNewsDateText
         newsTextTextView.text = news.newsText
@@ -53,7 +54,7 @@ final class NewsTableViewCell: UITableViewCell {
     }
 
     private func animateUserPhotoNameImageView() {
-        let animation = CASpringAnimation(keyPath: "transform.scale")
+        let animation = CASpringAnimation(keyPath: Constants.transformScaleText)
         animation.fromValue = 0.5
         animation.toValue = 1
         animation.stiffness = 100
@@ -76,6 +77,10 @@ final class NewsTableViewCell: UITableViewCell {
         let tap = UITapGestureRecognizer(target: self, action: #selector(userPhotoTappedAction))
         userPhotoNameImageView.addGestureRecognizer(tap)
         userPhotoNameImageView.isUserInteractionEnabled = true
+    }
+
+    private func getImage(by name: String) -> UIImage? {
+        UIImage(named: name)
     }
 }
 

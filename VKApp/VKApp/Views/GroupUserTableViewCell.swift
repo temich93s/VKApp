@@ -26,7 +26,7 @@ final class GroupUserTableViewCell: UITableViewCell {
     func configureCell(group: Group) {
         selectionStyle = .none
         groupNameLabel.text = group.groupName
-        groupPhotoImageView.image = UIImage(named: group.groupPhotoName)
+        groupPhotoImageView.image = getImage(by: group.groupPhotoName)
         self.group = group
     }
 
@@ -40,5 +40,11 @@ final class GroupUserTableViewCell: UITableViewCell {
         animation.beginTime = CACurrentMediaTime()
         animation.fillMode = CAMediaTimingFillMode.forwards
         groupPhotoImageView.layer.add(animation, forKey: nil)
+    }
+
+    // MARK: - Private Methods
+
+    private func getImage(by name: String) -> UIImage? {
+        UIImage(named: name)
     }
 }

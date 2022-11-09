@@ -36,7 +36,7 @@ final class NewsViewController: UIViewController {
 
     // MARK: - Private Outlets
 
-    @IBOutlet var newsTableView: UITableView!
+    @IBOutlet private var newsTableView: UITableView!
 
     // MARK: - Private Properties
 
@@ -92,7 +92,6 @@ final class NewsViewController: UIViewController {
         case 1:
             return view.bounds.width
         case let count where count > 1:
-            print((view.bounds.width / 2) * CGFloat(lroundf(Float(allNews[numberRow].newsImagesName.count) / 2)))
             return (view.bounds.width / 2) * CGFloat(lroundf(Float(allNews[numberRow].newsImagesName.count) / 2))
         default:
             return 0

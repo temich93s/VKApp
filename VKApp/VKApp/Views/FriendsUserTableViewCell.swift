@@ -37,7 +37,7 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     func configureCell(user: User) {
         friendNameLabel.text = user.userName
-        friendPhotoImageView.image = UIImage(named: user.userPhotoName)
+        friendPhotoImageView.image = getImage(by: user.userPhotoName)
         self.user = user
     }
 
@@ -47,5 +47,11 @@ final class FriendsUserTableViewCell: UITableViewCell {
         selectionStyle = .none
         friendPhotoImageView.layer.cornerRadius = friendPhotoImageView.frame.width / 2
         shadowView.shadowColor = .blue
+    }
+
+    // MARK: - Private Methods
+
+    private func getImage(by name: String) -> UIImage? {
+        UIImage(named: name)
     }
 }

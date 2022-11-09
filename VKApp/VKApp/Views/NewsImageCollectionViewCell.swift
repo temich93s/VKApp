@@ -12,6 +12,12 @@ final class NewsImageCollectionViewCell: UICollectionViewCell {
     // MARK: - Public Methods
 
     func configureCell(newsImageName: String) {
-        newsImageView.image = UIImage(named: newsImageName)
+        newsImageView.image = getImage(by: newsImageName)
+    }
+
+    // MARK: - Private Methods
+
+    private func getImage(by name: String) -> UIImage? {
+        UIImage(named: name)
     }
 }
