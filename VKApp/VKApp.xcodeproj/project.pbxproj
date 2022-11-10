@@ -30,7 +30,7 @@
 		AA8441B5290FD9B400F2F135 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8441B4290FD9B400F2F135 /* Assets.xcassets */; };
 		AA8441B8290FD9B400F2F135 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA8441B6290FD9B400F2F135 /* LaunchScreen.storyboard */; };
 		AA844203290FEB3B00F2F135 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA844202290FEB3B00F2F135 /* LoginViewController.swift */; };
-		AA88BB07291A5589004EB2DE /* ExtensionsForUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA88BB06291A5589004EB2DE /* ExtensionsForUIViewController.swift */; };
+		AA88BB07291A5589004EB2DE /* Alert+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA88BB06291A5589004EB2DE /* Alert+Extension.swift */; };
 		AABC597F291014000014890B /* GroupUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC597E291014000014890B /* GroupUserTableViewController.swift */; };
 		AABC5981291014140014890B /* SearchGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC5980291014140014890B /* SearchGroupTableViewController.swift */; };
 		AABC5984291014360014890B /* PhotosUserCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC5983291014360014890B /* PhotosUserCollectionViewController.swift */; };
@@ -66,7 +66,7 @@
 		AA8441B7290FD9B400F2F135 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA8441B9290FD9B400F2F135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA844202290FEB3B00F2F135 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		AA88BB06291A5589004EB2DE /* ExtensionsForUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsForUIViewController.swift; sourceTree = "<group>"; };
+		AA88BB06291A5589004EB2DE /* Alert+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alert+Extension.swift"; sourceTree = "<group>"; };
 		AABC597E291014000014890B /* GroupUserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserTableViewController.swift; sourceTree = "<group>"; };
 		AABC5980291014140014890B /* SearchGroupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroupTableViewController.swift; sourceTree = "<group>"; };
 		AABC5983291014360014890B /* PhotosUserCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosUserCollectionViewController.swift; sourceTree = "<group>"; };
@@ -177,7 +177,7 @@
 		AA88BB05291A554E004EB2DE /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				AA88BB06291A5589004EB2DE /* ExtensionsForUIViewController.swift */,
+				AA88BB06291A5589004EB2DE /* Alert+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -298,7 +298,7 @@
 			files = (
 				AABC597F291014000014890B /* GroupUserTableViewController.swift in Sources */,
 				AA73C250291298BA00715351 /* GroupUserTableViewCell.swift in Sources */,
-				AA88BB07291A5589004EB2DE /* ExtensionsForUIViewController.swift in Sources */,
+				AA88BB07291A5589004EB2DE /* Alert+Extension.swift in Sources */,
 				AA844203290FEB3B00F2F135 /* LoginViewController.swift in Sources */,
 				AA73C24A2912839E00715351 /* Group.swift in Sources */,
 				AA8441AC290FD9B400F2F135 /* AppDelegate.swift in Sources */,

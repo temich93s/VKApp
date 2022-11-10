@@ -4,7 +4,7 @@
 import UIKit
 
 /// Экран просмотра фотографий в большом виде
-class BigPhotosUserViewController: UIViewController {
+final class BigPhotosUserViewController: UIViewController {
     // MARK: - Private Outlets
 
     @IBOutlet var currentUserPhotoImageView: UIImageView!
