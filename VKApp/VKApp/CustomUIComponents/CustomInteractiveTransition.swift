@@ -11,7 +11,7 @@ final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
         didSet {
             let recognizer = UIScreenEdgePanGestureRecognizer(
                 target: self,
-                action: #selector(handleScreenEdgeGesture(_:))
+                action: #selector(handleScreenEdgeGestureAction(_:))
             )
             recognizer.edges = [.left]
             viewController?.view.addGestureRecognizer(recognizer)
@@ -26,7 +26,7 @@ final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
 
     // MARK: - Private methods
 
-    @objc private func handleScreenEdgeGesture(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+    @objc private func handleScreenEdgeGestureAction(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         switch recognizer.state {
         case .began:
             hasStarted = true

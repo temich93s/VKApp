@@ -4,7 +4,7 @@
 import UIKit
 
 /// Наш кастомный UINavigationController который наполнен анимациями
-final class CustomNavigationController: UINavigationController, UINavigationControllerDelegate {
+final class CustomNavigationController: UINavigationController {
     // MARK: - Private Properties
 
     private let interactiveTransition = CustomInteractiveTransition()
@@ -16,6 +16,16 @@ final class CustomNavigationController: UINavigationController, UINavigationCont
         setupNavigationController()
     }
 
+    // MARK: - Private Methods
+
+    private func setupNavigationController() {
+        delegate = self
+    }
+}
+
+// MARK: - UINavigationControllerDelegate
+
+extension CustomNavigationController: UINavigationControllerDelegate {
     // MARK: - Public Methods
 
     func navigationController(
@@ -32,21 +42,17 @@ final class CustomNavigationController: UINavigationController, UINavigationCont
         from fromVC: UIViewController,
         to toVC: UIViewController
     ) -> UIViewControllerAnimatedTransitioning? {
-        if operation == .push {
+        switch operation {
+        case .push:
             interactiveTransition.viewController = toVC
             return CustomPushAnimator()
-        } else if operation == .pop {
+        case .pop:
             if navigationController.viewControllers.first != toVC {
                 interactiveTransition.viewController = toVC
             }
             return CustomPopAnimator()
+        default:
+            return nil
         }
-        return nil
-    }
-
-    // MARK: - Private Methods
-
-    func setupNavigationController() {
-        delegate = self
     }
 }

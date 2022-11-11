@@ -606,8 +606,8 @@
     <resources>
         <image name="FriendPhotoOne" width="1440" height="810"/>
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>
-        <image name="person.3.sequence.fill" catalog="system" width="128" height="58"/>
-        <image name="person.fill.checkmark" catalog="system" width="128" height="88"/>
+        <image name="person.3.sequence.fill" catalog="system" width="32" height="32"/>
+        <image name="person.fill.checkmark" catalog="system" width="32" height="32"/>
         <namedColor name="DarkBlueColor">
             <color red="0.29199999570846558" green="0.50700002908706665" blue="0.74400001764297485" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
