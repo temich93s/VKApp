@@ -20,7 +20,7 @@ final class PhotosUserCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(userPhoto: String) {
+    func configure(userPhoto: String) {
         friendPhotoImageView.image = getImage(by: userPhoto)
     }
 

@@ -11,7 +11,7 @@ final class NewsImageCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(newsImageName: String) {
+    func configure(newsImageName: String) {
         newsImageView.image = getImage(by: newsImageName)
     }
 

@@ -1,7 +1,9 @@
 // User.swift
 // Copyright © RoadMap. All rights reserved.
 
-/// Данные о пользователе
+import Foundation
+
+/// Пользователь
 struct User {
     /// Имя пользователя
     let userName: String

@@ -61,7 +61,7 @@ final class SearchGroupTableViewController: UITableViewController {
             ) as? SearchGroupTableViewCell,
             indexPath.row < groups.count
         else { return UITableViewCell() }
-        cell.configureCell(group: groups[indexPath.row])
+        cell.configure(group: groups[indexPath.row])
         return cell
     }
 

@@ -51,7 +51,7 @@ final class GroupUserTableViewController: UITableViewController {
             ) as? GroupUserTableViewCell,
             indexPath.row < userGroups.count
         else { return UITableViewCell() }
-        cell.configureCell(group: userGroups[indexPath.row])
+        cell.configure(group: userGroups[indexPath.row])
         return cell
     }
 
