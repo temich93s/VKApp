@@ -5,10 +5,19 @@ import UIKit
 
 /// Анимация перехода назад
 final class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+    // MARK: - Constants
+
+    private enum Constants {
+        static let animationDurationNumber = 0.6
+        static let coefficientTranslationXNumber: CGFloat = 1.5
+        static let coefficientTranslationYNumber: CGFloat = 4
+        static let coefficientRotationNumber: CGFloat = 2
+    }
+
     // MARK: - Public Methods
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        0.6
+        Constants.animationDurationNumber
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -31,10 +40,10 @@ final class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                     withRelativeStartTime: 0,
                     relativeDuration: 1,
                     animations: {
-                        let rotation = CGAffineTransform(rotationAngle: -.pi / 2)
+                        let rotation = CGAffineTransform(rotationAngle: -.pi / Constants.coefficientRotationNumber)
                         let translation = CGAffineTransform(
-                            translationX: source.view.frame.width * 1.5,
-                            y: -source.view.frame.width / 4
+                            translationX: source.view.frame.width * Constants.coefficientTranslationXNumber,
+                            y: -source.view.frame.width / Constants.coefficientTranslationYNumber
                         )
                         source.view.transform = rotation.concatenating(translation)
                     }

@@ -33,7 +33,7 @@ final class NewsTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(news: News, viewHight: CGFloat) {
+    func configure(news: News, viewHight: CGFloat) {
         userPhotoNameImageView.image = getImage(by: news.userPhotoName)
         userNameLabel.text = news.userName
         userNewsDateTextLabel.text = news.userNewsDateText
@@ -109,7 +109,7 @@ extension NewsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
             ) as? NewsImageCollectionViewCell,
             indexPath.row < newsImagesName.count
         else { return UICollectionViewCell() }
-        cell.configureCell(newsImageName: newsImagesName[indexPath.row])
+        cell.configure(newsImageName: newsImagesName[indexPath.row])
         return cell
     }
 

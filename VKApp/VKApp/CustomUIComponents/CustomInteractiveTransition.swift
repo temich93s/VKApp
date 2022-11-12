@@ -5,6 +5,12 @@ import UIKit
 
 /// Управление интерактивным переходом между экранами
 final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
+    // MARK: - Constants
+
+    private enum Constants {
+        static let coefficientProgressNumber = 0.33
+    }
+
     // MARK: - Visual Properties
 
     var viewController: UIViewController? {
@@ -37,7 +43,7 @@ final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
             let translation = recognizer.translation(in: recognizer.view)
             let relativeTranslation = translation.y / (recognizer.view?.bounds.width ?? 1)
             let progress = max(0, min(1, relativeTranslation))
-            shouldFinished = progress > 0.33
+            shouldFinished = progress > Constants.coefficientProgressNumber
             update(progress)
         case .ended:
             hasStarted = false

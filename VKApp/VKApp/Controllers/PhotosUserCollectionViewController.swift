@@ -45,7 +45,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             ) as? PhotosUserCollectionViewCell,
             indexPath.row < user.userPhotosName.count
         else { return UICollectionViewCell() }
-        cell.configureCell(userPhoto: user.userPhotosName[indexPath.row])
+        cell.configure(userPhoto: user.userPhotosName[indexPath.row])
         return cell
     }
 

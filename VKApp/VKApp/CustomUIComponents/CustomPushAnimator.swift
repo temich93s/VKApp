@@ -5,10 +5,19 @@ import UIKit
 
 /// Анимация перехода вперед
 final class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+    // MARK: - Constants
+
+    private enum Constants {
+        static let animationDurationNumber = 0.6
+        static let coefficientTranslationXNumber: CGFloat = 1.5
+        static let coefficientTranslationYNumber: CGFloat = 4
+        static let coefficientRotationNumber: CGFloat = 2
+    }
+
     // MARK: - Public Methods
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        0.6
+        Constants.animationDurationNumber
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -19,10 +28,10 @@ final class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning 
 
         transitionContext.containerView.addSubview(destination.view)
         destination.view.frame = source.view.frame
-        let rotation = CGAffineTransform(rotationAngle: -.pi / 2)
+        let rotation = CGAffineTransform(rotationAngle: -.pi / Constants.coefficientRotationNumber)
         let translation = CGAffineTransform(
-            translationX: destination.view.frame.width * 1.5,
-            y: -destination.view.frame.width / 4
+            translationX: destination.view.frame.width * Constants.coefficientTranslationXNumber,
+            y: -destination.view.frame.width / Constants.coefficientTranslationYNumber
         )
         destination.view.transform = rotation.concatenating(translation)
 

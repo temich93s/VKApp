@@ -115,7 +115,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
             indexPath.row < allNews.count
         else { return UITableViewCell() }
 
-        cell.configureCell(
+        cell.configure(
             news: allNews[indexPath.row],
             viewHight: hightCellForImageCollection(numberRow: indexPath.row)
         )

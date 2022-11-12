@@ -19,7 +19,7 @@ final class GroupUserTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(group: Group) {
+    func configure(group: Group) {
         selectionStyle = .none
         groupNameLabel.text = group.groupName
         groupPhotoImageView.image = getImage(by: group.groupPhotoName)

@@ -377,7 +377,7 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
             indexPath.section < charactersName.count,
             let friendsForSection = friendsForSection[charactersName[indexPath.section]]
         else { return UITableViewCell() }
-        cell.configureCell(user: friendsForSection[indexPath.row])
+        cell.configure(user: friendsForSection[indexPath.row])
         return cell
     }
 
