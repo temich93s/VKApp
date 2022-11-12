@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Данные о пользователе
+/// Пользователь
 struct User {
     /// Имя пользователя
     let userName: String

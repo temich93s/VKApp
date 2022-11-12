@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Данные о новости
+/// Новости
 struct News {
     /// Имя пользователя
     let userName: String

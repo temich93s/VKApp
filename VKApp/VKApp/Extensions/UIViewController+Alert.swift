@@ -1,4 +1,4 @@
-// Alert+Extension.swift
+// UIViewController+Alert.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit

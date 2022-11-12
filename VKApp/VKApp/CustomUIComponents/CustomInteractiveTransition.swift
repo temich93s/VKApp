@@ -3,9 +3,9 @@
 
 import UIKit
 
-/// Класс, который будет управляет интерактивным перехходом между экранами
+/// Управление интерактивным переходом между экранами
 final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
-    // MARK: - Public Properties
+    // MARK: - Visual Properties
 
     var viewController: UIViewController? {
         didSet {
@@ -18,11 +18,13 @@ final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
         }
     }
 
-    var hasStarted: Bool = false
+    // MARK: - Public Properties
+
+    var hasStarted = false
 
     // MARK: - Private Properties
 
-    private var shouldFinish: Bool = false
+    private var shouldFinished = false
 
     // MARK: - Private methods
 
@@ -35,11 +37,11 @@ final class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
             let translation = recognizer.translation(in: recognizer.view)
             let relativeTranslation = translation.y / (recognizer.view?.bounds.width ?? 1)
             let progress = max(0, min(1, relativeTranslation))
-            shouldFinish = progress > 0.33
+            shouldFinished = progress > 0.33
             update(progress)
         case .ended:
             hasStarted = false
-            if shouldFinish {
+            if shouldFinished {
                 finish()
             } else {
                 cancel()

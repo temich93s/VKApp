@@ -1,10 +1,10 @@
-// CustomNavigationController.swift
+// MainNavigationController.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-/// Наш кастомный UINavigationController который наполнен анимациями
-final class CustomNavigationController: UINavigationController {
+/// Навигейшн контроллер с анимациями вперед и назад, где VС поворачивается относительно верхнего правого угла
+final class MainNavigationController: UINavigationController {
     // MARK: - Private Properties
 
     private let interactiveTransition = CustomInteractiveTransition()
@@ -25,7 +25,7 @@ final class CustomNavigationController: UINavigationController {
 
 // MARK: - UINavigationControllerDelegate
 
-extension CustomNavigationController: UINavigationControllerDelegate {
+extension MainNavigationController: UINavigationControllerDelegate {
     // MARK: - Public Methods
 
     func navigationController(

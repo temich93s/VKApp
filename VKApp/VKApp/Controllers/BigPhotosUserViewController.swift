@@ -7,16 +7,16 @@ import UIKit
 final class BigPhotosUserViewController: UIViewController {
     // MARK: - Private Outlets
 
-    @IBOutlet var currentUserPhotoImageView: UIImageView!
-    @IBOutlet var nextUserPhotoImageView: UIImageView!
-    @IBOutlet var currentUserPhotoTrailingConstraint: NSLayoutConstraint!
-    @IBOutlet var currentUserPhotoLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet var nextUserPhotoLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet var nextUserPhotoTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet private var currentUserPhotoImageView: UIImageView!
+    @IBOutlet private var nextUserPhotoImageView: UIImageView!
+    @IBOutlet private var currentUserPhotoTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet private var currentUserPhotoLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet private var nextUserPhotoLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet private var nextUserPhotoTrailingConstraint: NSLayoutConstraint!
 
     // MARK: - Private Properties
 
-    private var userPhotosName: [String] = []
+    private var userPhotoNames: [String] = []
     private var currentUserPhotoIndex = 0
 
     // MARK: - Lifecycle
@@ -29,7 +29,7 @@ final class BigPhotosUserViewController: UIViewController {
     // MARK: - Public Methods
 
     func configureBigPhotosUserVC(currentUserPhotoIndex: Int, userPhotosName: [String]) {
-        self.userPhotosName = userPhotosName
+        userPhotoNames = userPhotosName
         self.currentUserPhotoIndex = currentUserPhotoIndex
     }
 
@@ -40,13 +40,13 @@ final class BigPhotosUserViewController: UIViewController {
         switch swipeGesture.direction {
         case .right:
             guard
-                currentUserPhotoIndex < userPhotosName.count,
+                currentUserPhotoIndex < userPhotoNames.count,
                 currentUserPhotoIndex > 0
             else { return }
             doAnimationForSwipeRight()
         case .left:
             guard
-                currentUserPhotoIndex < userPhotosName.count - 1,
+                currentUserPhotoIndex < userPhotoNames.count - 1,
                 currentUserPhotoIndex >= 0
             else { return }
             doAnimationForSwipeLeft()
@@ -76,11 +76,11 @@ final class BigPhotosUserViewController: UIViewController {
         currentUserPhotoTrailingConstraint.constant = 0
         currentUserPhotoLeadingConstraint.constant = 0
         currentUserPhotoImageView.layer.zPosition = 1
-        currentUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex])
+        currentUserPhotoImageView.image = UIImage(named: userPhotoNames[currentUserPhotoIndex])
         nextUserPhotoTrailingConstraint.constant = -view.frame.width
         nextUserPhotoLeadingConstraint.constant = view.frame.width
         nextUserPhotoImageView.layer.zPosition = 2
-        nextUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex + 1])
+        nextUserPhotoImageView.image = UIImage(named: userPhotoNames[currentUserPhotoIndex + 1])
         view.layoutIfNeeded()
         currentUserPhotoIndex += 1
     }
@@ -106,11 +106,11 @@ final class BigPhotosUserViewController: UIViewController {
         currentUserPhotoTrailingConstraint.constant = 0
         currentUserPhotoLeadingConstraint.constant = 0
         currentUserPhotoImageView.layer.zPosition = 2
-        currentUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex])
+        currentUserPhotoImageView.image = UIImage(named: userPhotoNames[currentUserPhotoIndex])
         nextUserPhotoTrailingConstraint.constant = 50
         nextUserPhotoLeadingConstraint.constant = 50
         nextUserPhotoImageView.layer.zPosition = 1
-        nextUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex - 1])
+        nextUserPhotoImageView.image = UIImage(named: userPhotoNames[currentUserPhotoIndex - 1])
         view.layoutIfNeeded()
         currentUserPhotoIndex -= 1
     }
@@ -121,8 +121,8 @@ final class BigPhotosUserViewController: UIViewController {
     }
 
     private func setupImageViews() {
-        guard 0 ..< userPhotosName.count ~= currentUserPhotoIndex else { return }
-        currentUserPhotoImageView.image = UIImage(named: userPhotosName[currentUserPhotoIndex])
+        guard 0 ..< userPhotoNames.count ~= currentUserPhotoIndex else { return }
+        currentUserPhotoImageView.image = UIImage(named: userPhotoNames[currentUserPhotoIndex])
     }
 
     private func addSwipeToView() {

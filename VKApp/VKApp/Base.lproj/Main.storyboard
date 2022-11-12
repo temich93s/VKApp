@@ -320,7 +320,7 @@
             <objects>
                 <viewController id="yqU-Ij-US6" customClass="BigPhotosUserViewController" customModule="VKApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="svq-aC-Vle">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FriendPhotoOne" translatesAutoresizingMaskIntoConstraints="NO" id="T5K-qJ-b7q">
@@ -500,10 +500,9 @@
         <!--Groups-->
         <scene sceneID="yNM-rC-2cT">
             <objects>
-                <navigationController id="zRs-K0-ksN" customClass="CustomNavigationController" customModule="VKApp" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="zRs-K0-ksN" customClass="MainNavigationController" customModule="VKApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Groups" image="person.3.sequence.fill" catalog="system" id="ern-e7-V63"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="b5s-5I-cV5">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -548,10 +547,9 @@
         <!--Friends-->
         <scene sceneID="NyF-P1-EYX">
             <objects>
-                <navigationController id="dcM-Gc-9cq" customClass="CustomNavigationController" customModule="VKApp" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="dcM-Gc-9cq" customClass="MainNavigationController" customModule="VKApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Friends" image="person.fill.checkmark" catalog="system" id="EDg-W4-SMz"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RYc-hb-gJz">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -585,12 +583,11 @@
         <!--News-->
         <scene sceneID="aJd-rh-Dsd">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qxk-rJ-TxT" customClass="CustomNavigationController" customModule="VKApp" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qxk-rJ-TxT" customClass="MainNavigationController" customModule="VKApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="News" image="newspaper.fill" catalog="system" id="fRO-y2-dQD"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="gLE-lv-cxD"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="h8Y-D1-d8r">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -605,7 +602,7 @@
     </scenes>
     <resources>
         <image name="FriendPhotoOne" width="1440" height="810"/>
-        <image name="newspaper.fill" catalog="system" width="128" height="111"/>
+        <image name="newspaper.fill" catalog="system" width="32" height="32"/>
         <image name="person.3.sequence.fill" catalog="system" width="32" height="32"/>
         <image name="person.fill.checkmark" catalog="system" width="32" height="32"/>
         <namedColor name="DarkBlueColor">

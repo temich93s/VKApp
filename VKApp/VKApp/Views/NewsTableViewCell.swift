@@ -48,11 +48,11 @@ final class NewsTableViewCell: UITableViewCell {
 
     @objc private func userPhotoTappedAction(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
-            animateUserPhotoNameImageView()
+            showSpringAnimation()
         }
     }
 
-    private func animateUserPhotoNameImageView() {
+    private func showSpringAnimation() {
         let animation = CASpringAnimation(keyPath: "transform.scale")
         animation.fromValue = 0.5
         animation.toValue = 1
