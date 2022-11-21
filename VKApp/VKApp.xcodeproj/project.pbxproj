@@ -34,6 +34,7 @@
 		AABC597F291014000014890B /* GroupUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC597E291014000014890B /* GroupUserTableViewController.swift */; };
 		AABC5981291014140014890B /* SearchGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC5980291014140014890B /* SearchGroupTableViewController.swift */; };
 		AABC5984291014360014890B /* PhotosUserCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC5983291014360014890B /* PhotosUserCollectionViewController.swift */; };
+		AAC07589292BAD4700799DF7 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC07588292BAD4700799DF7 /* Session.swift */; };
 		AAEF7F5D2913C245001AB6CD /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEF7F5C2913C245001AB6CD /* ShadowView.swift */; };
 		AAEF7F5F2913CAE6001AB6CD /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEF7F5E2913CAE6001AB6CD /* LikeControl.swift */; };
 		AAEF7F612913D491001AB6CD /* CharacterSetControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEF7F602913D491001AB6CD /* CharacterSetControl.swift */; };
@@ -70,6 +71,7 @@
 		AABC597E291014000014890B /* GroupUserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserTableViewController.swift; sourceTree = "<group>"; };
 		AABC5980291014140014890B /* SearchGroupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroupTableViewController.swift; sourceTree = "<group>"; };
 		AABC5983291014360014890B /* PhotosUserCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosUserCollectionViewController.swift; sourceTree = "<group>"; };
+		AAC07588292BAD4700799DF7 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		AAEF7F5C2913C245001AB6CD /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		AAEF7F5E2913CAE6001AB6CD /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 		AAEF7F602913D491001AB6CD /* CharacterSetControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSetControl.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				AA73C2472912831E00715351 /* User.swift */,
 				AA73C2492912839E00715351 /* Group.swift */,
 				AA5090F129178A3C005E7DC4 /* News.swift */,
+				AAC07588292BAD4700799DF7 /* Session.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				AA73C25229129E2800715351 /* SearchGroupTableViewCell.swift in Sources */,
 				AAEF7F632913D8E7001AB6CD /* FriendsUserViewController.swift in Sources */,
 				AA73C24C291287E200715351 /* PhotosUserCollectionViewCell.swift in Sources */,
+				AAC07589292BAD4700799DF7 /* Session.swift in Sources */,
 				AA0D9990291BD729009877B2 /* CustomPopAnimator.swift in Sources */,
 				AA72A193291A72B300B24EB2 /* BigPhotosUserViewController.swift in Sources */,
 				AA0D998E291BD71C009877B2 /* CustomPushAnimator.swift in Sources */,
