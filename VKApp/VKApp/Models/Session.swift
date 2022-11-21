@@ -10,7 +10,7 @@
 
 /// Хранитель данных о текущей сессии
 struct Session {
-    static let instance = Session()
+    static var instance = Session()
     /// токен в VK
     var token = ""
     /// идентификатор пользователя ВК.
