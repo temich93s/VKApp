@@ -67,36 +67,12 @@ extension LoginVKViewController: WKNavigationDelegate {
                 return dict
             }
         let token = params["access_token"]
-        guard let safeToken = token else { return }
+        let userId = params["user_id"]
+        guard let safeToken = token, let userIdString = userId, let safeUserId = Int(userIdString) else { return }
         Session.instance.token = safeToken
-        print(params["access_token"])
-        print(params["expires_in"])
-        print(url)
+        Session.instance.userId = safeUserId
         decisionHandler(.cancel)
 
-        // Конфигурация по умолчанию
-        let configuration = URLSessionConfiguration.default // собственная сессия
-        let session = URLSession(configuration: configuration)
-        // создаем url из строки
-        let url1 =
-            URL(
-                string: "https://api.vk.com/method/friends.get?user_id=759366146&fields=bdate&access_token=" +
-                    safeToken +
-                    "&v=5.131"
-            )
-        // задача для запуска
-        guard let safeURL = url1 else { return }
-        let task = session.dataTask(with: safeURL) { data, _, _ in
-            // в замыкании данные, полученные от сервера, мы преобразуем в json
-            guard let safeData = data else { return }
-            let json = try? JSONSerialization.jsonObject(
-                with: safeData,
-                options: JSONSerialization.ReadingOptions.allowFragments
-            )
-            // выводим в консоль
-            print(json)
-        }
-        // запускаем задачу
-        task.resume()
+        VKService.loadVKData(method: "friends.get")
     }
 }
