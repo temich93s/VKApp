@@ -30,6 +30,13 @@ final class LoginVKViewController: UIViewController {
         static let accessTokenText = "access_token"
         static let userIdText = "user_id"
         static let friendsGetText = "friends.get"
+        static let photosGetAllText = "photos.getAll"
+        static let ownerIdText = "owner_id"
+        static let groupsGetText = "groups.get"
+        static let groupsSearchText = "groups.search"
+        static let qText = "q"
+        static let testUserText = "43832436"
+        static let testGroupText = "Retrowave"
     }
 
     // MARK: - Private Outlets
@@ -80,22 +87,22 @@ final class LoginVKViewController: UIViewController {
 
     private func getPhotoPerson(ownerId: String) {
         vkService.loadVKData(
-            method: "photos.getAll",
-            parameterMap: ["owner_id": ownerId]
+            method: Constants.photosGetAllText,
+            parameterMap: [Constants.ownerIdText: ownerId]
         )
     }
 
     private func getGroupCurrentUser() {
         vkService.loadVKData(
-            method: "groups.get",
-            parameterMap: ["user_id": "759366146"]
+            method: Constants.groupsGetText,
+            parameterMap: [Constants.userIdText: String(Session.instance.userId)]
         )
     }
 
     private func getGroup(text: String) {
         vkService.loadVKData(
-            method: "groups.search",
-            parameterMap: ["q": text]
+            method: Constants.groupsSearchText,
+            parameterMap: [Constants.qText: text]
         )
     }
 }
@@ -129,12 +136,11 @@ extension LoginVKViewController: WKNavigationDelegate {
         guard let safeToken = token, let userIdString = userId, let safeUserId = Int(userIdString) else { return }
         Session.instance.token = safeToken
         Session.instance.userId = safeUserId
-        print(Session.instance.token)
         decisionHandler(.cancel)
 
         getFriends()
-        getPhotoPerson(ownerId: "759366146")
+        getPhotoPerson(ownerId: Constants.testUserText)
         getGroupCurrentUser()
-        getGroup(text: "Retrowave")
+        getGroup(text: Constants.testGroupText)
     }
 }
