@@ -78,11 +78,26 @@ final class LoginVKViewController: UIViewController {
         )
     }
 
-    private func getPhotoPerson() {}
+    private func getPhotoPerson(ownerId: String) {
+        vkService.loadVKData(
+            method: "photos.getAll",
+            parameterMap: ["owner_id": ownerId]
+        )
+    }
 
-    private func getGroupCurrentUser() {}
+    private func getGroupCurrentUser() {
+        vkService.loadVKData(
+            method: "groups.get",
+            parameterMap: ["user_id": "759366146"]
+        )
+    }
 
-    private func getGroup(name: String) {}
+    private func getGroup(text: String) {
+        vkService.loadVKData(
+            method: "groups.search",
+            parameterMap: ["q": text]
+        )
+    }
 }
 
 // MARK: - WKNavigationDelegate
@@ -114,11 +129,12 @@ extension LoginVKViewController: WKNavigationDelegate {
         guard let safeToken = token, let userIdString = userId, let safeUserId = Int(userIdString) else { return }
         Session.instance.token = safeToken
         Session.instance.userId = safeUserId
+        print(Session.instance.token)
         decisionHandler(.cancel)
 
         getFriends()
-        getPhotoPerson()
+        getPhotoPerson(ownerId: "759366146")
         getGroupCurrentUser()
-        getGroup(name: "Retrowave")
+        getGroup(text: "Retrowave")
     }
 }
