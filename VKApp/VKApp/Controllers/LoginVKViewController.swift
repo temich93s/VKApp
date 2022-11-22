@@ -73,6 +73,7 @@ extension LoginVKViewController: WKNavigationDelegate {
         Session.instance.userId = safeUserId
         decisionHandler(.cancel)
 
-        VKService.loadVKData(method: "friends.get")
+        let vkService = VKService()
+        vkService.loadVKData(method: "friends.get")
     }
 }
