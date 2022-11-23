@@ -42,7 +42,11 @@ final class VKService {
 
     // MARK: - Public Methods
 
-    func sendRequestFriend(method: String, parameterMap: [String: String], completion: @escaping ([Item]) -> Void) {
+    func sendRequestFriend(
+        method: String,
+        parameterMap: [String: String],
+        completion: @escaping ([ItemPerson]) -> Void
+    ) {
         let path = Constants.methodText + method
         for parameter in parameterMap {
             parameters[parameter.key] = parameter.value
@@ -56,6 +60,22 @@ final class VKService {
             completion(items)
         }
     }
+
+//    func sendRequestPhotos(method: String, parameterMap: [String: String], completion: @escaping ([RequestPerson]) ->
+//    Void) {
+//        let path = Constants.methodText + method
+//        for parameter in parameterMap {
+//            parameters[parameter.key] = parameter.value
+//        }
+//        let url = "\(Constants.baseUrl)\(path)"
+//        Alamofire.request(url, method: .get, parameters: parameters).responseData { response in
+//            guard
+//                let data = response.value,
+//                let items = try? JSONDecoder().decode(RequestPerson.self, from: data).response.items
+//            else { return }
+//            completion(items)
+//        }
+//    }
 
     func createUrlComponents() -> URLComponents {
         var urlComponents = URLComponents()

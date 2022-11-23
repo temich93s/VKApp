@@ -5,17 +5,17 @@ import Foundation
 
 /// Пользователь
 struct Person: Codable {
-    let response: Response
+    let response: ResponsePerson
 }
 
 /// Response
-struct Response: Codable {
+struct ResponsePerson: Codable {
     let count: Int
-    let items: [Item]
+    let items: [ItemPerson]
 }
 
 /// Item
-struct Item: Codable {
+struct ItemPerson: Codable {
     let id: Int
     let firstName, lastName, photo: String
 

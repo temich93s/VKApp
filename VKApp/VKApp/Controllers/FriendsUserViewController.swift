@@ -57,7 +57,7 @@ final class FriendsUserViewController: UIViewController {
 
     private let vkService = VKService()
 
-    private var items: [Item] = []
+    private var items: [ItemPerson] = []
 
     private lazy var scrollFromCharacterHandler: CharacterHandler? = { [weak self] character in
         guard

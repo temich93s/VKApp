@@ -75,7 +75,6 @@ final class LoginVKViewController: UIViewController {
 //    }
 
     private func fetchRequestVK() {
-        // fetchFriends()
         // fetchPhotoPerson(ownerId: Constants.testUserText)
         // fetchCurrentUserGroups()
         // fetchSearchedGroups(text: Constants.testGroupText)
