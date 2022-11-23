@@ -20,17 +20,17 @@ final class VKService {
 
     // MARK: - Public Methods
 
-    func loadVKData(method: String, parameterMap: [String: String]) {
+    func sendRequest(method: String, parameterMap: [String: String]) {
         let path = Constants.methodText + method
         var parameters: Parameters = [
             Constants.fieldsText: Constants.bdateText,
-            Constants.accessTokenText: Session.instance.token,
+            Constants.accessTokenText: Session.shared.token,
             Constants.vText: Constants.bdateNumberText
         ]
         for parameter in parameterMap {
             parameters[parameter.key] = parameter.value
         }
-        let url = Constants.baseUrl + path
+        let url = "\(Constants.baseUrl)\(path)"
         Alamofire.request(url, method: .get, parameters: parameters).responseJSON { repsonse in
             print(repsonse.value ?? "")
         }

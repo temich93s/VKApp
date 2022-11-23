@@ -38,11 +38,12 @@
                     </view>
                     <connections>
                         <outlet property="webview" destination="n9o-Ag-UBy" id="Sgt-Jz-pBJ"/>
+                        <segue destination="QuM-xg-hIc" kind="presentation" modalPresentationStyle="fullScreen" id="7UE-HU-mYR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qaq-uS-APR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-707.24637681159425" y="65.625"/>
+            <point key="canvasLocation" x="-622" y="-90"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -637,6 +638,9 @@
             <point key="canvasLocation" x="1745" y="1084"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="7UE-HU-mYR"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="FriendPhotoOne" width="1440" height="810"/>
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>

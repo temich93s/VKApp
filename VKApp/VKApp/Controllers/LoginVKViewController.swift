@@ -55,12 +55,12 @@ final class LoginVKViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupURLComponents()
+        loadWebView()
     }
 
     // MARK: - Private Methods
 
-    private func setupURLComponents() {
+    private func loadWebView() {
         var urlComponents = URLComponents()
         urlComponents.scheme = Constants.httpsText
         urlComponents.host = Constants.oauthVkComText
@@ -78,32 +78,39 @@ final class LoginVKViewController: UIViewController {
         webview.load(request)
     }
 
-    private func getFriends() {
-        vkService.loadVKData(
+    private func fetchFriends() {
+        vkService.sendRequest(
             method: Constants.friendsGetText,
-            parameterMap: [Constants.userIdText: String(Session.instance.userId)]
+            parameterMap: [Constants.userIdText: String(Session.shared.userId)]
         )
     }
 
-    private func getPhotoPerson(ownerId: String) {
-        vkService.loadVKData(
+    private func fetchPhotoPerson(ownerId: String) {
+        vkService.sendRequest(
             method: Constants.photosGetAllText,
             parameterMap: [Constants.ownerIdText: ownerId]
         )
     }
 
-    private func getCurrentUserGroups() {
-        vkService.loadVKData(
+    private func fetchCurrentUserGroups() {
+        vkService.sendRequest(
             method: Constants.groupsGetText,
-            parameterMap: [Constants.userIdText: String(Session.instance.userId)]
+            parameterMap: [Constants.userIdText: String(Session.shared.userId)]
         )
     }
 
-    private func getSearchedGroups(text: String) {
-        vkService.loadVKData(
+    private func fetchSearchedGroups(text: String) {
+        vkService.sendRequest(
             method: Constants.groupsSearchText,
             parameterMap: [Constants.qText: text]
         )
+    }
+
+    private func fetchRequestVK() {
+        fetchFriends()
+        fetchPhotoPerson(ownerId: Constants.testUserText)
+        fetchCurrentUserGroups()
+        fetchSearchedGroups(text: Constants.testGroupText)
     }
 }
 
@@ -134,13 +141,10 @@ extension LoginVKViewController: WKNavigationDelegate {
         let token = params[Constants.accessTokenText]
         let userId = params[Constants.userIdText]
         guard let safeToken = token, let userIdString = userId, let safeUserId = Int(userIdString) else { return }
-        Session.instance.token = safeToken
-        Session.instance.userId = safeUserId
+        Session.shared.token = safeToken
+        Session.shared.userId = safeUserId
         decisionHandler(.cancel)
 
-        getFriends()
-        getPhotoPerson(ownerId: Constants.testUserText)
-        getCurrentUserGroups()
-        getSearchedGroups(text: Constants.testGroupText)
+        fetchRequestVK()
     }
 }
