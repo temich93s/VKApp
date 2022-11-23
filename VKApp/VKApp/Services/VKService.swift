@@ -45,8 +45,12 @@ final class VKService {
             parameters[parameter.key] = parameter.value
         }
         let url = "\(Constants.baseUrl)\(path)"
-        Alamofire.request(url, method: .get, parameters: parameters).responseJSON { repsonse in
-            print(repsonse.value ?? "")
+        print(url)
+        print(parameters)
+        Alamofire.request(url, method: .get, parameters: parameters).responseData { response in
+            guard let data = response.value else { return }
+            let weather = try? JSONDecoder().decode(Person.self, from: data).response.items
+            print(weather ?? "")
         }
     }
 

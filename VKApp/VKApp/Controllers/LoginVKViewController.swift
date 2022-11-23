@@ -56,7 +56,7 @@ final class LoginVKViewController: UIViewController {
     private func fetchFriends() {
         vkService.sendRequest(
             method: Constants.friendsGetText,
-            parameterMap: [Constants.userIdText: String(Session.shared.userId)]
+            parameterMap: [Constants.userIdText: "43832436"]
         )
     }
 
@@ -83,9 +83,9 @@ final class LoginVKViewController: UIViewController {
 
     private func fetchRequestVK() {
         fetchFriends()
-        fetchPhotoPerson(ownerId: Constants.testUserText)
-        fetchCurrentUserGroups()
-        fetchSearchedGroups(text: Constants.testGroupText)
+        // fetchPhotoPerson(ownerId: Constants.testUserText)
+        // fetchCurrentUserGroups()
+        // fetchSearchedGroups(text: Constants.testGroupText)
     }
 }
 
