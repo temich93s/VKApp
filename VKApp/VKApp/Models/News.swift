@@ -1,8 +1,6 @@
 // News.swift
 // Copyright © RoadMap. All rights reserved.
 
-import Foundation
-
 /// Новости
 struct News {
     /// Имя пользователя
