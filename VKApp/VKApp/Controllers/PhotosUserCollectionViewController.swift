@@ -19,7 +19,8 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     private var user = User(
         userName: Constants.emptyText,
         userPhotoName: Constants.emptyText,
-        userPhotosName: [Constants.friendPhotoOneName]
+        userPhotosName: [Constants.friendPhotoOneName],
+        id: 0
     )
 
     private var currentIndexPressedCell = 0

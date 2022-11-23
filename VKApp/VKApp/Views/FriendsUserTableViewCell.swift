@@ -30,7 +30,8 @@ final class FriendsUserTableViewCell: UITableViewCell {
     var user = User(
         userName: Constants.emptyText,
         userPhotoName: Constants.emptyText,
-        userPhotosName: [Constants.friendPhotoOneText]
+        userPhotosName: [Constants.friendPhotoOneText],
+        id: 0
     )
 
     // MARK: - Public Methods

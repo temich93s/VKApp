@@ -108,7 +108,8 @@ final class FriendsUserViewController: UIViewController {
                 self?.allFriends.append(User(
                     userName: "\(item.firstName) \(item.lastName)",
                     userPhotoName: Constants.friendPhotoOneName,
-                    userPhotosName: Constants.photosName
+                    userPhotosName: Constants.photosName,
+                    id: item.id
                 ))
             }
             print(self?.allFriends)

@@ -9,4 +9,6 @@ struct User {
     let userPhotoName: String
     /// Имена фотографий пользователя
     let userPhotosName: [String]
+    /// Идентификатор пользователя на портале VK
+    let id: Int
 }
