@@ -29,14 +29,7 @@ final class FriendsUserViewController: UIViewController {
         static let friendNameTenName = "Максим"
         static let whiteColorName = "WhiteColor"
         static let darkBlueColorName = "DarkBlueColor"
-        static let photosName = [
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
-        ]
+        static let photosName: [String] = []
     }
 
     // MARK: - IBOutlet

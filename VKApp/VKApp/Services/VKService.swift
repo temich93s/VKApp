@@ -61,21 +61,31 @@ final class VKService {
         }
     }
 
-//    func sendRequestPhotos(method: String, parameterMap: [String: String], completion: @escaping ([RequestPerson]) ->
-//    Void) {
-//        let path = Constants.methodText + method
-//        for parameter in parameterMap {
-//            parameters[parameter.key] = parameter.value
-//        }
-//        let url = "\(Constants.baseUrl)\(path)"
-//        Alamofire.request(url, method: .get, parameters: parameters).responseData { response in
-//            guard
-//                let data = response.value,
-//                let items = try? JSONDecoder().decode(RequestPerson.self, from: data).response.items
-//            else { return }
-//            completion(items)
-//        }
-//    }
+    func sendRequestPhotos(
+        method: String,
+        parameterMap: [String: String],
+        completion: @escaping ([String]) ->
+            Void
+    ) {
+        let path = Constants.methodText + method
+        for parameter in parameterMap {
+            parameters[parameter.key] = parameter.value
+        }
+        let url = "\(Constants.baseUrl)\(path)"
+        Alamofire.request(url, method: .get, parameters: parameters).responseData { response in
+            guard
+                let data = response.value,
+                let items = try? JSONDecoder().decode(Photo.self, from: data).response.items
+            else { return }
+            var photosURLText: [String] = []
+            for item in items {
+                for itemSize in item.sizes where itemSize.type == "m" {
+                    photosURLText.append(itemSize.url)
+                }
+            }
+            completion(photosURLText)
+        }
+    }
 
     func createUrlComponents() -> URLComponents {
         var urlComponents = URLComponents()

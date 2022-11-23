@@ -19,16 +19,26 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     private var user = User(
         userName: Constants.emptyText,
         userPhotoURLText: Constants.emptyText,
-        userPhotosName: [Constants.friendPhotoOneName],
+        userPhotosName: [""],
         id: 0
     )
 
     private var currentIndexPressedCell = 0
 
+    private let vkService = VKService()
+
+    // MARK: - Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
+
     // MARK: - Public Methods
 
     func configurePhotosUserCollectionVC(currentUser: User) {
         user = currentUser
+        print(user)
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -77,6 +87,19 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             currentUserPhotoIndex: currentIndexPressedCell,
             userPhotosName: user.userPhotosName
         )
+    }
+
+    // MARK: - Private Methods
+
+    private func setupView() {
+        vkService.sendRequestPhotos(
+            method: "photos.getAll",
+            parameterMap: ["owner_id": "\(user.id)"]
+        ) { [weak self] photosURLText in
+            print(photosURLText)
+            self?.user.userPhotosName = photosURLText
+            self?.collectionView.reloadData()
+        }
     }
 }
 

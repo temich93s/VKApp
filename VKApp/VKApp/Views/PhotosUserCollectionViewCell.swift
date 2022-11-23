@@ -21,7 +21,7 @@ final class PhotosUserCollectionViewCell: UICollectionViewCell {
     // MARK: - Public Methods
 
     func configure(userPhoto: String) {
-        friendPhotoImageView.image = getImage(by: userPhoto)
+        setImage(userPhotoURLText: userPhoto)
     }
 
     func animateShowFriendPhotoImageView() {
@@ -58,7 +58,15 @@ final class PhotosUserCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Private Methods
 
-    private func getImage(by name: String) -> UIImage? {
-        UIImage(named: name)
+    private func setImage(userPhotoURLText: String) {
+        let url = URL(string: userPhotoURLText)
+        DispatchQueue.global().async {
+            guard let url = url else { return }
+            let data = try? Data(contentsOf: url)
+            DispatchQueue.main.async {
+                guard let data = data else { return }
+                self.friendPhotoImageView.image = UIImage(data: data)
+            }
+        }
     }
 }
