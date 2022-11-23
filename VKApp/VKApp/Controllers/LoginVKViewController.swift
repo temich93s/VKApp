@@ -9,6 +9,7 @@ final class LoginVKViewController: UIViewController {
     // MARK: - Constants
 
     private enum Constants {
+        static let loginSegueIdentifier = "LoginSegue"
         static let blankHtmlText = "/blank.html"
         static let ampersandText = "&"
         static let equalText = "="
@@ -118,7 +119,7 @@ extension LoginVKViewController: WKNavigationDelegate {
         Session.shared.token = safeToken
         Session.shared.userId = safeUserId
         decisionHandler(.cancel)
-
         fetchRequestVK()
+        performSegue(withIdentifier: Constants.loginSegueIdentifier, sender: self)
     }
 }

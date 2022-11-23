@@ -38,12 +38,12 @@
                     </view>
                     <connections>
                         <outlet property="webview" destination="n9o-Ag-UBy" id="Sgt-Jz-pBJ"/>
-                        <segue destination="QuM-xg-hIc" kind="presentation" modalPresentationStyle="fullScreen" id="7UE-HU-mYR"/>
+                        <segue destination="QuM-xg-hIc" kind="presentation" identifier="LoginSegue" modalPresentationStyle="fullScreen" id="7UE-HU-mYR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qaq-uS-APR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-622" y="-90"/>
+            <point key="canvasLocation" x="109" y="66"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -169,7 +169,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="66"/>
+            <point key="canvasLocation" x="109" y="-641"/>
         </scene>
         <!--Friends User View Controller-->
         <scene sceneID="Y3c-0e-Dif">
