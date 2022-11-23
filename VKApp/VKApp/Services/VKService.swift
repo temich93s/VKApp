@@ -16,6 +16,20 @@ final class VKService {
         static let bdateText = "bdate"
         static let bdateNumberText = "5.131"
         static let baseUrl = "https://api.vk.com"
+        static let httpsText = "https"
+        static let oauthVkComText = "oauth.vk.com"
+        static let authorizeText = "/authorize"
+        static let clientIdText = "client_id"
+        static let clientIdNumberText = "51482678"
+        static let displayText = "display"
+        static let mobileText = "mobile"
+        static let redirectUriText = "redirect_uri"
+        static let redirectUriValueText = "https://oauth.vk.com/blank.html"
+        static let scopeText = "scope"
+        static let scopeNumberText = "262150"
+        static let responseTypeText = "response_type"
+        static let tokenText = "token"
+        static let vValueText = "5.68"
     }
 
     // MARK: - Public Methods
@@ -34,5 +48,21 @@ final class VKService {
         Alamofire.request(url, method: .get, parameters: parameters).responseJSON { repsonse in
             print(repsonse.value ?? "")
         }
+    }
+
+    func createUrlComponents() -> URLComponents {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = Constants.httpsText
+        urlComponents.host = Constants.oauthVkComText
+        urlComponents.path = Constants.authorizeText
+        urlComponents.queryItems = [
+            URLQueryItem(name: Constants.clientIdText, value: Constants.clientIdNumberText),
+            URLQueryItem(name: Constants.displayText, value: Constants.mobileText),
+            URLQueryItem(name: Constants.redirectUriText, value: Constants.redirectUriValueText),
+            URLQueryItem(name: Constants.scopeText, value: Constants.scopeNumberText),
+            URLQueryItem(name: Constants.responseTypeText, value: Constants.tokenText),
+            URLQueryItem(name: Constants.vText, value: Constants.vValueText)
+        ]
+        return urlComponents
     }
 }
