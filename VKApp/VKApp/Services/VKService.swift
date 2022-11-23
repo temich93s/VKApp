@@ -79,7 +79,7 @@ final class VKService {
             else { return }
             var photosURLText: [String] = []
             for item in items {
-                for itemSize in item.sizes where itemSize.type == "m" {
+                for itemSize in item.sizes where itemSize.type == "z" {
                     photosURLText.append(itemSize.url)
                 }
             }

@@ -76,11 +76,11 @@ final class BigPhotosUserViewController: UIViewController {
         currentUserPhotoTrailingConstraint.constant = 0
         currentUserPhotoLeadingConstraint.constant = 0
         currentUserPhotoImageView.layer.zPosition = 1
-        currentUserPhotoImageView.image = UIImage(named: userPhotoNames[currentUserPhotoIndex])
+        setCurrentUserPhotoImageView(userPhotoURLText: userPhotoNames[currentUserPhotoIndex])
         nextUserPhotoTrailingConstraint.constant = -view.frame.width
         nextUserPhotoLeadingConstraint.constant = view.frame.width
         nextUserPhotoImageView.layer.zPosition = 2
-        nextUserPhotoImageView.image = UIImage(named: userPhotoNames[currentUserPhotoIndex + 1])
+        setNextUserPhotoImageView(userPhotoURLText: userPhotoNames[currentUserPhotoIndex + 1])
         view.layoutIfNeeded()
         currentUserPhotoIndex += 1
     }
@@ -106,11 +106,11 @@ final class BigPhotosUserViewController: UIViewController {
         currentUserPhotoTrailingConstraint.constant = 0
         currentUserPhotoLeadingConstraint.constant = 0
         currentUserPhotoImageView.layer.zPosition = 2
-        currentUserPhotoImageView.image = UIImage(named: userPhotoNames[currentUserPhotoIndex])
+        setCurrentUserPhotoImageView(userPhotoURLText: userPhotoNames[currentUserPhotoIndex])
         nextUserPhotoTrailingConstraint.constant = 50
         nextUserPhotoLeadingConstraint.constant = 50
         nextUserPhotoImageView.layer.zPosition = 1
-        nextUserPhotoImageView.image = UIImage(named: userPhotoNames[currentUserPhotoIndex - 1])
+        setNextUserPhotoImageView(userPhotoURLText: userPhotoNames[currentUserPhotoIndex - 1])
         view.layoutIfNeeded()
         currentUserPhotoIndex -= 1
     }
@@ -122,7 +122,7 @@ final class BigPhotosUserViewController: UIViewController {
 
     private func setupImageViews() {
         guard 0 ..< userPhotoNames.count ~= currentUserPhotoIndex else { return }
-        currentUserPhotoImageView.image = UIImage(named: userPhotoNames[currentUserPhotoIndex])
+        setCurrentUserPhotoImageView(userPhotoURLText: userPhotoNames[currentUserPhotoIndex])
     }
 
     private func addSwipeToView() {
@@ -132,5 +132,29 @@ final class BigPhotosUserViewController: UIViewController {
         let swipeRigth = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeAction(gesture:)))
         swipeRigth.direction = .right
         view.addGestureRecognizer(swipeRigth)
+    }
+
+    private func setNextUserPhotoImageView(userPhotoURLText: String) {
+        let url = URL(string: userPhotoURLText)
+        DispatchQueue.global().async {
+            guard let url = url else { return }
+            let data = try? Data(contentsOf: url)
+            DispatchQueue.main.async {
+                guard let data = data else { return }
+                self.nextUserPhotoImageView.image = UIImage(data: data)
+            }
+        }
+    }
+
+    private func setCurrentUserPhotoImageView(userPhotoURLText: String) {
+        let url = URL(string: userPhotoURLText)
+        DispatchQueue.global().async {
+            guard let url = url else { return }
+            let data = try? Data(contentsOf: url)
+            DispatchQueue.main.async {
+                guard let data = data else { return }
+                self.currentUserPhotoImageView.image = UIImage(data: data)
+            }
+        }
     }
 }
