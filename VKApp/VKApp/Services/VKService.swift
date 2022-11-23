@@ -32,21 +32,22 @@ final class VKService {
         static let vValueText = "5.68"
     }
 
+    // MARK: - Private Properties
+
+    private var parameters: Parameters = [
+        Constants.fieldsText: Constants.bdateText,
+        Constants.accessTokenText: Session.shared.token,
+        Constants.vText: Constants.bdateNumberText
+    ]
+
     // MARK: - Public Methods
 
     func sendRequestFriend(method: String, parameterMap: [String: String], completion: @escaping ([Item]) -> Void) {
         let path = Constants.methodText + method
-        var parameters: Parameters = [
-            Constants.fieldsText: Constants.bdateText,
-            Constants.accessTokenText: Session.shared.token,
-            Constants.vText: Constants.bdateNumberText
-        ]
         for parameter in parameterMap {
             parameters[parameter.key] = parameter.value
         }
         let url = "\(Constants.baseUrl)\(path)"
-        print(url)
-        print(parameters)
         Alamofire.request(url, method: .get, parameters: parameters).responseData { response in
             guard
                 let data = response.value,

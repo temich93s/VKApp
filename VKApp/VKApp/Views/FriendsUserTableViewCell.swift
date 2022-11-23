@@ -29,7 +29,7 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     var user = User(
         userName: Constants.emptyText,
-        userPhotoName: Constants.emptyText,
+        userPhotoURLText: Constants.emptyText,
         userPhotosName: [Constants.friendPhotoOneText],
         id: 0
     )
@@ -38,7 +38,7 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     func configure(user: User) {
         friendNameLabel.text = user.userName
-        friendPhotoImageView.image = getImage(by: user.userPhotoName)
+        setImage(userPhotoURLText: user.userPhotoURLText)
         self.user = user
     }
 
@@ -50,9 +50,15 @@ final class FriendsUserTableViewCell: UITableViewCell {
         shadowView.shadowColor = .blue
     }
 
-    // MARK: - Private Methods
-
-    private func getImage(by name: String) -> UIImage? {
-        UIImage(named: name)
+    private func setImage(userPhotoURLText: String) {
+        let url = URL(string: userPhotoURLText)
+        DispatchQueue.global().async {
+            guard let url = url else { return }
+            let data = try? Data(contentsOf: url)
+            DispatchQueue.main.async {
+                guard let data = data else { return }
+                self.friendPhotoImageView.image = UIImage(data: data)
+            }
+        }
     }
 }

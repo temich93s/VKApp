@@ -98,21 +98,19 @@ final class FriendsUserViewController: UIViewController {
             $0.userName < $1.userName
         }
         characterSetControl.scrollFromCharacterHandler = scrollFromCharacterHandler
-
         vkService.sendRequestFriend(
             method: "friends.get",
-            parameterMap: ["user_id": "43832436"]
+            parameterMap: ["user_id": "43832436", "fields": "photo_100"]
         ) { [weak self] items in
             self?.items = items
             for item in items {
                 self?.allFriends.append(User(
                     userName: "\(item.firstName) \(item.lastName)",
-                    userPhotoName: Constants.friendPhotoOneName,
+                    userPhotoURLText: item.photo,
                     userPhotosName: Constants.photosName,
                     id: item.id
                 ))
             }
-            print(self?.allFriends)
             guard let allFriends = self?.allFriends else { return }
             self?.friends = allFriends
             self?.setupCharacters()

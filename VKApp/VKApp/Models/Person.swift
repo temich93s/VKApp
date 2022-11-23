@@ -17,11 +17,12 @@ struct Response: Codable {
 /// Item
 struct Item: Codable {
     let id: Int
-    let firstName, lastName: String
+    let firstName, lastName, photo: String
 
     enum CodingKeys: String, CodingKey {
         case id
         case firstName = "first_name"
         case lastName = "last_name"
+        case photo = "photo_100"
     }
 }
