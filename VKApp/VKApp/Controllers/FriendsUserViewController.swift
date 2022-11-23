@@ -36,30 +36,6 @@ final class FriendsUserViewController: UIViewController {
             "FriendPhotoOne",
             "FriendPhotoSecond",
             "FriendPhotoThird",
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird"
         ]
     }
 
@@ -71,214 +47,17 @@ final class FriendsUserViewController: UIViewController {
 
     // MARK: - Private Properties
 
-    private var allFriends = [
-        User(
-            userName: Constants.friendNameOneName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameSecondName,
-            userPhotoName: Constants.friendPhotoSecondName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameThirdName,
-            userPhotoName: Constants.friendPhotoThirdName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameFourName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameFiveName,
-            userPhotoName: Constants.friendPhotoSecondName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameSixName,
-            userPhotoName: Constants.friendPhotoThirdName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameEightName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameSevenName,
-            userPhotoName: Constants.friendPhotoSecondName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameNineName,
-            userPhotoName: Constants.friendPhotoThirdName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameTenName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameOneName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameSecondName,
-            userPhotoName: Constants.friendPhotoSecondName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameThirdName,
-            userPhotoName: Constants.friendPhotoThirdName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameFourName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameFiveName,
-            userPhotoName: Constants.friendPhotoSecondName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameSixName,
-            userPhotoName: Constants.friendPhotoThirdName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameEightName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameSevenName,
-            userPhotoName: Constants.friendPhotoSecondName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameNineName,
-            userPhotoName: Constants.friendPhotoThirdName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameTenName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameOneName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameSecondName,
-            userPhotoName: Constants.friendPhotoSecondName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameThirdName,
-            userPhotoName: Constants.friendPhotoThirdName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameFourName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameFiveName,
-            userPhotoName: Constants.friendPhotoSecondName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameSixName,
-            userPhotoName: Constants.friendPhotoThirdName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameEightName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameSevenName,
-            userPhotoName: Constants.friendPhotoSecondName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameNineName,
-            userPhotoName: Constants.friendPhotoThirdName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameTenName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameOneName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameSecondName,
-            userPhotoName: Constants.friendPhotoSecondName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameThirdName,
-            userPhotoName: Constants.friendPhotoThirdName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameFourName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameFiveName,
-            userPhotoName: Constants.friendPhotoSecondName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameSixName,
-            userPhotoName: Constants.friendPhotoThirdName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameEightName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameSevenName,
-            userPhotoName: Constants.friendPhotoSecondName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameNineName,
-            userPhotoName: Constants.friendPhotoThirdName,
-            userPhotosName: Constants.photosName
-        ),
-        User(
-            userName: Constants.friendNameTenName,
-            userPhotoName: Constants.friendPhotoOneName,
-            userPhotosName: Constants.photosName
-        )
-    ]
+    private var allFriends: [User] = []
 
     private lazy var friends = allFriends
 
     private var friendsForSection: [Character: [User]] = [:]
 
     private var charactersName: [Character] = []
+
+    private let vkService = VKService()
+
+    private var items: [Item] = []
 
     private lazy var scrollFromCharacterHandler: CharacterHandler? = { [weak self] character in
         guard
@@ -319,6 +98,30 @@ final class FriendsUserViewController: UIViewController {
             $0.userName < $1.userName
         }
         characterSetControl.scrollFromCharacterHandler = scrollFromCharacterHandler
+
+        vkService.sendRequestFriend(
+            method: "friends.get",
+            parameterMap: ["user_id": "43832436"]
+        ) { [weak self] items in
+            self?.items = items
+            for item in items {
+                self?.allFriends.append(User(
+                    userName: "\(item.firstName) \(item.lastName)",
+                    userPhotoName: Constants.friendPhotoOneName,
+                    userPhotosName: Constants.photosName
+                ))
+            }
+            print(self?.allFriends)
+            guard let allFriends = self?.allFriends else { return }
+            self?.friends = allFriends
+            self?.setupCharacters()
+            self?.makeFriendsForSection()
+            self?.friends.sort {
+                $0.userName < $1.userName
+            }
+            self?.characterSetControl.scrollFromCharacterHandler = self?.scrollFromCharacterHandler
+            self?.friendsTableView.reloadData()
+        }
     }
 
     private func setupCharacters() {

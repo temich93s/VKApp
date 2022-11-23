@@ -53,36 +53,29 @@ final class LoginVKViewController: UIViewController {
         webview.load(request)
     }
 
-    private func fetchFriends() {
-        vkService.sendRequest(
-            method: Constants.friendsGetText,
-            parameterMap: [Constants.userIdText: "43832436"]
-        )
-    }
-
-    private func fetchPhotoPerson(ownerId: String) {
-        vkService.sendRequest(
-            method: Constants.photosGetAllText,
-            parameterMap: [Constants.ownerIdText: ownerId]
-        )
-    }
-
-    private func fetchCurrentUserGroups() {
-        vkService.sendRequest(
-            method: Constants.groupsGetText,
-            parameterMap: [Constants.userIdText: String(Session.shared.userId)]
-        )
-    }
-
-    private func fetchSearchedGroups(text: String) {
-        vkService.sendRequest(
-            method: Constants.groupsSearchText,
-            parameterMap: [Constants.qText: text]
-        )
-    }
+//    private func fetchPhotoPerson(ownerId: String) {
+//        vkService.sendRequest(
+//            method: Constants.photosGetAllText,
+//            parameterMap: [Constants.ownerIdText: ownerId]
+//        )
+//    }
+//
+//    private func fetchCurrentUserGroups() {
+//        vkService.sendRequest(
+//            method: Constants.groupsGetText,
+//            parameterMap: [Constants.userIdText: String(Session.shared.userId)]
+//        )
+//    }
+//
+//    private func fetchSearchedGroups(text: String) {
+//        vkService.sendRequest(
+//            method: Constants.groupsSearchText,
+//            parameterMap: [Constants.qText: text]
+//        )
+//    }
 
     private func fetchRequestVK() {
-        fetchFriends()
+        // fetchFriends()
         // fetchPhotoPerson(ownerId: Constants.testUserText)
         // fetchCurrentUserGroups()
         // fetchSearchedGroups(text: Constants.testGroupText)

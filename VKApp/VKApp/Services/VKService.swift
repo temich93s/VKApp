@@ -34,7 +34,7 @@ final class VKService {
 
     // MARK: - Public Methods
 
-    func sendRequest(method: String, parameterMap: [String: String]) {
+    func sendRequestFriend(method: String, parameterMap: [String: String], completion: @escaping ([Item]) -> Void) {
         let path = Constants.methodText + method
         var parameters: Parameters = [
             Constants.fieldsText: Constants.bdateText,
@@ -48,9 +48,11 @@ final class VKService {
         print(url)
         print(parameters)
         Alamofire.request(url, method: .get, parameters: parameters).responseData { response in
-            guard let data = response.value else { return }
-            let weather = try? JSONDecoder().decode(Person.self, from: data).response.items
-            print(weather ?? "")
+            guard
+                let data = response.value,
+                let items = try? JSONDecoder().decode(Person.self, from: data).response.items
+            else { return }
+            completion(items)
         }
     }
 
