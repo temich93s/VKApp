@@ -41,7 +41,7 @@ final class LoginVKViewController: UIViewController {
 
     // MARK: - Private Outlets
 
-    @IBOutlet var webview: WKWebView! {
+    @IBOutlet private var webview: WKWebView! {
         didSet {
             webview.navigationDelegate = self
         }
@@ -92,14 +92,14 @@ final class LoginVKViewController: UIViewController {
         )
     }
 
-    private func getGroupCurrentUser() {
+    private func getCurrentUserGroups() {
         vkService.loadVKData(
             method: Constants.groupsGetText,
             parameterMap: [Constants.userIdText: String(Session.instance.userId)]
         )
     }
 
-    private func getGroup(text: String) {
+    private func getSearchedGroups(text: String) {
         vkService.loadVKData(
             method: Constants.groupsSearchText,
             parameterMap: [Constants.qText: text]
@@ -140,7 +140,7 @@ extension LoginVKViewController: WKNavigationDelegate {
 
         getFriends()
         getPhotoPerson(ownerId: Constants.testUserText)
-        getGroupCurrentUser()
-        getGroup(text: Constants.testGroupText)
+        getCurrentUserGroups()
+        getSearchedGroups(text: Constants.testGroupText)
     }
 }
