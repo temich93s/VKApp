@@ -24,17 +24,20 @@ final class GroupUserTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private var allGroups = [
-        Group(groupName: Constants.groupUserNameFourName, groupPhotoName: Constants.groupUserPhotoOneName),
-        Group(groupName: Constants.groupUserNameFiveName, groupPhotoName: Constants.groupUserPhotoSecondName),
-        Group(groupName: Constants.groupUserNameSixName, groupPhotoName: Constants.groupUserPhotoThirdName)
-    ]
+    private var allGroups: [Group] = []
 
-    private var userGroups = [
-        Group(groupName: Constants.groupUserNameOneName, groupPhotoName: Constants.groupUserPhotoOneName),
-        Group(groupName: Constants.groupUserNameSecondName, groupPhotoName: Constants.groupUserPhotoSecondName),
-        Group(groupName: Constants.groupUserNameThirdName, groupPhotoName: Constants.groupUserPhotoThirdName)
-    ]
+    private var userGroups: [Group] = []
+
+    private let vkService = VKService()
+
+    private var items: [ItemGroupVK] = []
+
+    // MARK: - Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
 
     // MARK: - Public Methods
 
@@ -95,5 +98,21 @@ final class GroupUserTableViewController: UITableViewController {
         }
         userGroups.append(group)
         tableView.reloadData()
+    }
+
+    // MARK: - Private Methods
+
+    private func setupView() {
+        vkService.sendRequestGroupVK(
+            method: "groups.get",
+            parameterMap: ["user_id": "43832436", "extended": "1"]
+        ) { [weak self] items in
+            self?.items = items
+            for item in items {
+                self?.userGroups.append(Group(groupName: item.name, groupPhotoName: item.photo200))
+            }
+            print(self?.userGroups)
+            self?.tableView.reloadData()
+        }
     }
 }
