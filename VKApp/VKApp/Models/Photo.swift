@@ -33,8 +33,10 @@ class ItemPhoto: Object, Decodable {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
         var sizeValues = try values.nestedUnkeyedContainer(forKey: .sizes)
-        let firstSizeValues = try sizeValues.nestedContainer(keyedBy: SizeKeys.self)
-        type = try firstSizeValues.decode(String.self, forKey: .type)
-        url = try firstSizeValues.decode(String.self, forKey: .url)
+        while !sizeValues.isAtEnd {
+            let reviewCountContainer = try sizeValues.nestedContainer(keyedBy: SizeKeys.self)
+            type = try reviewCountContainer.decode(String.self, forKey: .type)
+            url = try reviewCountContainer.decode(String.self, forKey: .url)
+        }
     }
 }
