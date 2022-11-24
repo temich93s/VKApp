@@ -26,6 +26,10 @@ final class SearchGroupTableViewController: UITableViewController {
     private var groups: [Group] = []
     private var allGroups: [Group] = []
 
+    private var items: [ItemGroupVK] = []
+
+    private let vkService = VKService()
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -80,8 +84,15 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
         if searchText.isEmpty {
             searchBar.endEditing(true)
         } else {
-            groups = groups.filter { group in
-                group.groupName.range(of: searchText, options: .caseInsensitive) != nil
+            vkService.sendRequestGroupVK(
+                method: "groups.search",
+                parameterMap: ["q": searchText]
+            ) { [weak self] items in
+                self?.items = items
+                for item in items {
+                    self?.groups.append(Group(groupName: item.name, groupPhotoName: item.photo200))
+                }
+                self?.tableView.reloadData()
             }
         }
         tableView.reloadData()
