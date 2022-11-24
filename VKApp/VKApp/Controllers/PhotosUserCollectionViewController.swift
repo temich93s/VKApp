@@ -18,7 +18,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     private var user = User(
         userName: Constants.emptyText,
-        userPhotoURLText: Constants.emptyText,
+        userPhotoName: Constants.emptyText,
         userPhotosName: [""],
         id: 0
     )

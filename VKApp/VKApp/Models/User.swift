@@ -6,7 +6,7 @@ struct User {
     /// Имя пользователя
     let userName: String
     /// Имя фото самого пользователя
-    let userPhotoURLText: String
+    let userPhotoName: String
     /// Имена фотографий пользователя
     var userPhotosName: [String]
     /// Идентификатор пользователя на портале VK
