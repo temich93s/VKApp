@@ -22,7 +22,7 @@ final class GroupUserTableViewCell: UITableViewCell {
     func configure(group: Group) {
         selectionStyle = .none
         groupNameLabel.text = group.groupName
-        groupPhotoImageView.image = getImage(by: group.groupPhotoName)
+        setImage(userPhotoURLText: group.groupPhotoName)
     }
 
     func animateGroupPhotoImageView() {
@@ -39,7 +39,15 @@ final class GroupUserTableViewCell: UITableViewCell {
 
     // MARK: - Private Methods
 
-    private func getImage(by name: String) -> UIImage? {
-        UIImage(named: name)
+    private func setImage(userPhotoURLText: String) {
+        let url = URL(string: userPhotoURLText)
+        DispatchQueue.global().async {
+            guard let url = url else { return }
+            let data = try? Data(contentsOf: url)
+            DispatchQueue.main.async {
+                guard let data = data else { return }
+                self.groupPhotoImageView.image = UIImage(data: data)
+            }
+        }
     }
 }
