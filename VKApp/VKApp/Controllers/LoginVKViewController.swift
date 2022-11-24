@@ -21,8 +21,6 @@ final class LoginVKViewController: UIViewController {
         static let groupsGetText = "groups.get"
         static let groupsSearchText = "groups.search"
         static let qText = "q"
-        static let testUserText = "43832436"
-        static let testGroupText = "Retrowave"
     }
 
     // MARK: - Private Outlets
