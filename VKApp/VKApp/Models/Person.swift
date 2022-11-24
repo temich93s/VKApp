@@ -2,22 +2,23 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
+import RealmSwift
 
 /// Пользователь
-struct Person: Codable {
+class Person: Decodable {
     let response: ResponsePerson
 }
 
 /// Response
-struct ResponsePerson: Codable {
+class ResponsePerson: Decodable {
     let count: Int
     let items: [ItemPerson]
 }
 
 /// Item
-struct ItemPerson: Codable {
-    let id: Int
-    let firstName, lastName, photo: String
+class ItemPerson: Object, Decodable {
+    @objc dynamic var id: Int
+    @objc dynamic var firstName, lastName, photo: String
 
     enum CodingKeys: String, CodingKey {
         case id

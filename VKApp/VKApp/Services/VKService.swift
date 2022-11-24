@@ -3,6 +3,7 @@
 
 import Alamofire
 import Foundation
+import RealmSwift
 
 /// Менеджер сетевых запросов по API VK
 final class VKService {
@@ -20,7 +21,7 @@ final class VKService {
         static let oauthVkComText = "oauth.vk.com"
         static let authorizeText = "/authorize"
         static let clientIdText = "client_id"
-        static let clientIdNumberText = "51482678"
+        static let clientIdNumberText = "51485381"
         static let displayText = "display"
         static let mobileText = "mobile"
         static let redirectUriText = "redirect_uri"
@@ -57,6 +58,7 @@ final class VKService {
                 let data = response.value,
                 let items = try? JSONDecoder().decode(Person.self, from: data).response.items
             else { return }
+            self.saveFriendsData(items)
             completion(items)
         }
     }
@@ -73,6 +75,7 @@ final class VKService {
         }
         let url = "\(Constants.baseUrl)\(path)"
         Alamofire.request(url, method: .get, parameters: parameters).responseData { response in
+            print("2222")
             guard
                 let data = response.value,
                 let items = try? JSONDecoder().decode(Photo.self, from: data).response.items
@@ -83,6 +86,7 @@ final class VKService {
                     photosURLText.append(itemSize.url)
                 }
             }
+            print(items)
             completion(photosURLText)
         }
     }
@@ -103,6 +107,7 @@ final class VKService {
                 let data = response.value,
                 let items = try? JSONDecoder().decode(GroupVK.self, from: data).response.items
             else { return }
+            self.saveGroupVKData(items)
             completion(items)
         }
     }
@@ -122,4 +127,37 @@ final class VKService {
         ]
         return urlComponents
     }
+
+    func saveGroupVKData(_ groupVK: [ItemGroupVK]) {
+        do {
+            let realm = try Realm()
+            realm.beginWrite()
+            realm.add(groupVK)
+            try realm.commitWrite()
+        } catch {
+            print(error)
+        }
+    }
+
+    func saveFriendsData(_ friends: [ItemPerson]) {
+        do {
+            let realm = try Realm()
+            realm.beginWrite()
+            realm.add(friends)
+            try realm.commitWrite()
+        } catch {
+            print(error)
+        }
+    }
+
+//    func savePhotosData(_ photos: [ItemPhoto]) {
+//        do {
+//            let realm = try Realm()
+//            realm.beginWrite()
+//            realm.add(photos)
+//            try realm.commitWrite()
+//        } catch {
+//            print(error)
+//        }
+//    }
 }

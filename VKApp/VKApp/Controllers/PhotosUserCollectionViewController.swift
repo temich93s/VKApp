@@ -38,7 +38,6 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     func configurePhotosUserCollectionVC(currentUser: User) {
         user = currentUser
-        print(user)
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

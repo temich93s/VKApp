@@ -111,7 +111,6 @@ final class GroupUserTableViewController: UITableViewController {
             for item in items {
                 self?.userGroups.append(Group(groupName: item.name, groupPhotoName: item.photo200))
             }
-            print(self?.userGroups)
             self?.tableView.reloadData()
         }
     }

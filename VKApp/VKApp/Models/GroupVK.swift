@@ -2,23 +2,24 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
+import RealmSwift
 
 /// GroupVK
-struct GroupVK: Codable {
+class GroupVK: Decodable {
     let response: ResponseGroupVK
 }
 
 /// ResponseGroupVK
-struct ResponseGroupVK: Codable {
+class ResponseGroupVK: Decodable {
     let count: Int
     let items: [ItemGroupVK]
 }
 
 /// ItemGroupVK
-struct ItemGroupVK: Codable {
-    let id: Int
-    let name: String
-    let photo200: String
+class ItemGroupVK: Object, Decodable {
+    @objc dynamic var id: Int
+    @objc dynamic var name: String
+    @objc dynamic var photo200: String
 
     enum CodingKeys: String, CodingKey {
         case id, name
