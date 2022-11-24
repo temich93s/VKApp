@@ -75,22 +75,15 @@ final class VKService {
         }
         let url = "\(Constants.baseUrl)\(path)"
         Alamofire.request(url, method: .get, parameters: parameters).responseData { response in
-            print("2222")
             guard
                 let data = response.value,
                 let items = try? JSONDecoder().decode(Photo.self, from: data).response.items
             else { return }
-            print("2233")
             var photosURLText: [String] = []
-//            for item in items {
-//                for itemSize in item.sizes where itemSize.type == "z" {
-//                    photosURLText.append(itemSize.url)
-//                }
-//            }
             for item in items {
                 photosURLText.append(item.url)
             }
-            print(items)
+            self.savePhotosData(items)
             completion(photosURLText)
         }
     }
@@ -154,14 +147,14 @@ final class VKService {
         }
     }
 
-//    func savePhotosData(_ photos: [ItemPhoto]) {
-//        do {
-//            let realm = try Realm()
-//            realm.beginWrite()
-//            realm.add(photos)
-//            try realm.commitWrite()
-//        } catch {
-//            print(error)
-//        }
-//    }
+    func savePhotosData(_ photos: [ItemPhoto]) {
+        do {
+            let realm = try Realm()
+            realm.beginWrite()
+            realm.add(photos)
+            try realm.commitWrite()
+        } catch {
+            print(error)
+        }
+    }
 }
