@@ -2,25 +2,39 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
+import RealmSwift
 
 /// RequestPhoto
-struct Photo: Codable {
+class Photo: Decodable {
     let response: ResponsePhoto
 }
 
 /// Response
-struct ResponsePhoto: Codable {
+class ResponsePhoto: Decodable {
     let count: Int
     let items: [ItemPhoto]
 }
 
 /// Item
-struct ItemPhoto: Codable {
-    let sizes: [Size]
-}
+class ItemPhoto: Object, Decodable {
+    @objc dynamic var type: String = ""
+    @objc dynamic var url: String = ""
 
-/// Size
-struct Size: Codable {
-    let type: String
-    let url: String
+    enum CodingKeys: String, CodingKey {
+        case sizes
+    }
+
+    enum SizeKeys: String, CodingKey {
+        case type
+        case url
+    }
+
+    required convenience init(from decoder: Decoder) throws {
+        self.init()
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        var sizeValues = try values.nestedUnkeyedContainer(forKey: .sizes)
+        let firstSizeValues = try sizeValues.nestedContainer(keyedBy: SizeKeys.self)
+        type = try firstSizeValues.decode(String.self, forKey: .type)
+        url = try firstSizeValues.decode(String.self, forKey: .url)
+    }
 }

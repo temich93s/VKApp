@@ -93,9 +93,6 @@ extension LoginVKViewController: WKNavigationDelegate {
         guard let url = navigationResponse.response.url, url.path == Constants.blankHtmlText,
               let fragment = url.fragment
         else {
-            print(navigationResponse.response.url)
-            print(navigationResponse.response.url?.path)
-            print(Constants.blankHtmlText)
             decisionHandler(.allow)
             return
         }

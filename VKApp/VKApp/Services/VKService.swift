@@ -80,11 +80,15 @@ final class VKService {
                 let data = response.value,
                 let items = try? JSONDecoder().decode(Photo.self, from: data).response.items
             else { return }
+            print("2233")
             var photosURLText: [String] = []
+//            for item in items {
+//                for itemSize in item.sizes where itemSize.type == "z" {
+//                    photosURLText.append(itemSize.url)
+//                }
+//            }
             for item in items {
-                for itemSize in item.sizes where itemSize.type == "z" {
-                    photosURLText.append(itemSize.url)
-                }
+                photosURLText.append(item.url)
             }
             print(items)
             completion(photosURLText)
