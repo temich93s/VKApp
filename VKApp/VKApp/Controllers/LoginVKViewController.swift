@@ -52,33 +52,6 @@ final class LoginVKViewController: UIViewController {
         let request = URLRequest(url: safeURL)
         webview.load(request)
     }
-
-//    private func fetchPhotoPerson(ownerId: String) {
-//        vkService.sendRequest(
-//            method: Constants.photosGetAllText,
-//            parameterMap: [Constants.ownerIdText: ownerId]
-//        )
-//    }
-//
-//    private func fetchCurrentUserGroups() {
-//        vkService.sendRequest(
-//            method: Constants.groupsGetText,
-//            parameterMap: [Constants.userIdText: String(Session.shared.userId)]
-//        )
-//    }
-//
-//    private func fetchSearchedGroups(text: String) {
-//        vkService.sendRequest(
-//            method: Constants.groupsSearchText,
-//            parameterMap: [Constants.qText: text]
-//        )
-//    }
-
-    private func fetchRequestVK() {
-        // fetchPhotoPerson(ownerId: Constants.testUserText)
-        // fetchCurrentUserGroups()
-        // fetchSearchedGroups(text: Constants.testGroupText)
-    }
 }
 
 // MARK: - WKNavigationDelegate
@@ -109,10 +82,8 @@ extension LoginVKViewController: WKNavigationDelegate {
         let userId = params[Constants.userIdText]
         guard let safeToken = token, let userIdString = userId, let safeUserId = Int(userIdString) else { return }
         Session.shared.token = safeToken
-        print(safeToken)
         Session.shared.userId = safeUserId
         decisionHandler(.cancel)
-        fetchRequestVK()
         performSegue(withIdentifier: Constants.loginSegueIdentifier, sender: self)
     }
 }

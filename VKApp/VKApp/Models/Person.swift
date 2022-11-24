@@ -4,21 +4,27 @@
 import Foundation
 import RealmSwift
 
-/// Пользователь
-class Person: Decodable {
+/// Пользователь ВК
+final class Person: Decodable {
     let response: ResponsePerson
 }
 
-/// Response
-class ResponsePerson: Decodable {
+/// Ответ с сервера о пользователе
+final class ResponsePerson: Decodable {
+    /// Кол-во друзей
     let count: Int
+    /// Друзья пользователя
     let items: [ItemPerson]
 }
 
-/// Item
-class ItemPerson: Object, Decodable {
+/// Друг пользователя
+final class ItemPerson: Object, Decodable {
+    /// id пользователя
     @objc dynamic var id: Int
+    /// Имя, Фамилия, ссылка на фото пользователя
     @objc dynamic var firstName, lastName, photo: String
+
+    // MARK: - enum
 
     enum CodingKeys: String, CodingKey {
         case id

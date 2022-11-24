@@ -4,22 +4,29 @@
 import Foundation
 import RealmSwift
 
-/// GroupVK
-class GroupVK: Decodable {
+/// Группа вконтакте
+final class GroupVK: Decodable {
     let response: ResponseGroupVK
 }
 
-/// ResponseGroupVK
-class ResponseGroupVK: Decodable {
+/// Ответ с сервера о группе вконтакте
+final class ResponseGroupVK: Decodable {
+    /// Количество групп вконтакте
     let count: Int
+    /// Группы вконтакте
     let items: [ItemGroupVK]
 }
 
-/// ItemGroupVK
-class ItemGroupVK: Object, Decodable {
+/// Группа на которую подписан пользователь
+final class ItemGroupVK: Object, Decodable {
+    /// id пользователя
     @objc dynamic var id: Int
+    /// Имя группы
     @objc dynamic var name: String
+    /// Фотография группы
     @objc dynamic var photo200: String
+
+    // MARK: - enum
 
     enum CodingKeys: String, CodingKey {
         case id, name

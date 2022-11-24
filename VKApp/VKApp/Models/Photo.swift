@@ -4,21 +4,27 @@
 import Foundation
 import RealmSwift
 
-/// RequestPhoto
-class Photo: Decodable {
+/// Фотография
+final class Photo: Decodable {
     let response: ResponsePhoto
 }
 
-/// Response
-class ResponsePhoto: Decodable {
+/// Ответ с сервера о фотографии
+final class ResponsePhoto: Decodable {
+    /// Количество фотографий
     let count: Int
+    /// Фотографии
     let items: [ItemPhoto]
 }
 
-/// Item
-class ItemPhoto: Object, Decodable {
+/// Фотография пользователя
+final class ItemPhoto: Object, Decodable {
+    /// Размер фотографии
     @objc dynamic var type: String = ""
+    /// Ссылка на фотографию
     @objc dynamic var url: String = ""
+
+    // MARK: - enum
 
     enum CodingKeys: String, CodingKey {
         case sizes
@@ -28,6 +34,8 @@ class ItemPhoto: Object, Decodable {
         case type
         case url
     }
+
+    // MARK: - Initializers
 
     required convenience init(from decoder: Decoder) throws {
         self.init()

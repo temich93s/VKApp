@@ -29,7 +29,7 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     var user = User(
         userName: Constants.emptyText,
-        userPhotoName: Constants.emptyText,
+        userPhotoURLText: Constants.emptyText,
         userPhotosName: [Constants.friendPhotoOneText],
         id: 0
     )
@@ -38,7 +38,7 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     func configure(user: User) {
         friendNameLabel.text = user.userName
-        setImage(userPhotoURLText: user.userPhotoName)
+        setImage(userPhotoURLText: user.userPhotoURLText)
         self.user = user
     }
 
