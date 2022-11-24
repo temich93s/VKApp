@@ -9,9 +9,10 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     private enum Constants {
         static let photosUserCellID = "PhotosUserCell"
-        static let friendPhotoOneName = "FriendPhotoOne"
         static let emptyText = ""
         static let GoToBigPhotosUserVCSegueID = "GoToBigPhotosUserVC"
+        static let photosGetAllText = "photos.getAll"
+        static let ownerIdText = "owner_id"
     }
 
     // MARK: - Private Properties
@@ -19,7 +20,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     private var user = User(
         userName: Constants.emptyText,
         userPhotoURLText: Constants.emptyText,
-        userPhotosName: [""],
+        userPhotosName: [Constants.emptyText],
         id: 0
     )
 
@@ -92,8 +93,8 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     private func setupView() {
         vkService.sendRequestPhotos(
-            method: "photos.getAll",
-            parameterMap: ["owner_id": "\(user.id)"]
+            method: Constants.photosGetAllText,
+            parameterMap: [Constants.ownerIdText: "\(user.id)"]
         ) { [weak self] photosURLText in
             self?.user.userPhotosName = photosURLText
             self?.collectionView.reloadData()

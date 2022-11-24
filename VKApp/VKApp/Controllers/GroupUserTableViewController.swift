@@ -11,15 +11,11 @@ final class GroupUserTableViewController: UITableViewController {
         static let segueID = "GoToSearchGroupTableVC"
         static let groupUserCellID = "GroupUserCell"
         static let addGroupSegueID = "AddGroup"
-        static let groupUserPhotoOneName = "FriendPhotoOne"
-        static let groupUserPhotoSecondName = "FriendPhotoSecond"
-        static let groupUserPhotoThirdName = "FriendPhotoThird"
-        static let groupUserNameOneName = "Новости"
-        static let groupUserNameSecondName = "Программирование"
-        static let groupUserNameThirdName = "Отдых"
-        static let groupUserNameFourName = "Питание"
-        static let groupUserNameFiveName = "Спорт"
-        static let groupUserNameSixName = "Путешествия"
+        static let groupsGetText = "groups.get"
+        static let userIdText = "user_id"
+        static let userIdNumberText = "43832436"
+        static let extendedText = "extended"
+        static let numberOneText = "1"
     }
 
     // MARK: - Private Properties
@@ -30,7 +26,7 @@ final class GroupUserTableViewController: UITableViewController {
 
     private let vkService = VKService()
 
-    private var items: [ItemGroupVK] = []
+    private var itemsGroupVK: [ItemGroupVK] = []
 
     // MARK: - Lifecycle
 
@@ -104,10 +100,13 @@ final class GroupUserTableViewController: UITableViewController {
 
     private func setupView() {
         vkService.sendRequestGroupVK(
-            method: "groups.get",
-            parameterMap: ["user_id": "43832436", "extended": "1"]
+            method: Constants.groupsGetText,
+            parameterMap: [
+                Constants.userIdText: "\(Session.shared.userId)",
+                Constants.extendedText: Constants.numberOneText
+            ]
         ) { [weak self] items in
-            self?.items = items
+            self?.itemsGroupVK = items
             for item in items {
                 self?.userGroups.append(Group(groupName: item.name, groupPhotoName: item.photo200))
             }

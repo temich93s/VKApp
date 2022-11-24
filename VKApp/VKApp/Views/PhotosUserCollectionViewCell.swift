@@ -56,8 +56,6 @@ final class PhotosUserCollectionViewCell: UICollectionViewCell {
         animation.duration = duration
     }
 
-    // MARK: - Private Methods
-
     private func setImage(userPhotoURLText: String) {
         let url = URL(string: userPhotoURLText)
         DispatchQueue.global().async {

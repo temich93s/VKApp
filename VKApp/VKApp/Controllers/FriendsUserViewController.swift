@@ -14,21 +14,12 @@ final class FriendsUserViewController: UIViewController {
     private enum Constants {
         static let friendsUserCellID = "FriendsUserCell"
         static let segueID = "GoToPhotosUserCollectionVC"
-        static let friendPhotoOneName = "FriendPhotoOne"
-        static let friendPhotoSecondName = "FriendPhotoSecond"
-        static let friendPhotoThirdName = "FriendPhotoThird"
-        static let friendNameOneName = "Андрей"
-        static let friendNameSecondName = "Егор"
-        static let friendNameThirdName = "Никита"
-        static let friendNameFourName = "Артем"
-        static let friendNameFiveName = "Иван"
-        static let friendNameSixName = "Семен"
-        static let friendNameSevenName = "Антон"
-        static let friendNameEightName = "Олег"
-        static let friendNameNineName = "Виталя"
-        static let friendNameTenName = "Максим"
         static let whiteColorName = "WhiteColor"
         static let darkBlueColorName = "DarkBlueColor"
+        static let friendsGetText = "friends.get"
+        static let userIdText = "user_id"
+        static let fieldsText = "fields"
+        static let photoText = "photo_100"
         static let photosName: [String] = []
     }
 
@@ -92,8 +83,8 @@ final class FriendsUserViewController: UIViewController {
         }
         characterSetControl.scrollFromCharacterHandler = scrollFromCharacterHandler
         vkService.sendRequestFriend(
-            method: "friends.get",
-            parameterMap: ["user_id": "43832436", "fields": "photo_100"]
+            method: Constants.friendsGetText,
+            parameterMap: [Constants.userIdText: "\(Session.shared.userId)", Constants.fieldsText: Constants.photoText]
         ) { [weak self] items in
             self?.items = items
             for item in items {

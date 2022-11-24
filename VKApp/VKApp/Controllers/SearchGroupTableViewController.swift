@@ -9,12 +9,8 @@ final class SearchGroupTableViewController: UITableViewController {
 
     private enum Constants {
         static let groupUserCellID = "SearchGroupCell"
-        static let groupUserPhotoOneName = "FriendPhotoOne"
-        static let groupUserPhotoSecondName = "FriendPhotoSecond"
-        static let groupUserPhotoThirdName = "FriendPhotoThird"
-        static let groupUserNameOneName = "Питание"
-        static let groupUserNameSecondName = "Спорт"
-        static let groupUserNameThirdName = "Путешествия"
+        static let groupsSearchText = "groups.search"
+        static let qText = "q"
     }
 
     // MARK: - IBOutlet
@@ -24,6 +20,7 @@ final class SearchGroupTableViewController: UITableViewController {
     // MARK: - Private Properties
 
     private var groups: [Group] = []
+
     private var allGroups: [Group] = []
 
     private var items: [ItemGroupVK] = []
@@ -85,8 +82,8 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
             searchBar.endEditing(true)
         } else {
             vkService.sendRequestGroupVK(
-                method: "groups.search",
-                parameterMap: ["q": searchText]
+                method: Constants.groupsSearchText,
+                parameterMap: [Constants.qText: searchText]
             ) { [weak self] items in
                 self?.items = items
                 for item in items {
