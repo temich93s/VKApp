@@ -109,7 +109,7 @@ final class VKService {
         }
     }
 
-    func createUrlComponents() -> URLComponents {
+    private func createUrlComponents() -> URLComponents {
         var urlComponents = URLComponents()
         urlComponents.scheme = Constants.httpsText
         urlComponents.host = Constants.oauthVkComText
@@ -125,7 +125,9 @@ final class VKService {
         return urlComponents
     }
 
-    func saveGroupVKData(_ groupVK: [ItemGroupVK]) {
+    // MARK: - Private Methods
+
+    private func saveGroupVKData(_ groupVK: [ItemGroupVK]) {
         do {
             let realm = try Realm()
             realm.beginWrite()
@@ -136,7 +138,7 @@ final class VKService {
         }
     }
 
-    func saveFriendsData(_ friends: [ItemPerson]) {
+    private func saveFriendsData(_ friends: [ItemPerson]) {
         do {
             let realm = try Realm()
             realm.beginWrite()
@@ -147,7 +149,7 @@ final class VKService {
         }
     }
 
-    func savePhotosData(_ photos: [ItemPhoto]) {
+    private func savePhotosData(_ photos: [ItemPhoto]) {
         do {
             let realm = try Realm()
             realm.beginWrite()
