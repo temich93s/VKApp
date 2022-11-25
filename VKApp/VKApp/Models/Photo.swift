@@ -37,7 +37,7 @@ final class ItemPhoto: Object, Decodable {
 
     // MARK: - Initializers
 
-    required convenience init(from decoder: Decoder) throws {
+    convenience init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
         var sizeValues = try values.nestedUnkeyedContainer(forKey: .sizes)
