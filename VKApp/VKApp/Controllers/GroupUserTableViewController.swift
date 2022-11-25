@@ -20,11 +20,11 @@ final class GroupUserTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
+    private let vkService = VKService()
+
     private var allGroups: [Group] = []
 
     private var userGroups: [Group] = []
-
-    private let vkService = VKService()
 
     private var itemsGroupVK: [ItemGroupVK] = []
 
