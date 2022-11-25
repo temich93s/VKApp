@@ -31,6 +31,8 @@ final class FriendsUserViewController: UIViewController {
 
     // MARK: - Private Properties
 
+    private let vkService = VKService()
+
     private var allFriends: [User] = []
 
     private lazy var friends = allFriends
@@ -38,8 +40,6 @@ final class FriendsUserViewController: UIViewController {
     private var friendsForSection: [Character: [User]] = [:]
 
     private var charactersName: [Character] = []
-
-    private let vkService = VKService()
 
     private var items: [ItemPerson] = []
 
