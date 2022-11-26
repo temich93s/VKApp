@@ -20,26 +20,16 @@ final class SearchGroupTableViewCell: UITableViewCell {
 
     var group = Group(groupName: Constants.emptyText, groupPhotoName: Constants.emptyText)
 
+    // MARK: - Private Properties
+
+    private let vkNetworkService = VKNetworkService()
+
     // MARK: - Public Methods
 
     func configure(group: Group) {
         selectionStyle = .none
         groupNameLabel.text = group.groupName
-        setImage(userPhotoURLText: group.groupPhotoName)
+        vkNetworkService.setupImage(urlPath: group.groupPhotoName, imageView: groupPhotoImageView)
         self.group = group
-    }
-
-    // MARK: - Private Methods
-
-    private func setImage(userPhotoURLText: String) {
-        let url = URL(string: userPhotoURLText)
-        DispatchQueue.global().async {
-            guard let url = url else { return }
-            let data = try? Data(contentsOf: url)
-            DispatchQueue.main.async {
-                guard let data = data else { return }
-                self.groupPhotoImageView.image = UIImage(data: data)
-            }
-        }
     }
 }
