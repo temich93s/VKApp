@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AA07766D2931B16000538A52 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA07766C2931B16000538A52 /* RealmService.swift */; };
+		AA07766F2931B4AD00538A52 /* ResponsePerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA07766E2931B4AD00538A52 /* ResponsePerson.swift */; };
+		AA0776712931B4C400538A52 /* ItemPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0776702931B4C400538A52 /* ItemPerson.swift */; };
 		AA0D998E291BD71C009877B2 /* CustomPushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D998D291BD71C009877B2 /* CustomPushAnimator.swift */; };
 		AA0D9990291BD729009877B2 /* CustomPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D998F291BD729009877B2 /* CustomPopAnimator.swift */; };
 		AA3C4E16292F43A300CF40A3 /* GroupVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3C4E15292F43A300CF40A3 /* GroupVK.swift */; };
@@ -53,6 +55,8 @@
 		14A959F8644C145A06EFBCC0 /* Pods_VKApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VKApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6938B67759CDBACA64B11A87 /* Pods-VKApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKApp.release.xcconfig"; path = "Target Support Files/Pods-VKApp/Pods-VKApp.release.xcconfig"; sourceTree = "<group>"; };
 		AA07766C2931B16000538A52 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		AA07766E2931B4AD00538A52 /* ResponsePerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsePerson.swift; sourceTree = "<group>"; };
+		AA0776702931B4C400538A52 /* ItemPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPerson.swift; sourceTree = "<group>"; };
 		AA0D998D291BD71C009877B2 /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; };
 		AA0D998F291BD729009877B2 /* CustomPopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimator.swift; sourceTree = "<group>"; };
 		AA3C4E15292F43A300CF40A3 /* GroupVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupVK.swift; sourceTree = "<group>"; };
@@ -151,6 +155,8 @@
 				AA45E59B292E4AE200E452AA /* Person.swift */,
 				AA45E59D292E5DE300E452AA /* Photo.swift */,
 				AA3C4E15292F43A300CF40A3 /* GroupVK.swift */,
+				AA07766E2931B4AD00538A52 /* ResponsePerson.swift */,
+				AA0776702931B4C400538A52 /* ItemPerson.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -407,6 +413,7 @@
 				AA5090EF29178A1E005E7DC4 /* NewsTableViewCell.swift in Sources */,
 				AA73C25229129E2800715351 /* SearchGroupTableViewCell.swift in Sources */,
 				AAEF7F632913D8E7001AB6CD /* FriendsUserViewController.swift in Sources */,
+				AA07766F2931B4AD00538A52 /* ResponsePerson.swift in Sources */,
 				AA45E59E292E5DE300E452AA /* Photo.swift in Sources */,
 				AA73C24C291287E200715351 /* PhotosUserCollectionViewCell.swift in Sources */,
 				AAC07589292BAD4700799DF7 /* Session.swift in Sources */,
@@ -420,6 +427,7 @@
 				AA07766D2931B16000538A52 /* RealmService.swift in Sources */,
 				AAC07591292BC71100799DF7 /* VKNetworkService.swift in Sources */,
 				AABC5984291014360014890B /* PhotosUserCollectionViewController.swift in Sources */,
+				AA0776712931B4C400538A52 /* ItemPerson.swift in Sources */,
 				AA73C24529127F2600715351 /* FriendsUserTableViewCell.swift in Sources */,
 				AAEF7F612913D491001AB6CD /* CharacterSetControl.swift in Sources */,
 				AABC5981291014140014890B /* SearchGroupTableViewController.swift in Sources */,
