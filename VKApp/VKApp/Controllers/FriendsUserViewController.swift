@@ -36,7 +36,7 @@ final class FriendsUserViewController: UIViewController {
     private lazy var friends = allFriends
     private var friendsForSection: [Character: [User]] = [:]
     private var charactersName: [Character] = []
-    private var items: [ItemPerson] = []
+    private var personItems: [ItemPerson] = []
 
     private lazy var scrollFromCharacterHandler: CharacterHandler? = { [weak self] character in
         guard
