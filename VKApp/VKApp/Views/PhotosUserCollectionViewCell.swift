@@ -18,10 +18,14 @@ final class PhotosUserCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet private var friendPhotoImageView: UIImageView!
 
+    // MARK: - Private Properties
+
+    private let vkNetworkService = VKNetworkService()
+
     // MARK: - Public Methods
 
     func configure(userPhoto: String) {
-        setImage(userPhotoURLText: userPhoto)
+        vkNetworkService.setupImage(urlPath: userPhoto, imageView: friendPhotoImageView)
     }
 
     func animateShowFriendPhotoImageView() {
@@ -54,17 +58,5 @@ final class PhotosUserCollectionViewCell: UICollectionViewCell {
         animation.fromValue = fromValue
         animation.toValue = toValue
         animation.duration = duration
-    }
-
-    private func setImage(userPhotoURLText: String) {
-        let url = URL(string: userPhotoURLText)
-        DispatchQueue.global().async {
-            guard let url = url else { return }
-            let data = try? Data(contentsOf: url)
-            DispatchQueue.main.async {
-                guard let data = data else { return }
-                self.friendPhotoImageView.image = UIImage(data: data)
-            }
-        }
     }
 }
