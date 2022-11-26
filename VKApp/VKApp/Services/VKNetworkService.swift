@@ -129,4 +129,18 @@ final class VKNetworkService {
         ]
         return urlComponents
     }
+
+    func setupImage(urlPath: String?, imageView: UIImageView) {
+        guard
+            let urlPath = urlPath,
+            let url = URL(string: urlPath)
+        else { return }
+        DispatchQueue.global().async {
+            let data = try? Data(contentsOf: url)
+            DispatchQueue.main.async {
+                guard let data = data else { return }
+                imageView.image = UIImage(data: data)
+            }
+        }
+    }
 }

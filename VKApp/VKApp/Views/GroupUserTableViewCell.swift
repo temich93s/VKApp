@@ -17,12 +17,16 @@ final class GroupUserTableViewCell: UITableViewCell {
     @IBOutlet private var groupNameLabel: UILabel!
     @IBOutlet private var groupPhotoImageView: UIImageView!
 
+    // MARK: - Private Properties
+
+    private let vkNetworkService = VKNetworkService()
+
     // MARK: - Public Methods
 
     func configure(group: Group) {
         selectionStyle = .none
         groupNameLabel.text = group.groupName
-        setImage(userPhotoURLText: group.groupPhotoName)
+        vkNetworkService.setupImage(urlPath: group.groupPhotoName, imageView: groupPhotoImageView)
     }
 
     func animateGroupPhotoImageView() {
@@ -35,19 +39,5 @@ final class GroupUserTableViewCell: UITableViewCell {
         animation.beginTime = CACurrentMediaTime()
         animation.fillMode = CAMediaTimingFillMode.forwards
         groupPhotoImageView.layer.add(animation, forKey: nil)
-    }
-
-    // MARK: - Private Methods
-
-    private func setImage(userPhotoURLText: String) {
-        let url = URL(string: userPhotoURLText)
-        DispatchQueue.global().async {
-            guard let url = url else { return }
-            let data = try? Data(contentsOf: url)
-            DispatchQueue.main.async {
-                guard let data = data else { return }
-                self.groupPhotoImageView.image = UIImage(data: data)
-            }
-        }
     }
 }
