@@ -23,7 +23,7 @@ final class GroupUserTableViewController: UITableViewController {
     private let vkNetworkService = VKNetworkService()
     private var allGroups: [Group] = []
     private var userGroups: [Group] = []
-    private var itemsGroupVK: [ItemGroupVK] = []
+    private var vkGroups: [VKGroups] = []
 
     // MARK: - Lifecycle
 
@@ -103,7 +103,7 @@ final class GroupUserTableViewController: UITableViewController {
                 Constants.extendedText: Constants.numberOneText
             ]
         ) { [weak self] items in
-            self?.itemsGroupVK = items
+            self?.vkGroups = items
             for item in items {
                 self?.userGroups.append(Group(groupName: item.name, groupPhotoName: item.photo200))
             }

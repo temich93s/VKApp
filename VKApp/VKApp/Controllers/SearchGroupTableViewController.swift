@@ -21,7 +21,7 @@ final class SearchGroupTableViewController: UITableViewController {
 
     private var groups: [Group] = []
     private var allGroups: [Group] = []
-    private var items: [ItemGroupVK] = []
+    private var items: [VKGroups] = []
     private let vkNetworkService = VKNetworkService()
 
     // MARK: - Lifecycle

@@ -14,11 +14,11 @@ final class ResponseGroupVK: Decodable {
     /// Количество групп вконтакте
     let count: Int
     /// Группы вконтакте
-    let items: [ItemGroupVK]
+    let items: [VKGroups]
 }
 
 /// Группа на которую подписан пользователь
-final class ItemGroupVK: Object, Decodable {
+final class VKGroups: Object, Decodable {
     /// id пользователя
     @objc dynamic var id: Int
     /// Имя группы

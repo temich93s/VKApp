@@ -91,7 +91,7 @@ final class VKNetworkService {
     func sendRequestGroupVK(
         method: String,
         parameterMap: [String: String],
-        completion: @escaping ([ItemGroupVK]) ->
+        completion: @escaping ([VKGroups]) ->
             Void
     ) {
         let path = Constants.methodText + method
@@ -127,7 +127,7 @@ final class VKNetworkService {
 
     // MARK: - Private Methods
 
-    private func saveGroupVKData(_ groupVK: [ItemGroupVK]) {
+    private func saveGroupVKData(_ groupVK: [VKGroups]) {
         do {
             let realm = try Realm()
             realm.beginWrite()
