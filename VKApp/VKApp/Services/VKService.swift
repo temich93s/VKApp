@@ -109,7 +109,7 @@ final class VKService {
         }
     }
 
-    private func createUrlComponents() -> URLComponents {
+    func createUrlComponents() -> URLComponents {
         var urlComponents = URLComponents()
         urlComponents.scheme = Constants.httpsText
         urlComponents.host = Constants.oauthVkComText
