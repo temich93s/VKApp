@@ -20,11 +20,8 @@ final class SearchGroupTableViewController: UITableViewController {
     // MARK: - Private Properties
 
     private var groups: [Group] = []
-
     private var allGroups: [Group] = []
-
     private var items: [ItemGroupVK] = []
-
     private let vkService = VKService()
 
     // MARK: - Lifecycle

@@ -86,24 +86,23 @@ final class FriendsUserViewController: UIViewController {
             method: Constants.friendsGetText,
             parameterMap: [Constants.userIdText: "\(Session.shared.userId)", Constants.fieldsText: Constants.photoText]
         ) { [weak self] items in
-            self?.items = items
+            guard let self = self else { return }
             for item in items {
-                self?.allFriends.append(User(
+                self.allFriends.append(User(
                     userName: "\(item.firstName) \(item.lastName)",
                     userPhotoURLText: item.photo,
                     userPhotosName: Constants.photosName,
                     id: item.id
                 ))
             }
-            guard let allFriends = self?.allFriends else { return }
-            self?.friends = allFriends
-            self?.setupCharacters()
-            self?.makeFriendsForSection()
-            self?.friends.sort {
+            self.friends = self.allFriends
+            self.setupCharacters()
+            self.makeFriendsForSection()
+            self.friends.sort {
                 $0.userName < $1.userName
             }
-            self?.characterSetControl.scrollFromCharacterHandler = self?.scrollFromCharacterHandler
-            self?.friendsTableView.reloadData()
+            self.characterSetControl.scrollFromCharacterHandler = self.scrollFromCharacterHandler
+            self.friendsTableView.reloadData()
         }
     }
 
