@@ -96,7 +96,7 @@ final class GroupUserTableViewController: UITableViewController {
     // MARK: - Private Methods
 
     private func setupView() {
-        vkNetworkService.sendRequestGroupVK(
+        vkNetworkService.fetchGroupVK(
             method: Constants.groupsGetText,
             parameterMap: [
                 Constants.userIdText: "\(Session.shared.userId)",

@@ -78,7 +78,7 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
         if searchText.isEmpty {
             searchBar.endEditing(true)
         } else {
-            vkNetworkService.sendRequestGroupVK(
+            vkNetworkService.fetchGroupVK(
                 method: Constants.groupsSearchText,
                 parameterMap: [Constants.qText: searchText]
             ) { [weak self] items in

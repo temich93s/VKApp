@@ -43,7 +43,7 @@ final class VKNetworkService {
 
     // MARK: - Public Methods
 
-    func sendRequestFriend(
+    func fetchFriend(
         method: String,
         parameterMap: [String: String],
         completion: @escaping ([ItemPerson]) -> Void
@@ -88,7 +88,7 @@ final class VKNetworkService {
         }
     }
 
-    func sendRequestGroupVK(
+    func fetchGroupVK(
         method: String,
         parameterMap: [String: String],
         completion: @escaping ([VKGroups]) ->

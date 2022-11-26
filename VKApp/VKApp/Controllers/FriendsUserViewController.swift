@@ -77,7 +77,7 @@ final class FriendsUserViewController: UIViewController {
             $0.userName < $1.userName
         }
         characterSetControl.scrollFromCharacterHandler = scrollFromCharacterHandler
-        vkNetworkService.sendRequestFriend(
+        vkNetworkService.fetchFriend(
             method: Constants.friendsGetText,
             parameterMap: [Constants.userIdText: "\(Session.shared.userId)", Constants.fieldsText: Constants.photoText]
         ) { [weak self] items in
