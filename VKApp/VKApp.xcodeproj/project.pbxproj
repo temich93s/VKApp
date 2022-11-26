@@ -127,6 +127,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AA0776742931B64900538A52 /* Person */ = {
+			isa = PBXGroup;
+			children = (
+				AA45E59B292E4AE200E452AA /* Person.swift */,
+				AA07766E2931B4AD00538A52 /* ResponsePerson.swift */,
+				AA0776702931B4C400538A52 /* ItemPerson.swift */,
+			);
+			path = Person;
+			sourceTree = "<group>";
+		};
+		AA0776752931B66200538A52 /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				AAC07588292BAD4700799DF7 /* Session.swift */,
+			);
+			path = Singleton;
+			sourceTree = "<group>";
+		};
 		AA73C24329127F1000715351 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,15 +166,12 @@
 		AA73C2462912830F00715351 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AA0776742931B64900538A52 /* Person */,
 				AA73C2472912831E00715351 /* User.swift */,
 				AA73C2492912839E00715351 /* Group.swift */,
 				AA5090F129178A3C005E7DC4 /* News.swift */,
-				AAC07588292BAD4700799DF7 /* Session.swift */,
-				AA45E59B292E4AE200E452AA /* Person.swift */,
 				AA45E59D292E5DE300E452AA /* Photo.swift */,
 				AA3C4E15292F43A300CF40A3 /* GroupVK.swift */,
-				AA07766E2931B4AD00538A52 /* ResponsePerson.swift */,
-				AA0776702931B4C400538A52 /* ItemPerson.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -193,6 +208,7 @@
 		AA8441AA290FD9B400F2F135 /* VKApp */ = {
 			isa = PBXGroup;
 			children = (
+				AA0776752931B66200538A52 /* Singleton */,
 				AAC0758F292BC6E600799DF7 /* Services */,
 				AA76FCA4291BC00B00400F30 /* CustomUIComponents */,
 				AA88BB05291A554E004EB2DE /* Extensions */,
