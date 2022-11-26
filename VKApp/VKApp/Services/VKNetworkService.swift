@@ -63,7 +63,7 @@ final class VKNetworkService {
         }
     }
 
-    func sendRequestPhotos(
+    func fetchPhotos(
         method: String,
         parameterMap: [String: String],
         completion: @escaping ([String]) ->

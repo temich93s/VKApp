@@ -91,7 +91,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     // MARK: - Private Methods
 
     private func setupView() {
-        vkNetworkService.sendRequestPhotos(
+        vkNetworkService.fetchPhotos(
             method: Constants.photosGetAllText,
             parameterMap: [Constants.ownerIdText: "\(user.id)"]
         ) { [weak self] photosURLText in
