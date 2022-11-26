@@ -8,7 +8,7 @@ struct User {
     /// Имя фото самого пользователя
     let userPhotoURLText: String
     /// Имена фотографий пользователя
-    var userPhotosName: [String]
+    var userPhotoNames: [String]
     /// Идентификатор пользователя на портале VK
     let id: Int
 }

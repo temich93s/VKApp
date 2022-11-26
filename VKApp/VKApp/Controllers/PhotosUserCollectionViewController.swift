@@ -20,7 +20,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     private var user = User(
         userName: Constants.emptyText,
         userPhotoURLText: Constants.emptyText,
-        userPhotosName: [Constants.emptyText],
+        userPhotoNames: [Constants.emptyText],
         id: 0
     )
 
@@ -41,7 +41,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        user.userPhotosName.count
+        user.userPhotoNames.count
     }
 
     override func collectionView(
@@ -53,9 +53,9 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
                 withReuseIdentifier: Constants.photosUserCellID,
                 for: indexPath
             ) as? PhotosUserCollectionViewCell,
-            indexPath.row < user.userPhotosName.count
+            indexPath.row < user.userPhotoNames.count
         else { return UICollectionViewCell() }
-        cell.configure(userPhoto: user.userPhotosName[indexPath.row])
+        cell.configure(userPhoto: user.userPhotoNames[indexPath.row])
         return cell
     }
 
@@ -84,7 +84,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
         else { return }
         destination.configureBigPhotosUserVC(
             currentUserPhotoIndex: pressedCellCurrentIndex,
-            userPhotosName: user.userPhotosName
+            userPhotosName: user.userPhotoNames
         )
     }
 
@@ -96,7 +96,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             parameterMap: [Constants.ownerIdText: "\(user.id)"]
         ) { [weak self] photosURLText in
             guard let self = self else { return }
-            self.user.userPhotosName = photosURLText
+            self.user.userPhotoNames = photosURLText
             self.collectionView.reloadData()
         }
     }
