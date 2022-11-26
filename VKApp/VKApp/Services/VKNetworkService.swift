@@ -41,6 +41,8 @@ final class VKNetworkService {
         Constants.vText: Constants.bdateNumberText
     ]
 
+    private var realmService = RealmService()
+
     // MARK: - Public Methods
 
     func fetchFriend(
@@ -53,12 +55,13 @@ final class VKNetworkService {
             parameters[parameter.key] = parameter.value
         }
         let url = "\(Constants.baseUrl)\(path)"
-        Alamofire.request(url, method: .get, parameters: parameters).responseData { response in
+        Alamofire.request(url, method: .get, parameters: parameters).responseData { [weak self] response in
             guard
+                let self = self,
                 let data = response.value,
                 let items = try? JSONDecoder().decode(Person.self, from: data).response.items
             else { return }
-            self.saveFriendsData(items)
+            self.realmService.saveFriendsData(items)
             completion(items)
         }
     }
@@ -74,8 +77,9 @@ final class VKNetworkService {
             parameters[parameter.key] = parameter.value
         }
         let url = "\(Constants.baseUrl)\(path)"
-        Alamofire.request(url, method: .get, parameters: parameters).responseData { response in
+        Alamofire.request(url, method: .get, parameters: parameters).responseData { [weak self] response in
             guard
+                let self = self,
                 let data = response.value,
                 let items = try? JSONDecoder().decode(Photo.self, from: data).response.items
             else { return }
@@ -83,7 +87,7 @@ final class VKNetworkService {
             for item in items {
                 photosURLText.append(item.url)
             }
-            self.savePhotosData(items)
+            self.realmService.savePhotosData(items)
             completion(photosURLText)
         }
     }
@@ -99,12 +103,13 @@ final class VKNetworkService {
             parameters[parameter.key] = parameter.value
         }
         let url = "\(Constants.baseUrl)\(path)"
-        Alamofire.request(url, method: .get, parameters: parameters).responseData { response in
+        Alamofire.request(url, method: .get, parameters: parameters).responseData { [weak self] response in
             guard
+                let self = self,
                 let data = response.value,
                 let items = try? JSONDecoder().decode(GroupVK.self, from: data).response.items
             else { return }
-            self.saveGroupVKData(items)
+            self.realmService.saveGroupVKData(items)
             completion(items)
         }
     }
@@ -123,40 +128,5 @@ final class VKNetworkService {
             URLQueryItem(name: Constants.vText, value: Constants.vValueText)
         ]
         return urlComponents
-    }
-
-    // MARK: - Private Methods
-
-    private func saveGroupVKData(_ groupVK: [VKGroups]) {
-        do {
-            let realm = try Realm()
-            realm.beginWrite()
-            realm.add(groupVK)
-            try realm.commitWrite()
-        } catch {
-            print(error)
-        }
-    }
-
-    private func saveFriendsData(_ friends: [ItemPerson]) {
-        do {
-            let realm = try Realm()
-            realm.beginWrite()
-            realm.add(friends)
-            try realm.commitWrite()
-        } catch {
-            print(error)
-        }
-    }
-
-    private func savePhotosData(_ photos: [ItemPhoto]) {
-        do {
-            let realm = try Realm()
-            realm.beginWrite()
-            realm.add(photos)
-            try realm.commitWrite()
-        } catch {
-            print(error)
-        }
     }
 }
