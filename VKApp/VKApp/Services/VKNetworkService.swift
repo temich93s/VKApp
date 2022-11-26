@@ -31,19 +31,15 @@ final class VKNetworkService {
         static let responseTypeText = "response_type"
         static let tokenText = "token"
         static let vValueText = "5.68"
-
         static let groupsGetText = "groups.get"
         static let userIdText = "user_id"
         static let userIdNumberText = "43832436"
         static let extendedText = "extended"
         static let numberOneText = "1"
-
         static let groupsSearchText = "groups.search"
         static let qText = "q"
-
         static let photosGetAllText = "photos.getAll"
         static let ownerIdText = "owner_id"
-
         static let friendsGetText = "friends.get"
         static let photoText = "photo_100"
     }
