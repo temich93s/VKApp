@@ -95,11 +95,12 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
                 method: Constants.groupsSearchText,
                 parameterMap: [Constants.qText: searchText]
             ) { [weak self] items in
-                self?.vkGroups = items
+                guard let self = self else { return }
+                self.vkGroups = items
                 for item in items {
-                    self?.groups.append(Group(groupName: item.name, groupPhotoName: item.photo200))
+                    self.groups.append(Group(groupName: item.name, groupPhotoName: item.photo200))
                 }
-                self?.tableView.reloadData()
+                self.tableView.reloadData()
             }
         }
     }

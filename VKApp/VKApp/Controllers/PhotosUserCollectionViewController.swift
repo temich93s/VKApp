@@ -95,8 +95,9 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             method: Constants.photosGetAllText,
             parameterMap: [Constants.ownerIdText: "\(user.id)"]
         ) { [weak self] photosURLText in
-            self?.user.userPhotosName = photosURLText
-            self?.collectionView.reloadData()
+            guard let self = self else { return }
+            self.user.userPhotosName = photosURLText
+            self.collectionView.reloadData()
         }
     }
 }
