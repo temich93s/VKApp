@@ -9,8 +9,6 @@ final class SearchGroupTableViewController: UITableViewController {
 
     private enum Constants {
         static let groupUserCellID = "SearchGroupCell"
-        static let groupsSearchText = "groups.search"
-        static let qText = "q"
     }
 
     // MARK: - IBOutlet
@@ -91,10 +89,7 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
         if searchText.isEmpty {
             searchBar.endEditing(true)
         } else {
-            vkNetworkService.fetchGroupVK(
-                method: Constants.groupsSearchText,
-                parameterMap: [Constants.qText: searchText]
-            ) { [weak self] items in
+            vkNetworkService.fetchSearchGroupVK(searchText: searchText) { [weak self] items in
                 guard let self = self else { return }
                 self.vkGroups = items
                 for item in items {

@@ -31,15 +31,31 @@ final class VKNetworkService {
         static let responseTypeText = "response_type"
         static let tokenText = "token"
         static let vValueText = "5.68"
+
+        static let groupsGetText = "groups.get"
+        static let userIdText = "user_id"
+        static let userIdNumberText = "43832436"
+        static let extendedText = "extended"
+        static let numberOneText = "1"
+
+        static let groupsSearchText = "groups.search"
+        static let qText = "q"
     }
 
     // MARK: - Private Properties
 
-    private var parameters: Parameters = [
+    private var generalParameters: Parameters = [
         Constants.fieldsText: Constants.bdateText,
         Constants.accessTokenText: Session.shared.token,
         Constants.vText: Constants.bdateNumberText
     ]
+
+    private lazy var parametersGroupVK: Parameters = {
+        var parameters = generalParameters
+        parameters[Constants.userIdText] = "\(Session.shared.userId)"
+        parameters[Constants.extendedText] = Constants.numberOneText
+        return parameters
+    }()
 
     private var realmService = RealmService()
 
@@ -52,10 +68,10 @@ final class VKNetworkService {
     ) {
         let path = Constants.methodText + method
         for parameter in parameterMap {
-            parameters[parameter.key] = parameter.value
+            generalParameters[parameter.key] = parameter.value
         }
         let url = "\(Constants.baseUrl)\(path)"
-        Alamofire.request(url, method: .get, parameters: parameters).responseData { [weak self] response in
+        Alamofire.request(url, method: .get, parameters: generalParameters).responseData { [weak self] response in
             guard
                 let self = self,
                 let data = response.value,
@@ -74,10 +90,10 @@ final class VKNetworkService {
     ) {
         let path = Constants.methodText + method
         for parameter in parameterMap {
-            parameters[parameter.key] = parameter.value
+            generalParameters[parameter.key] = parameter.value
         }
         let url = "\(Constants.baseUrl)\(path)"
-        Alamofire.request(url, method: .get, parameters: parameters).responseData { [weak self] response in
+        Alamofire.request(url, method: .get, parameters: generalParameters).responseData { [weak self] response in
             guard
                 let self = self,
                 let data = response.value,
@@ -92,24 +108,30 @@ final class VKNetworkService {
         }
     }
 
-    func fetchGroupVK(
-        method: String,
-        parameterMap: [String: String],
-        completion: @escaping ([VKGroups]) ->
-            Void
-    ) {
-        let path = Constants.methodText + method
-        for parameter in parameterMap {
-            parameters[parameter.key] = parameter.value
-        }
+    func fetchUserGroupVK(completion: @escaping ([VKGroups]) -> Void) {
+        let path = Constants.methodText + Constants.groupsGetText
         let url = "\(Constants.baseUrl)\(path)"
-        Alamofire.request(url, method: .get, parameters: parameters).responseData { [weak self] response in
+        Alamofire.request(url, method: .get, parameters: parametersGroupVK).responseData { [weak self] response in
             guard
                 let self = self,
                 let data = response.value,
                 let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items
             else { return }
             self.realmService.saveGroupVKData(items)
+            completion(items)
+        }
+    }
+
+    func fetchSearchGroupVK(searchText: String, completion: @escaping ([VKGroups]) -> Void) {
+        let path = Constants.methodText + Constants.groupsSearchText
+        let url = "\(Constants.baseUrl)\(path)"
+        var parametersSearchGroupVK = generalParameters
+        parametersSearchGroupVK[Constants.qText] = searchText
+        Alamofire.request(url, method: .get, parameters: parametersSearchGroupVK).responseData { response in
+            guard
+                let data = response.value,
+                let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items
+            else { return }
             completion(items)
         }
     }

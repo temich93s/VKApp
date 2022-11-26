@@ -11,11 +11,6 @@ final class GroupUserTableViewController: UITableViewController {
         static let segueID = "GoToSearchGroupTableVC"
         static let groupUserCellID = "GroupUserCell"
         static let addGroupSegueID = "AddGroup"
-        static let groupsGetText = "groups.get"
-        static let userIdText = "user_id"
-        static let userIdNumberText = "43832436"
-        static let extendedText = "extended"
-        static let numberOneText = "1"
     }
 
     // MARK: - Private Properties
@@ -96,13 +91,7 @@ final class GroupUserTableViewController: UITableViewController {
     // MARK: - Private Methods
 
     private func setupView() {
-        vkNetworkService.fetchGroupVK(
-            method: Constants.groupsGetText,
-            parameterMap: [
-                Constants.userIdText: "\(Session.shared.userId)",
-                Constants.extendedText: Constants.numberOneText
-            ]
-        ) { [weak self] items in
+        vkNetworkService.fetchUserGroupVK { [weak self] items in
             guard let self = self else { return }
             self.vkGroups = items
             for item in items {
