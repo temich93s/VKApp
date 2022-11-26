@@ -21,7 +21,7 @@ final class SearchGroupTableViewController: UITableViewController {
 
     private var groups: [Group] = []
     private var allGroups: [Group] = []
-    private var items: [VKGroups] = []
+    private var vkGroups: [VKGroups] = []
     private let vkNetworkService = VKNetworkService()
 
     // MARK: - Lifecycle
@@ -82,7 +82,7 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
                 method: Constants.groupsSearchText,
                 parameterMap: [Constants.qText: searchText]
             ) { [weak self] items in
-                self?.items = items
+                self?.vkGroups = items
                 for item in items {
                     self?.groups.append(Group(groupName: item.name, groupPhotoName: item.photo200))
                 }
