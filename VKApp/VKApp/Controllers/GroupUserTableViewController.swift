@@ -20,7 +20,7 @@ final class GroupUserTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private let vkService = VKService()
+    private let vkNetworkService = VKNetworkService()
     private var allGroups: [Group] = []
     private var userGroups: [Group] = []
     private var itemsGroupVK: [ItemGroupVK] = []
@@ -96,7 +96,7 @@ final class GroupUserTableViewController: UITableViewController {
     // MARK: - Private Methods
 
     private func setupView() {
-        vkService.sendRequestGroupVK(
+        vkNetworkService.sendRequestGroupVK(
             method: Constants.groupsGetText,
             parameterMap: [
                 Constants.userIdText: "\(Session.shared.userId)",

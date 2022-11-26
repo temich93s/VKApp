@@ -33,7 +33,7 @@ final class LoginVKViewController: UIViewController {
 
     // MARK: - Private properties
 
-    private let vkService = VKService()
+    private let vkNetworkService = VKNetworkService()
 
     // MARK: - Lifecycle
 
@@ -45,7 +45,7 @@ final class LoginVKViewController: UIViewController {
     // MARK: - Private Methods
 
     private func loadWebView() {
-        let urlComponents = vkService.createUrlComponents()
+        let urlComponents = vkNetworkService.createUrlComponents()
         guard let safeURL = urlComponents.url else { return }
         let request = URLRequest(url: safeURL)
         webview.load(request)

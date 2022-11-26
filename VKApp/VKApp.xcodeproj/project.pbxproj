@@ -39,7 +39,7 @@
 		AABC5984291014360014890B /* PhotosUserCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC5983291014360014890B /* PhotosUserCollectionViewController.swift */; };
 		AAC07589292BAD4700799DF7 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC07588292BAD4700799DF7 /* Session.swift */; };
 		AAC0758B292BAEAF00799DF7 /* LoginVKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC0758A292BAEAF00799DF7 /* LoginVKViewController.swift */; };
-		AAC07591292BC71100799DF7 /* VKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC07590292BC71100799DF7 /* VKService.swift */; };
+		AAC07591292BC71100799DF7 /* VKNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC07590292BC71100799DF7 /* VKNetworkService.swift */; };
 		AAEF7F5D2913C245001AB6CD /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEF7F5C2913C245001AB6CD /* ShadowView.swift */; };
 		AAEF7F5F2913CAE6001AB6CD /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEF7F5E2913CAE6001AB6CD /* LikeControl.swift */; };
 		AAEF7F612913D491001AB6CD /* CharacterSetControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEF7F602913D491001AB6CD /* CharacterSetControl.swift */; };
@@ -85,7 +85,7 @@
 		AABC5983291014360014890B /* PhotosUserCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosUserCollectionViewController.swift; sourceTree = "<group>"; };
 		AAC07588292BAD4700799DF7 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		AAC0758A292BAEAF00799DF7 /* LoginVKViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVKViewController.swift; sourceTree = "<group>"; };
-		AAC07590292BC71100799DF7 /* VKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKService.swift; sourceTree = "<group>"; };
+		AAC07590292BC71100799DF7 /* VKNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKNetworkService.swift; sourceTree = "<group>"; };
 		AAEF7F5C2913C245001AB6CD /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		AAEF7F5E2913CAE6001AB6CD /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 		AAEF7F602913D491001AB6CD /* CharacterSetControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSetControl.swift; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 		AAC0758F292BC6E600799DF7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				AAC07590292BC71100799DF7 /* VKService.swift */,
+				AAC07590292BC71100799DF7 /* VKNetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -414,7 +414,7 @@
 				AA73C2482912831E00715351 /* User.swift in Sources */,
 				AA5090EC291789B0005E7DC4 /* NewsViewController.swift in Sources */,
 				AAC0758B292BAEAF00799DF7 /* LoginVKViewController.swift in Sources */,
-				AAC07591292BC71100799DF7 /* VKService.swift in Sources */,
+				AAC07591292BC71100799DF7 /* VKNetworkService.swift in Sources */,
 				AABC5984291014360014890B /* PhotosUserCollectionViewController.swift in Sources */,
 				AA73C24529127F2600715351 /* FriendsUserTableViewCell.swift in Sources */,
 				AAEF7F612913D491001AB6CD /* CharacterSetControl.swift in Sources */,

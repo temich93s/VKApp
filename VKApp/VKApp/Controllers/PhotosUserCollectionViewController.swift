@@ -26,7 +26,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     private var currentIndexPressedCell = 0
 
-    private let vkService = VKService()
+    private let vkNetworkService = VKNetworkService()
 
     // MARK: - Lifecycle
 
@@ -92,7 +92,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     // MARK: - Private Methods
 
     private func setupView() {
-        vkService.sendRequestPhotos(
+        vkNetworkService.sendRequestPhotos(
             method: Constants.photosGetAllText,
             parameterMap: [Constants.ownerIdText: "\(user.id)"]
         ) { [weak self] photosURLText in

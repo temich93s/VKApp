@@ -31,16 +31,11 @@ final class FriendsUserViewController: UIViewController {
 
     // MARK: - Private Properties
 
-    private let vkService = VKService()
-
+    private let vkNetworkService = VKNetworkService()
     private var allFriends: [User] = []
-
     private lazy var friends = allFriends
-
     private var friendsForSection: [Character: [User]] = [:]
-
     private var charactersName: [Character] = []
-
     private var items: [ItemPerson] = []
 
     private lazy var scrollFromCharacterHandler: CharacterHandler? = { [weak self] character in
@@ -82,7 +77,7 @@ final class FriendsUserViewController: UIViewController {
             $0.userName < $1.userName
         }
         characterSetControl.scrollFromCharacterHandler = scrollFromCharacterHandler
-        vkService.sendRequestFriend(
+        vkNetworkService.sendRequestFriend(
             method: Constants.friendsGetText,
             parameterMap: [Constants.userIdText: "\(Session.shared.userId)", Constants.fieldsText: Constants.photoText]
         ) { [weak self] items in

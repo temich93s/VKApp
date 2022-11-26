@@ -22,7 +22,7 @@ final class SearchGroupTableViewController: UITableViewController {
     private var groups: [Group] = []
     private var allGroups: [Group] = []
     private var items: [ItemGroupVK] = []
-    private let vkService = VKService()
+    private let vkNetworkService = VKNetworkService()
 
     // MARK: - Lifecycle
 
@@ -78,7 +78,7 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
         if searchText.isEmpty {
             searchBar.endEditing(true)
         } else {
-            vkService.sendRequestGroupVK(
+            vkNetworkService.sendRequestGroupVK(
                 method: Constants.groupsSearchText,
                 parameterMap: [Constants.qText: searchText]
             ) { [weak self] items in

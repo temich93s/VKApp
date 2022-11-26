@@ -1,4 +1,4 @@
-// VKService.swift
+// VKNetworkService.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Alamofire
@@ -6,7 +6,7 @@ import Foundation
 import RealmSwift
 
 /// Менеджер сетевых запросов по API VK
-final class VKService {
+final class VKNetworkService {
     // MARK: - Constants
 
     private enum Constants {
