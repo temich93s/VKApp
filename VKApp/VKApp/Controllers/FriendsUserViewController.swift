@@ -16,10 +16,6 @@ final class FriendsUserViewController: UIViewController {
         static let segueID = "GoToPhotosUserCollectionVC"
         static let whiteColorName = "WhiteColor"
         static let darkBlueColorName = "DarkBlueColor"
-        static let friendsGetText = "friends.get"
-        static let userIdText = "user_id"
-        static let fieldsText = "fields"
-        static let photoText = "photo_100"
         static let photosName: [String] = []
     }
 
@@ -77,10 +73,7 @@ final class FriendsUserViewController: UIViewController {
             $0.userName < $1.userName
         }
         characterSetControl.scrollFromCharacterHandler = scrollFromCharacterHandler
-        vkNetworkService.fetchFriend(
-            method: Constants.friendsGetText,
-            parameterMap: [Constants.userIdText: "\(Session.shared.userId)", Constants.fieldsText: Constants.photoText]
-        ) { [weak self] items in
+        vkNetworkService.fetchFriendsVK { [weak self] items in
             guard let self = self else { return }
             for item in items {
                 self.allFriends.append(User(

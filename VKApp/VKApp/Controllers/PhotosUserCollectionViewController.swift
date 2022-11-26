@@ -11,8 +11,6 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
         static let photosUserCellID = "PhotosUserCell"
         static let emptyText = ""
         static let GoToBigPhotosUserVCSegueID = "GoToBigPhotosUserVC"
-        static let photosGetAllText = "photos.getAll"
-        static let ownerIdText = "owner_id"
     }
 
     // MARK: - Private Properties
@@ -91,10 +89,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     // MARK: - Private Methods
 
     private func setupView() {
-        vkNetworkService.fetchPhotos(
-            method: Constants.photosGetAllText,
-            parameterMap: [Constants.ownerIdText: "\(user.id)"]
-        ) { [weak self] photosURLText in
+        vkNetworkService.fetchPhotosVK(userID: "\(user.id)") { [weak self] photosURLText in
             guard let self = self else { return }
             self.user.userPhotoNames = photosURLText
             self.collectionView.reloadData()

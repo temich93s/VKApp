@@ -91,7 +91,7 @@ final class GroupUserTableViewController: UITableViewController {
     // MARK: - Private Methods
 
     private func setupView() {
-        vkNetworkService.fetchUserGroupVK { [weak self] items in
+        vkNetworkService.fetchUserGroupsVK { [weak self] items in
             guard let self = self else { return }
             self.vkGroups = items
             for item in items {

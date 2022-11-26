@@ -89,7 +89,7 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
         if searchText.isEmpty {
             searchBar.endEditing(true)
         } else {
-            vkNetworkService.fetchSearchGroupVK(searchText: searchText) { [weak self] items in
+            vkNetworkService.fetchSearchGroupsVK(searchText: searchText) { [weak self] items in
                 guard let self = self else { return }
                 self.vkGroups = items
                 for item in items {

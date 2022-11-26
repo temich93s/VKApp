@@ -40,6 +40,12 @@ final class VKNetworkService {
 
         static let groupsSearchText = "groups.search"
         static let qText = "q"
+
+        static let photosGetAllText = "photos.getAll"
+        static let ownerIdText = "owner_id"
+
+        static let friendsGetText = "friends.get"
+        static let photoText = "photo_100"
     }
 
     // MARK: - Private Properties
@@ -57,21 +63,21 @@ final class VKNetworkService {
         return parameters
     }()
 
+    private lazy var parametersFriendsVK: Parameters = {
+        var parameters = generalParameters
+        parameters[Constants.userIdText] = "\(Session.shared.userId)"
+        parameters[Constants.fieldsText] = Constants.photoText
+        return parameters
+    }()
+
     private var realmService = RealmService()
 
     // MARK: - Public Methods
 
-    func fetchFriend(
-        method: String,
-        parameterMap: [String: String],
-        completion: @escaping ([ItemPerson]) -> Void
-    ) {
-        let path = Constants.methodText + method
-        for parameter in parameterMap {
-            generalParameters[parameter.key] = parameter.value
-        }
+    func fetchFriendsVK(completion: @escaping ([ItemPerson]) -> Void) {
+        let path = Constants.methodText + Constants.friendsGetText
         let url = "\(Constants.baseUrl)\(path)"
-        Alamofire.request(url, method: .get, parameters: generalParameters).responseData { [weak self] response in
+        Alamofire.request(url, method: .get, parameters: parametersFriendsVK).responseData { [weak self] response in
             guard
                 let self = self,
                 let data = response.value,
@@ -82,18 +88,12 @@ final class VKNetworkService {
         }
     }
 
-    func fetchPhotos(
-        method: String,
-        parameterMap: [String: String],
-        completion: @escaping ([String]) ->
-            Void
-    ) {
-        let path = Constants.methodText + method
-        for parameter in parameterMap {
-            generalParameters[parameter.key] = parameter.value
-        }
+    func fetchPhotosVK(userID: String, completion: @escaping ([String]) -> Void) {
+        let path = Constants.methodText + Constants.photosGetAllText
         let url = "\(Constants.baseUrl)\(path)"
-        Alamofire.request(url, method: .get, parameters: generalParameters).responseData { [weak self] response in
+        var parametersPhotos = generalParameters
+        parametersPhotos[Constants.ownerIdText] = userID
+        Alamofire.request(url, method: .get, parameters: parametersPhotos).responseData { [weak self] response in
             guard
                 let self = self,
                 let data = response.value,
@@ -108,7 +108,7 @@ final class VKNetworkService {
         }
     }
 
-    func fetchUserGroupVK(completion: @escaping ([VKGroups]) -> Void) {
+    func fetchUserGroupsVK(completion: @escaping ([VKGroups]) -> Void) {
         let path = Constants.methodText + Constants.groupsGetText
         let url = "\(Constants.baseUrl)\(path)"
         Alamofire.request(url, method: .get, parameters: parametersGroupVK).responseData { [weak self] response in
@@ -122,7 +122,7 @@ final class VKNetworkService {
         }
     }
 
-    func fetchSearchGroupVK(searchText: String, completion: @escaping ([VKGroups]) -> Void) {
+    func fetchSearchGroupsVK(searchText: String, completion: @escaping ([VKGroups]) -> Void) {
         let path = Constants.methodText + Constants.groupsSearchText
         let url = "\(Constants.baseUrl)\(path)"
         var parametersSearchGroupVK = generalParameters
