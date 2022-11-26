@@ -107,7 +107,7 @@ final class VKNetworkService {
             guard
                 let self = self,
                 let data = response.value,
-                let items = try? JSONDecoder().decode(GroupVK.self, from: data).response.items
+                let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items
             else { return }
             self.realmService.saveGroupVKData(items)
             completion(items)
