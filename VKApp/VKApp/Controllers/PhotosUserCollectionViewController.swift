@@ -24,8 +24,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
         id: 0
     )
 
-    private var currentIndexPressedCell = 0
-
+    private var pressedCellCurrentIndex = 0
     private let vkNetworkService = VKNetworkService()
 
     // MARK: - Lifecycle
@@ -84,7 +83,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             let destination = segue.destination as? BigPhotosUserViewController
         else { return }
         destination.configureBigPhotosUserVC(
-            currentUserPhotoIndex: currentIndexPressedCell,
+            currentUserPhotoIndex: pressedCellCurrentIndex,
             userPhotosName: user.userPhotosName
         )
     }
@@ -114,7 +113,7 @@ extension PhotosUserCollectionViewController: UICollectionViewDelegateFlowLayout
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        currentIndexPressedCell = indexPath.row
+        pressedCellCurrentIndex = indexPath.row
         performSegue(withIdentifier: Constants.GoToBigPhotosUserVCSegueID, sender: self)
     }
 }
