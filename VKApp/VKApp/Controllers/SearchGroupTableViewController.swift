@@ -73,8 +73,21 @@ final class SearchGroupTableViewController: UITableViewController {
 // MARK: - UISearchBarDelegate
 
 extension SearchGroupTableViewController: UISearchBarDelegate {
+    // MARK: - Public Methods
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         groups = allGroups
+        searchGroup(searchBar: searchBar, searchText: searchText)
+        tableView.reloadData()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+
+    // MARK: - Private Methods
+
+    func searchGroup(searchBar: UISearchBar, searchText: String) {
         if searchText.isEmpty {
             searchBar.endEditing(true)
         } else {
@@ -89,10 +102,5 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
                 self?.tableView.reloadData()
             }
         }
-        tableView.reloadData()
-    }
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.endEditing(true)
     }
 }
