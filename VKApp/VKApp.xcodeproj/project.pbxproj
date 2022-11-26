@@ -10,6 +10,8 @@
 		AA07766D2931B16000538A52 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA07766C2931B16000538A52 /* RealmService.swift */; };
 		AA07766F2931B4AD00538A52 /* ResponsePerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA07766E2931B4AD00538A52 /* ResponsePerson.swift */; };
 		AA0776712931B4C400538A52 /* ItemPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0776702931B4C400538A52 /* ItemPerson.swift */; };
+		AA0776782931B6AD00538A52 /* ResponsePhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0776772931B6AD00538A52 /* ResponsePhoto.swift */; };
+		AA07767A2931B6C700538A52 /* ItemPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0776792931B6C700538A52 /* ItemPhoto.swift */; };
 		AA0D998E291BD71C009877B2 /* CustomPushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D998D291BD71C009877B2 /* CustomPushAnimator.swift */; };
 		AA0D9990291BD729009877B2 /* CustomPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D998F291BD729009877B2 /* CustomPopAnimator.swift */; };
 		AA3C4E16292F43A300CF40A3 /* GroupVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3C4E15292F43A300CF40A3 /* GroupVK.swift */; };
@@ -57,6 +59,8 @@
 		AA07766C2931B16000538A52 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		AA07766E2931B4AD00538A52 /* ResponsePerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsePerson.swift; sourceTree = "<group>"; };
 		AA0776702931B4C400538A52 /* ItemPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPerson.swift; sourceTree = "<group>"; };
+		AA0776772931B6AD00538A52 /* ResponsePhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsePhoto.swift; sourceTree = "<group>"; };
+		AA0776792931B6C700538A52 /* ItemPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPhoto.swift; sourceTree = "<group>"; };
 		AA0D998D291BD71C009877B2 /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; };
 		AA0D998F291BD729009877B2 /* CustomPopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimator.swift; sourceTree = "<group>"; };
 		AA3C4E15292F43A300CF40A3 /* GroupVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupVK.swift; sourceTree = "<group>"; };
@@ -145,6 +149,16 @@
 			path = Singleton;
 			sourceTree = "<group>";
 		};
+		AA0776762931B69900538A52 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				AA45E59D292E5DE300E452AA /* Photo.swift */,
+				AA0776772931B6AD00538A52 /* ResponsePhoto.swift */,
+				AA0776792931B6C700538A52 /* ItemPhoto.swift */,
+			);
+			path = Photo;
+			sourceTree = "<group>";
+		};
 		AA73C24329127F1000715351 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,11 +180,11 @@
 		AA73C2462912830F00715351 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AA0776762931B69900538A52 /* Photo */,
 				AA0776742931B64900538A52 /* Person */,
 				AA73C2472912831E00715351 /* User.swift */,
 				AA73C2492912839E00715351 /* Group.swift */,
 				AA5090F129178A3C005E7DC4 /* News.swift */,
-				AA45E59D292E5DE300E452AA /* Photo.swift */,
 				AA3C4E15292F43A300CF40A3 /* GroupVK.swift */,
 			);
 			path = Models;
@@ -419,6 +433,7 @@
 				AA844203290FEB3B00F2F135 /* LoginViewController.swift in Sources */,
 				AA73C24A2912839E00715351 /* Group.swift in Sources */,
 				AA8441AC290FD9B400F2F135 /* AppDelegate.swift in Sources */,
+				AA07767A2931B6C700538A52 /* ItemPhoto.swift in Sources */,
 				AA76FCA6291BC05600400F30 /* CustomInteractiveTransition.swift in Sources */,
 				AA5090F529179C7E005E7DC4 /* NewsImageCollectionViewCell.swift in Sources */,
 				AAEF7F5D2913C245001AB6CD /* ShadowView.swift in Sources */,
@@ -431,6 +446,7 @@
 				AAEF7F632913D8E7001AB6CD /* FriendsUserViewController.swift in Sources */,
 				AA07766F2931B4AD00538A52 /* ResponsePerson.swift in Sources */,
 				AA45E59E292E5DE300E452AA /* Photo.swift in Sources */,
+				AA0776782931B6AD00538A52 /* ResponsePhoto.swift in Sources */,
 				AA73C24C291287E200715351 /* PhotosUserCollectionViewCell.swift in Sources */,
 				AAC07589292BAD4700799DF7 /* Session.swift in Sources */,
 				AA0D9990291BD729009877B2 /* CustomPopAnimator.swift in Sources */,
