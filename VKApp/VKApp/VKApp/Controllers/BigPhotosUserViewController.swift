@@ -1,6 +1,7 @@
 // BigPhotosUserViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import RealmSwift
 import UIKit
 
 /// Экран просмотра фотографий в большом виде
@@ -29,8 +30,10 @@ final class BigPhotosUserViewController: UIViewController {
 
     // MARK: - Public Methods
 
-    func configureBigPhotosUserVC(currentUserPhotoIndex: Int, userPhotosName: [String]) {
-        userPhotoNames = userPhotosName
+    func configureBigPhotosUserVC(currentUserPhotoIndex: Int, userPhotosName: List<ItemPhoto>) {
+        for userPhotoName in userPhotosName {
+            userPhotoNames.append(userPhotoName.url)
+        }
         self.currentUserPhotoIndex = currentUserPhotoIndex
     }
 

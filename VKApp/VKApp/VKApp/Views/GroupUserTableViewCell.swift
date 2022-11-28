@@ -23,10 +23,10 @@ final class GroupUserTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configure(group: Group) {
+    func configure(group: VKGroups) {
         selectionStyle = .none
-        groupNameLabel.text = group.groupName
-        vkNetworkService.setupImage(urlPath: group.groupPhotoName, imageView: groupPhotoImageView)
+        groupNameLabel.text = group.name
+        vkNetworkService.setupImage(urlPath: group.photo200, imageView: groupPhotoImageView)
     }
 
     func animateGroupPhotoImageView() {
