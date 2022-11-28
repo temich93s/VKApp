@@ -10,8 +10,6 @@ final class ItemPhoto: Object, Decodable {
     @objc dynamic var type: String = ""
     /// Ссылка на фотографию
     @objc dynamic var url: String = ""
-    /// Владелец фотографий
-    let parentCategory = LinkingObjects(fromType: ItemPerson.self, property: "photos")
 
     // MARK: - enum
 

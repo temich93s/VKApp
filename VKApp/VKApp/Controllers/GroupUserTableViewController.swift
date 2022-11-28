@@ -1,7 +1,6 @@
 // GroupUserTableViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
-import RealmSwift
 import UIKit
 
 /// Экран с группами пользователя
@@ -17,10 +16,9 @@ final class GroupUserTableViewController: UITableViewController {
     // MARK: - Private Properties
 
     private let vkNetworkService = VKNetworkService()
-    private let realmService = RealmService()
+    private var allGroups: [Group] = []
+    private var userGroups: [Group] = []
     private var vkGroups: [VKGroups] = []
-    private var token: NotificationToken?
-    private var groupsResults: Results<VKGroups>?
 
     // MARK: - Lifecycle
 
@@ -32,7 +30,7 @@ final class GroupUserTableViewController: UITableViewController {
     // MARK: - Public Methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        groupsResults?.count ?? 0
+        userGroups.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -42,10 +40,9 @@ final class GroupUserTableViewController: UITableViewController {
                 withIdentifier: Constants.groupUserCellID,
                 for: indexPath
             ) as? GroupUserTableViewCell,
-            let groupsResults = groupsResults,
-            indexPath.row < groupsResults.count
+            indexPath.row < userGroups.count
         else { return UITableViewCell() }
-        cell.configure(group: groupsResults[indexPath.row])
+        cell.configure(group: userGroups[indexPath.row])
         return cell
     }
 
@@ -55,8 +52,17 @@ final class GroupUserTableViewController: UITableViewController {
         forRowAt indexPath: IndexPath
     ) {
         if editingStyle == .delete {
-            realmService.deleteGroupVKData(vkGroups.remove(at: indexPath.row))
+            allGroups.append(userGroups.remove(at: indexPath.row))
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard
+            segue.identifier == Constants.segueID,
+            let destination = segue.destination as? SearchGroupTableViewController
+        else { return }
+        destination.configureSearchGroupTableVC(groups: allGroups)
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -72,60 +78,26 @@ final class GroupUserTableViewController: UITableViewController {
             let source = segue.source as? SearchGroupTableViewController,
             let indexPath = source.tableView.indexPathForSelectedRow,
             let group = source.returnGroup(index: indexPath.row),
-            !vkGroups.contains(group)
+            !userGroups.contains(group)
         else { return }
-        vkGroups.append(group)
-        realmService.saveGroupVKData(vkGroups)
+        for (index, groupFromAllGroups) in allGroups.enumerated() {
+            guard group == groupFromAllGroups else { continue }
+            allGroups.remove(at: index)
+        }
+        userGroups.append(group)
+        tableView.reloadData()
     }
 
     // MARK: - Private Methods
 
     private func setupView() {
-        setupToken()
-        loadFromRealm()
-        loadFromNetwork()
-    }
-
-    private func loadFromRealm() {
-        guard let groupsResults = groupsResults else { return }
-        vkGroups = Array(groupsResults)
-        print(vkGroups.count)
-    }
-
-    private func loadFromNetwork() {
-        vkNetworkService.fetchUserGroupsVK { [weak self] in
+        vkNetworkService.fetchUserGroupsVK { [weak self] items in
             guard let self = self else { return }
-            self.loadFromRealm()
-        }
-    }
-
-    private func setupToken() {
-        do {
-            let realm = try Realm()
-            groupsResults = realm.objects(VKGroups.self)
-        } catch {
-            print(error)
-        }
-        guard let groupsResults = groupsResults else { return }
-        token = groupsResults.observe { [weak self] (changes: RealmCollectionChange) in
-            guard let self = self else { return }
-            switch changes {
-            case .initial:
-                self.tableView.reloadData()
-            case let .update(_, deletions, insertions, modifications):
-                // .update(_, deletions, insertions, modifications)
-                // self.tableView.reloadData()
-                self.tableView.beginUpdates()
-                self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
-                self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
-                self.tableView.reloadRows(
-                    at: modifications.map { IndexPath(row: $0, section: 0) },
-                    with: .automatic
-                )
-                self.tableView.endUpdates()
-            case let .error(error):
-                print(error)
+            self.vkGroups = items
+            for item in items {
+                self.userGroups.append(Group(groupName: item.name, groupPhotoName: item.photo200))
             }
+            self.tableView.reloadData()
         }
     }
 }

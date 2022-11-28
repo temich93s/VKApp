@@ -21,7 +21,7 @@ final class VKNetworkService {
         static let oauthVkComText = "oauth.vk.com"
         static let authorizeText = "/authorize"
         static let clientIdText = "client_id"
-        static let clientIdNumberText = "51488018"
+        static let clientIdNumberText = "51485381"
         static let displayText = "display"
         static let mobileText = "mobile"
         static let redirectUriText = "redirect_uri"
@@ -70,7 +70,7 @@ final class VKNetworkService {
 
     // MARK: - Public Methods
 
-    func fetchFriendsVK(completion: @escaping () -> ()) {
+    func fetchFriendsVK(completion: @escaping ([ItemPerson]) -> Void) {
         let path = Constants.methodText + Constants.friendsGetText
         let url = "\(Constants.baseUrl)\(path)"
         Alamofire.request(url, method: .get, parameters: parametersFriendsVK).responseData { [weak self] response in
@@ -80,31 +80,31 @@ final class VKNetworkService {
                 let items = try? JSONDecoder().decode(Person.self, from: data).response.items
             else { return }
             self.realmService.saveFriendsData(items)
-            completion()
+            completion(items)
         }
     }
 
-    func fetchPhotosVK(person: ItemPerson, completion: @escaping () -> ()) {
+    func fetchPhotosVK(userID: String, completion: @escaping ([String]) -> Void) {
         let path = Constants.methodText + Constants.photosGetAllText
         let url = "\(Constants.baseUrl)\(path)"
         var parametersPhotos = generalParameters
-        parametersPhotos[Constants.ownerIdText] = "\(person.id)"
+        parametersPhotos[Constants.ownerIdText] = userID
         Alamofire.request(url, method: .get, parameters: parametersPhotos).responseData { [weak self] response in
             guard
                 let self = self,
                 let data = response.value,
                 let items = try? JSONDecoder().decode(Photo.self, from: data).response.items
             else { return }
-            let updatePerson = person
-            let photosPerson = List<ItemPhoto>()
-            photosPerson.append(objectsIn: items)
-            updatePerson.photos = photosPerson
-            self.realmService.savePhotosData(updatePerson)
-            completion()
+            var photosURLText: [String] = []
+            for item in items {
+                photosURLText.append(item.url)
+            }
+            self.realmService.savePhotosData(items)
+            completion(photosURLText)
         }
     }
 
-    func fetchUserGroupsVK(completion: @escaping () -> ()) {
+    func fetchUserGroupsVK(completion: @escaping ([VKGroups]) -> Void) {
         let path = Constants.methodText + Constants.groupsGetText
         let url = "\(Constants.baseUrl)\(path)"
         Alamofire.request(url, method: .get, parameters: parametersGroupVK).responseData { [weak self] response in
@@ -113,9 +113,8 @@ final class VKNetworkService {
                 let data = response.value,
                 let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items
             else { return }
-            print("items ", items.count)
             self.realmService.saveGroupVKData(items)
-            completion()
+            completion(items)
         }
     }
 

@@ -1,7 +1,6 @@
 // FriendsUserViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
-import RealmSwift
 import UIKit
 
 // MARK: - typealias
@@ -29,12 +28,11 @@ final class FriendsUserViewController: UIViewController {
     // MARK: - Private Properties
 
     private let vkNetworkService = VKNetworkService()
-    private var friendsForSection: [Character: [ItemPerson]] = [:]
+    private var allFriends: [User] = []
+    private lazy var friends = allFriends
+    private var friendsForSection: [Character: [User]] = [:]
     private var charactersName: [Character] = []
     private var personItems: [ItemPerson] = []
-    private var allFriends: [ItemPerson] = []
-    private var token: NotificationToken?
-    private var friendsResults: Results<ItemPerson>?
 
     private lazy var scrollFromCharacterHandler: CharacterHandler? = { [weak self] character in
         guard
@@ -71,21 +69,37 @@ final class FriendsUserViewController: UIViewController {
         friendsSearchBar.delegate = self
         setupCharacters()
         makeFriendsForSection()
-        personItems.sort {
-            $0.fullName < $1.fullName
+        friends.sort {
+            $0.userName < $1.userName
         }
         characterSetControl.scrollFromCharacterHandler = scrollFromCharacterHandler
-        setupToken()
-        loadFromRealm()
-        loadFromNetwork()
+        vkNetworkService.fetchFriendsVK { [weak self] items in
+            guard let self = self else { return }
+            for item in items {
+                self.allFriends.append(User(
+                    userName: "\(item.firstName) \(item.lastName)",
+                    userPhotoURLText: item.photo,
+                    userPhotoNames: Constants.photosName,
+                    id: item.id
+                ))
+            }
+            self.friends = self.allFriends
+            self.setupCharacters()
+            self.makeFriendsForSection()
+            self.friends.sort {
+                $0.userName < $1.userName
+            }
+            self.characterSetControl.scrollFromCharacterHandler = self.scrollFromCharacterHandler
+            self.friendsTableView.reloadData()
+        }
     }
 
     private func setupCharacters() {
         charactersName = []
-        for friend in personItems {
+        for friend in friends {
             guard
-                !friend.fullName.isEmpty,
-                let safeChatacter = friend.fullName.first,
+                !friend.userName.isEmpty,
+                let safeChatacter = friend.userName.first,
                 !charactersName.contains(safeChatacter)
             else { continue }
             charactersName.append(safeChatacter)
@@ -96,79 +110,16 @@ final class FriendsUserViewController: UIViewController {
 
     private func makeFriendsForSection() {
         for character in charactersName {
-            var friendsForCharacter: [ItemPerson] = []
-            for friend in personItems {
+            var friendsForCharacter: [User] = []
+            for friend in friends {
                 guard
-                    !friend.fullName.isEmpty,
-                    let safeChatacter = friend.fullName.first,
+                    !friend.userName.isEmpty,
+                    let safeChatacter = friend.userName.first,
                     character == safeChatacter
                 else { continue }
                 friendsForCharacter.append(friend)
             }
             friendsForSection[character] = friendsForCharacter
-        }
-    }
-
-    private func loadFromRealm() {
-        do {
-            let realm = try Realm()
-            let persons = Array(realm.objects(ItemPerson.self))
-            setupDataUI(persons: persons)
-        } catch {
-            print(error)
-        }
-    }
-
-    private func loadFromNetwork() {
-        vkNetworkService.fetchFriendsVK { [weak self] in
-            guard let self = self else { return }
-            self.loadFromRealm()
-        }
-    }
-
-    private func setupDataUI(persons: [ItemPerson]) {
-        allFriends = persons
-        personItems = persons
-        setupCharacters()
-        makeFriendsForSection()
-        personItems.sort {
-            $0.fullName < $1.fullName
-        }
-        characterSetControl.scrollFromCharacterHandler = scrollFromCharacterHandler
-        friendsTableView.reloadData()
-    }
-
-    private func setupToken() {
-        do {
-            let realm = try Realm()
-            friendsResults = realm.objects(ItemPerson.self)
-        } catch {
-            print(error)
-        }
-        guard let friendsResults = friendsResults else { return }
-        token = friendsResults.observe { [weak self] (changes: RealmCollectionChange) in
-            guard let self = self else { return }
-            switch changes {
-            case .initial:
-                self.friendsTableView.reloadData()
-            case let .update(_, deletions, insertions, modifications):
-                // .update(_, deletions, insertions, modifications)
-                // self.tableView.reloadData()
-                self.loadFromRealm()
-                self.friendsTableView.beginUpdates()
-                self.friendsTableView.insertRows(
-                    at: insertions.map { IndexPath(row: $0, section: 0) },
-                    with: .automatic
-                )
-                self.friendsTableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
-                self.friendsTableView.reloadRows(
-                    at: modifications.map { IndexPath(row: $0, section: 0) },
-                    with: .automatic
-                )
-                self.friendsTableView.endUpdates()
-            case let .error(error):
-                print(error)
-            }
         }
     }
 }
@@ -195,11 +146,10 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
                 withIdentifier: Constants.friendsUserCellID,
                 for: indexPath
             ) as? FriendsUserTableViewCell,
-            indexPath.row < personItems.count,
+            indexPath.row < friends.count,
             indexPath.section < charactersName.count,
             let friendsForSection = friendsForSection[charactersName[indexPath.section]]
         else { return UITableViewCell() }
-        print(friendsForSection[indexPath.row])
         cell.configure(user: friendsForSection[indexPath.row])
         return cell
     }
@@ -226,12 +176,12 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
 
 extension FriendsUserViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        personItems = allFriends
+        friends = allFriends
         if searchText.isEmpty {
             searchBar.endEditing(true)
         } else {
-            personItems = personItems.filter { user in
-                user.fullName.range(of: searchText, options: .caseInsensitive) != nil
+            friends = friends.filter { user in
+                user.userName.range(of: searchText, options: .caseInsensitive) != nil
             }
         }
         setupCharacters()
