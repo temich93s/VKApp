@@ -16,10 +16,10 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     // MARK: - Private Properties
 
-    private var user = ItemPerson()
+    private var currentPerson = ItemPerson()
     private var pressedCellCurrentIndex = 0
     private let vkNetworkService = VKNetworkService()
-    private var token: NotificationToken?
+    private var notificationToken: NotificationToken?
 
     // MARK: - Lifecycle
 
@@ -31,11 +31,11 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     // MARK: - Public Methods
 
     func configurePhotosUserCollectionVC(currentUser: ItemPerson) {
-        user = currentUser
+        currentPerson = currentUser
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        user.photos.count
+        currentPerson.photos.count
     }
 
     override func collectionView(
@@ -47,9 +47,9 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
                 withReuseIdentifier: Constants.photosUserCellID,
                 for: indexPath
             ) as? PhotosUserCollectionViewCell,
-            indexPath.row < user.photos.count
+            indexPath.row < currentPerson.photos.count
         else { return UICollectionViewCell() }
-        cell.configure(userPhoto: user.photos[indexPath.row].url)
+        cell.configure(userPhoto: currentPerson.photos[indexPath.row].url)
         return cell
     }
 
@@ -78,14 +78,14 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
         else { return }
         destination.configureBigPhotosUserVC(
             currentUserPhotoIndex: pressedCellCurrentIndex,
-            userPhotosName: user.photos
+            userPhotosName: currentPerson.photos
         )
     }
 
     // MARK: - Private Methods
 
     private func setupView() {
-        setupToken()
+        setupNotificationToken()
         loadFromRealm()
         loadFromNetwork()
     }
@@ -94,32 +94,32 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
         do {
             let realm = try Realm()
             let persons = Array(realm.objects(ItemPerson.self))
-            for person in persons where person.id == user.id {
-                user = person
+            for person in persons where person.id == currentPerson.id {
+                currentPerson = person
             }
             collectionView.reloadData()
         } catch {}
     }
 
     private func loadFromNetwork() {
-        vkNetworkService.fetchPhotosVK(person: createCurrentPerson()) { [weak self] in
+        vkNetworkService.fetchPhotosVK(person: createPersonForSave()) { [weak self] in
             guard let self = self else { return }
             self.loadFromRealm()
         }
     }
 
-    private func createCurrentPerson() -> ItemPerson {
+    private func createPersonForSave() -> ItemPerson {
         let person = ItemPerson()
-        person.id = user.id
-        person.photo = user.photo
-        person.photos = user.photos
-        person.firstName = user.firstName
-        person.lastName = user.lastName
+        person.id = currentPerson.id
+        person.photo = currentPerson.photo
+        person.photos = currentPerson.photos
+        person.firstName = currentPerson.firstName
+        person.lastName = currentPerson.lastName
         return person
     }
 
-    private func setupToken() {
-        token = user.observe { [weak self] change in
+    private func setupNotificationToken() {
+        notificationToken = currentPerson.observe { [weak self] change in
             guard let self = self else { return }
             switch change {
             case .change, .deleted:

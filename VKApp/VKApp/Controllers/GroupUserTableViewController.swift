@@ -19,7 +19,7 @@ final class GroupUserTableViewController: UITableViewController {
     private let vkNetworkService = VKNetworkService()
     private let realmService = RealmService()
     private var vkGroups: [VKGroups] = []
-    private var token: NotificationToken?
+    private var notificationToken: NotificationToken?
     private var groupsResults: Results<VKGroups>?
 
     // MARK: - Lifecycle
@@ -81,7 +81,7 @@ final class GroupUserTableViewController: UITableViewController {
     // MARK: - Private Methods
 
     private func setupView() {
-        setupToken()
+        setupNotificationToken()
         loadFromRealm()
         loadFromNetwork()
     }
@@ -98,20 +98,18 @@ final class GroupUserTableViewController: UITableViewController {
         }
     }
 
-    private func setupToken() {
+    private func setupNotificationToken() {
         do {
             let realm = try Realm()
             groupsResults = realm.objects(VKGroups.self)
         } catch {}
         guard let groupsResults = groupsResults else { return }
-        token = groupsResults.observe { [weak self] (changes: RealmCollectionChange) in
+        notificationToken = groupsResults.observe { [weak self] (changes: RealmCollectionChange) in
             guard let self = self else { return }
             switch changes {
             case .initial:
                 self.tableView.reloadData()
             case let .update(_, deletions, insertions, modifications):
-                // .update(_, deletions, insertions, modifications)
-                // self.tableView.reloadData()
                 self.tableView.beginUpdates()
                 self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
                 self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
