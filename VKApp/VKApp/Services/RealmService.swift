@@ -15,10 +15,7 @@ struct RealmService {
             try realm.write {
                 realm.add(groupVK, update: .modified)
             }
-            print(realm.configuration.fileURL)
-        } catch {
-            print(error)
-        }
+        } catch {}
     }
 
     func deleteGroupVKData(_ groupVK: VKGroups) {
@@ -28,10 +25,7 @@ struct RealmService {
             try realm.write {
                 realm.delete(groupVK)
             }
-            print(realm.configuration.fileURL)
-        } catch {
-            print(error)
-        }
+        } catch {}
     }
 
     func saveFriendsData(_ friends: [ItemPerson]) {
@@ -41,10 +35,7 @@ struct RealmService {
             try realm.write {
                 realm.add(friends, update: .modified)
             }
-            print(realm.configuration.fileURL)
-        } catch {
-            print(error)
-        }
+        } catch {}
     }
 
     func savePhotosData(_ photos: ItemPerson) {
@@ -54,9 +45,6 @@ struct RealmService {
             try realm.write {
                 realm.add(photos, update: .modified)
             }
-            print(realm.configuration.fileURL)
-        } catch {
-            print(error)
-        }
+        } catch {}
     }
 }

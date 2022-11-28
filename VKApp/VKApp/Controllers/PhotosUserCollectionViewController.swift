@@ -98,9 +98,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
                 user = person
             }
             collectionView.reloadData()
-        } catch {
-            print(error)
-        }
+        } catch {}
     }
 
     private func loadFromNetwork() {
@@ -124,14 +122,11 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
         token = user.observe { [weak self] change in
             guard let self = self else { return }
             switch change {
-            case let .change(properties):
-                print(properties)
+            case .change, .deleted:
                 self.loadFromRealm()
                 self.collectionView.reloadData()
-            case let .error(error):
-                print("An error occurred: \(error)")
-            case .deleted:
-                print("The object was deleted.")
+            case .error:
+                break
             }
         }
     }

@@ -89,7 +89,6 @@ final class GroupUserTableViewController: UITableViewController {
     private func loadFromRealm() {
         guard let groupsResults = groupsResults else { return }
         vkGroups = Array(groupsResults)
-        print(vkGroups.count)
     }
 
     private func loadFromNetwork() {
@@ -103,9 +102,7 @@ final class GroupUserTableViewController: UITableViewController {
         do {
             let realm = try Realm()
             groupsResults = realm.objects(VKGroups.self)
-        } catch {
-            print(error)
-        }
+        } catch {}
         guard let groupsResults = groupsResults else { return }
         token = groupsResults.observe { [weak self] (changes: RealmCollectionChange) in
             guard let self = self else { return }
@@ -123,8 +120,7 @@ final class GroupUserTableViewController: UITableViewController {
                     with: .automatic
                 )
                 self.tableView.endUpdates()
-            case let .error(error):
-                print(error)
+            case .error: break
             }
         }
     }

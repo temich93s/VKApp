@@ -114,9 +114,7 @@ final class FriendsUserViewController: UIViewController {
             let realm = try Realm()
             let persons = Array(realm.objects(ItemPerson.self))
             setupDataUI(persons: persons)
-        } catch {
-            print(error)
-        }
+        } catch {}
     }
 
     private func loadFromNetwork() {
@@ -142,9 +140,7 @@ final class FriendsUserViewController: UIViewController {
         do {
             let realm = try Realm()
             friendsResults = realm.objects(ItemPerson.self)
-        } catch {
-            print(error)
-        }
+        } catch {}
         guard let friendsResults = friendsResults else { return }
         token = friendsResults.observe { [weak self] (changes: RealmCollectionChange) in
             guard let self = self else { return }
@@ -166,8 +162,7 @@ final class FriendsUserViewController: UIViewController {
                     with: .automatic
                 )
                 self.friendsTableView.endUpdates()
-            case let .error(error):
-                print(error)
+            case .error: break
             }
         }
     }
@@ -199,7 +194,6 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
             indexPath.section < charactersName.count,
             let friendsForSection = friendsForSection[charactersName[indexPath.section]]
         else { return UITableViewCell() }
-        print(friendsForSection[indexPath.row])
         cell.configure(user: friendsForSection[indexPath.row])
         return cell
     }

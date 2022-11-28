@@ -4,7 +4,10 @@
 import Foundation
 import UIKit
 
+/// Добавление установки изображения из сети в UIImageView
 extension UIImageView {
+    // MARK: - Public Methods
+
     func setupImage(urlPath: String?) {
         guard
             let urlPath = urlPath,
