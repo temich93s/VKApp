@@ -17,10 +17,6 @@ final class FriendsUserTableViewCell: UITableViewCell {
     @IBOutlet private var friendPhotoImageView: UIImageView!
     @IBOutlet private var shadowView: ShadowView!
 
-    // MARK: - Private Properties
-
-    private let vkNetworkService = VKNetworkService()
-
     // MARK: - Lifecycle
 
     override func awakeFromNib() {
@@ -36,7 +32,7 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     func configure(user: ItemPerson) {
         friendNameLabel.text = user.fullName
-        vkNetworkService.setupImage(urlPath: user.photo, imageView: friendPhotoImageView)
+        friendPhotoImageView.setupImage(urlPath: user.photo)
         self.user = user
     }
 
