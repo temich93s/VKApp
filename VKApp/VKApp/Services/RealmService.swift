@@ -10,10 +10,25 @@ struct RealmService {
 
     func saveGroupVKData(_ groupVK: [VKGroups]) {
         do {
-            let realm = try Realm()
-            realm.beginWrite()
-            realm.add(groupVK)
-            try realm.commitWrite()
+            let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+            let realm = try Realm(configuration: config)
+            try realm.write {
+                realm.add(groupVK, update: .modified)
+            }
+            print(realm.configuration.fileURL)
+        } catch {
+            print(error)
+        }
+    }
+
+    func deleteGroupVKData(_ groupVK: VKGroups) {
+        do {
+            let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+            let realm = try Realm(configuration: config)
+            try realm.write {
+                realm.delete(groupVK)
+            }
+            print(realm.configuration.fileURL)
         } catch {
             print(error)
         }
@@ -21,21 +36,25 @@ struct RealmService {
 
     func saveFriendsData(_ friends: [ItemPerson]) {
         do {
-            let realm = try Realm()
-            realm.beginWrite()
-            realm.add(friends)
-            try realm.commitWrite()
+            let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+            let realm = try Realm(configuration: config)
+            try realm.write {
+                realm.add(friends, update: .modified)
+            }
+            print(realm.configuration.fileURL)
         } catch {
             print(error)
         }
     }
 
-    func savePhotosData(_ photos: [ItemPhoto]) {
+    func savePhotosData(_ photos: ItemPerson) {
         do {
-            let realm = try Realm()
-            realm.beginWrite()
-            realm.add(photos)
-            try realm.commitWrite()
+            let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+            let realm = try Realm(configuration: config)
+            try realm.write {
+                realm.add(photos, update: .modified)
+            }
+            print(realm.configuration.fileURL)
         } catch {
             print(error)
         }

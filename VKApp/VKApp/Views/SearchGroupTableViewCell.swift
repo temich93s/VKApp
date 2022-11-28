@@ -18,14 +18,18 @@ final class SearchGroupTableViewCell: UITableViewCell {
 
     // MARK: - Public Properties
 
-    var group = Group(groupName: Constants.emptyText, groupPhotoName: Constants.emptyText)
+    var group = VKGroups()
+
+    // MARK: - Private Properties
+
+    private let vkNetworkService = VKNetworkService()
 
     // MARK: - Public Methods
 
-    func configure(group: Group) {
+    func configure(group: VKGroups) {
         selectionStyle = .none
-        groupNameLabel.text = group.groupName
-        groupPhotoImageView.setupImage(urlPath: group.groupPhotoName)
+        groupNameLabel.text = group.name
+        vkNetworkService.setupImage(urlPath: group.photo200, imageView: groupPhotoImageView)
         self.group = group
     }
 }

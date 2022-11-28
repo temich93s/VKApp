@@ -1,6 +1,7 @@
 // PhotosUserCollectionViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import RealmSwift
 import UIKit
 
 /// Экран с фотографиями пользователя
@@ -15,15 +16,10 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     // MARK: - Private Properties
 
-    private var user = User(
-        userName: Constants.emptyText,
-        userPhotoURLText: Constants.emptyText,
-        userPhotoNames: [Constants.emptyText],
-        id: 0
-    )
-
+    private var user = ItemPerson()
     private var pressedCellCurrentIndex = 0
     private let vkNetworkService = VKNetworkService()
+    private var token: NotificationToken?
 
     // MARK: - Lifecycle
 
@@ -34,12 +30,12 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     // MARK: - Public Methods
 
-    func configurePhotosUserCollectionVC(currentUser: User) {
+    func configurePhotosUserCollectionVC(currentUser: ItemPerson) {
         user = currentUser
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        user.userPhotoNames.count
+        user.photos.count
     }
 
     override func collectionView(
@@ -51,9 +47,9 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
                 withReuseIdentifier: Constants.photosUserCellID,
                 for: indexPath
             ) as? PhotosUserCollectionViewCell,
-            indexPath.row < user.userPhotoNames.count
+            indexPath.row < user.photos.count
         else { return UICollectionViewCell() }
-        cell.configure(userPhoto: user.userPhotoNames[indexPath.row])
+        cell.configure(userPhoto: user.photos[indexPath.row].url)
         return cell
     }
 
@@ -82,17 +78,61 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
         else { return }
         destination.configureBigPhotosUserVC(
             currentUserPhotoIndex: pressedCellCurrentIndex,
-            userPhotosName: user.userPhotoNames
+            userPhotosName: user.photos
         )
     }
 
     // MARK: - Private Methods
 
     private func setupView() {
-        vkNetworkService.fetchPhotosVK(userID: "\(user.id)") { [weak self] photosURLText in
+        setupToken()
+        loadFromRealm()
+        loadFromNetwork()
+    }
+
+    private func loadFromRealm() {
+        do {
+            let realm = try Realm()
+            let persons = Array(realm.objects(ItemPerson.self))
+            for person in persons where person.id == user.id {
+                user = person
+            }
+            collectionView.reloadData()
+        } catch {
+            print(error)
+        }
+    }
+
+    private func loadFromNetwork() {
+        vkNetworkService.fetchPhotosVK(person: createCurrentPerson()) { [weak self] in
             guard let self = self else { return }
-            self.user.userPhotoNames = photosURLText
-            self.collectionView.reloadData()
+            self.loadFromRealm()
+        }
+    }
+
+    private func createCurrentPerson() -> ItemPerson {
+        let person = ItemPerson()
+        person.id = user.id
+        person.photo = user.photo
+        person.photos = user.photos
+        person.firstName = user.firstName
+        person.lastName = user.lastName
+        return person
+    }
+
+    private func setupToken() {
+        token = user.observe { [weak self] change in
+            guard let self = self else { return }
+            switch change {
+            case let .change(properties):
+                print(properties)
+                self.loadFromRealm()
+                self.collectionView.reloadData()
+            case let .error(error):
+                print("An error occurred: \(error)")
+            case .deleted:
+                print("The object was deleted.")
+            }
         }
     }
 }
