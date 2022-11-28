@@ -18,8 +18,8 @@ final class SearchGroupTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private var searchGroups: [VKGroups] = []
     private let vkNetworkService = VKNetworkService()
+    private var searchGroups: [VKGroups] = []
 
     // MARK: - Lifecycle
 
@@ -75,8 +75,6 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
     }
-
-    // MARK: - Private Methods
 
     func searchGroup(searchBar: UISearchBar, searchText: String) {
         if searchText.isEmpty {

@@ -16,9 +16,9 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     // MARK: - Private Properties
 
+    private let vkNetworkService = VKNetworkService()
     private var currentPerson = ItemPerson()
     private var pressedCellCurrentIndex = 0
-    private let vkNetworkService = VKNetworkService()
     private var notificationToken: NotificationToken?
 
     // MARK: - Lifecycle
