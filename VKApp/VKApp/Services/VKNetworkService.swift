@@ -71,11 +71,10 @@ final class VKNetworkService {
     // MARK: - Public Methods
 
     func fetchFriendsVK(completion: @escaping () -> ()) {
-        let path = Constants.methodText + Constants.friendsGetText
+        let path = "\(Constants.methodText)\(Constants.friendsGetText)"
         let url = "\(Constants.baseUrl)\(path)"
-        Alamofire.request(url, method: .get, parameters: parametersFriendsVK).responseData { [weak self] response in
+        Alamofire.request(url, method: .get, parameters: parametersFriendsVK).responseData { response in
             guard
-                let self = self,
                 let data = response.value,
                 let items = try? JSONDecoder().decode(Person.self, from: data).response.items
             else { return }
@@ -85,13 +84,12 @@ final class VKNetworkService {
     }
 
     func fetchPhotosVK(person: ItemPerson, completion: @escaping () -> ()) {
-        let path = Constants.methodText + Constants.photosGetAllText
+        let path = "\(Constants.methodText)\(Constants.photosGetAllText)"
         let url = "\(Constants.baseUrl)\(path)"
         var parametersPhotos = generalParameters
         parametersPhotos[Constants.ownerIdText] = "\(person.id)"
-        Alamofire.request(url, method: .get, parameters: parametersPhotos).responseData { [weak self] response in
+        Alamofire.request(url, method: .get, parameters: parametersPhotos).responseData { response in
             guard
-                let self = self,
                 let data = response.value,
                 let items = try? JSONDecoder().decode(Photo.self, from: data).response.items
             else { return }
@@ -105,11 +103,10 @@ final class VKNetworkService {
     }
 
     func fetchUserGroupsVK(completion: @escaping () -> ()) {
-        let path = Constants.methodText + Constants.groupsGetText
+        let path = "\(Constants.methodText)\(Constants.groupsGetText)"
         let url = "\(Constants.baseUrl)\(path)"
-        Alamofire.request(url, method: .get, parameters: parametersGroupVK).responseData { [weak self] response in
+        Alamofire.request(url, method: .get, parameters: parametersGroupVK).responseData { response in
             guard
-                let self = self,
                 let data = response.value,
                 let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items
             else { return }
@@ -120,7 +117,7 @@ final class VKNetworkService {
     }
 
     func fetchSearchGroupsVK(searchText: String, completion: @escaping ([VKGroups]) -> Void) {
-        let path = Constants.methodText + Constants.groupsSearchText
+        let path = "\(Constants.methodText)\(Constants.groupsSearchText)"
         let url = "\(Constants.baseUrl)\(path)"
         var parametersSearchGroupVK = generalParameters
         parametersSearchGroupVK[Constants.qText] = searchText
