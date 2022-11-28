@@ -9,6 +9,7 @@ final class LoginVKViewController: UIViewController {
     // MARK: - Constants
 
     private enum Constants {
+        static let loginSegueIdentifier = "LoginSegue"
         static let blankHtmlText = "/blank.html"
         static let ampersandText = "&"
         static let equalText = "="
@@ -20,8 +21,6 @@ final class LoginVKViewController: UIViewController {
         static let groupsGetText = "groups.get"
         static let groupsSearchText = "groups.search"
         static let qText = "q"
-        static let testUserText = "43832436"
-        static let testGroupText = "Retrowave"
     }
 
     // MARK: - Private Outlets
@@ -34,7 +33,7 @@ final class LoginVKViewController: UIViewController {
 
     // MARK: - Private properties
 
-    private let vkService = VKService()
+    private let vkNetworkService = VKNetworkService()
 
     // MARK: - Lifecycle
 
@@ -46,45 +45,10 @@ final class LoginVKViewController: UIViewController {
     // MARK: - Private Methods
 
     private func loadWebView() {
-        let urlComponents = vkService.createUrlComponents()
+        let urlComponents = vkNetworkService.createUrlComponents()
         guard let safeURL = urlComponents.url else { return }
         let request = URLRequest(url: safeURL)
         webview.load(request)
-    }
-
-    private func fetchFriends() {
-        vkService.sendRequest(
-            method: Constants.friendsGetText,
-            parameterMap: [Constants.userIdText: String(Session.shared.userId)]
-        )
-    }
-
-    private func fetchPhotoPerson(ownerId: String) {
-        vkService.sendRequest(
-            method: Constants.photosGetAllText,
-            parameterMap: [Constants.ownerIdText: ownerId]
-        )
-    }
-
-    private func fetchCurrentUserGroups() {
-        vkService.sendRequest(
-            method: Constants.groupsGetText,
-            parameterMap: [Constants.userIdText: String(Session.shared.userId)]
-        )
-    }
-
-    private func fetchSearchedGroups(text: String) {
-        vkService.sendRequest(
-            method: Constants.groupsSearchText,
-            parameterMap: [Constants.qText: text]
-        )
-    }
-
-    private func fetchRequestVK() {
-        fetchFriends()
-        fetchPhotoPerson(ownerId: Constants.testUserText)
-        fetchCurrentUserGroups()
-        fetchSearchedGroups(text: Constants.testGroupText)
     }
 }
 
@@ -118,7 +82,6 @@ extension LoginVKViewController: WKNavigationDelegate {
         Session.shared.token = safeToken
         Session.shared.userId = safeUserId
         decisionHandler(.cancel)
-
-        fetchRequestVK()
+        performSegue(withIdentifier: Constants.loginSegueIdentifier, sender: self)
     }
 }

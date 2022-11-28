@@ -18,6 +18,10 @@ final class FriendsUserTableViewCell: UITableViewCell {
     @IBOutlet private var friendPhotoImageView: UIImageView!
     @IBOutlet private var shadowView: ShadowView!
 
+    // MARK: - Private Properties
+
+    private let vkNetworkService = VKNetworkService()
+
     // MARK: - Lifecycle
 
     override func awakeFromNib() {
@@ -29,15 +33,16 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     var user = User(
         userName: Constants.emptyText,
-        userPhotoName: Constants.emptyText,
-        userPhotosName: [Constants.friendPhotoOneText]
+        userPhotoURLText: Constants.emptyText,
+        userPhotoNames: [Constants.friendPhotoOneText],
+        id: 0
     )
 
     // MARK: - Public Methods
 
     func configure(user: User) {
         friendNameLabel.text = user.userName
-        friendPhotoImageView.image = getImage(by: user.userPhotoName)
+        vkNetworkService.setupImage(urlPath: user.userPhotoURLText, imageView: friendPhotoImageView)
         self.user = user
     }
 
@@ -47,11 +52,5 @@ final class FriendsUserTableViewCell: UITableViewCell {
         selectionStyle = .none
         friendPhotoImageView.layer.cornerRadius = friendPhotoImageView.frame.width / 2
         shadowView.shadowColor = .blue
-    }
-
-    // MARK: - Private Methods
-
-    private func getImage(by name: String) -> UIImage? {
-        UIImage(named: name)
     }
 }

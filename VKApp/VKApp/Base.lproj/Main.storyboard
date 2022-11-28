@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qub-4T-Rdx">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -38,12 +39,12 @@
                     </view>
                     <connections>
                         <outlet property="webview" destination="n9o-Ag-UBy" id="Sgt-Jz-pBJ"/>
-                        <segue destination="QuM-xg-hIc" kind="presentation" modalPresentationStyle="fullScreen" id="7UE-HU-mYR"/>
+                        <segue destination="QuM-xg-hIc" kind="presentation" identifier="LoginSegue" modalPresentationStyle="fullScreen" id="7UE-HU-mYR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qaq-uS-APR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-622" y="-90"/>
+            <point key="canvasLocation" x="109" y="66"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -169,7 +170,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="66"/>
+            <point key="canvasLocation" x="109" y="-641"/>
         </scene>
         <!--Friends User View Controller-->
         <scene sceneID="Y3c-0e-Dif">
@@ -358,7 +359,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FriendPhotoOne" translatesAutoresizingMaskIntoConstraints="NO" id="T5K-qJ-b7q">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T5K-qJ-b7q">
                                 <rect key="frame" x="0.0" y="236" width="414" height="414"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="T5K-qJ-b7q" secondAttribute="height" multiplier="1:1" id="8jb-ss-2QE"/>
@@ -642,7 +643,6 @@
         <segue reference="7UE-HU-mYR"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="FriendPhotoOne" width="1440" height="810"/>
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>
         <image name="person.3.sequence.fill" catalog="system" width="128" height="58"/>
         <image name="person.fill.checkmark" catalog="system" width="128" height="88"/>

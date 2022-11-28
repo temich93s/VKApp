@@ -9,12 +9,6 @@ final class SearchGroupTableViewController: UITableViewController {
 
     private enum Constants {
         static let groupUserCellID = "SearchGroupCell"
-        static let groupUserPhotoOneName = "FriendPhotoOne"
-        static let groupUserPhotoSecondName = "FriendPhotoSecond"
-        static let groupUserPhotoThirdName = "FriendPhotoThird"
-        static let groupUserNameOneName = "Питание"
-        static let groupUserNameSecondName = "Спорт"
-        static let groupUserNameThirdName = "Путешествия"
     }
 
     // MARK: - IBOutlet
@@ -25,6 +19,8 @@ final class SearchGroupTableViewController: UITableViewController {
 
     private var groups: [Group] = []
     private var allGroups: [Group] = []
+    private var vkGroups: [VKGroups] = []
+    private let vkNetworkService = VKNetworkService()
 
     // MARK: - Lifecycle
 
@@ -75,19 +71,32 @@ final class SearchGroupTableViewController: UITableViewController {
 // MARK: - UISearchBarDelegate
 
 extension SearchGroupTableViewController: UISearchBarDelegate {
+    // MARK: - Public Methods
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         groups = allGroups
-        if searchText.isEmpty {
-            searchBar.endEditing(true)
-        } else {
-            groups = groups.filter { group in
-                group.groupName.range(of: searchText, options: .caseInsensitive) != nil
-            }
-        }
+        searchGroup(searchBar: searchBar, searchText: searchText)
         tableView.reloadData()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
+    }
+
+    // MARK: - Private Methods
+
+    func searchGroup(searchBar: UISearchBar, searchText: String) {
+        if searchText.isEmpty {
+            searchBar.endEditing(true)
+        } else {
+            vkNetworkService.fetchSearchGroupsVK(searchText: searchText) { [weak self] items in
+                guard let self = self else { return }
+                self.vkGroups = items
+                for item in items {
+                    self.groups.append(Group(groupName: item.name, groupPhotoName: item.photo200))
+                }
+                self.tableView.reloadData()
+            }
+        }
     }
 }

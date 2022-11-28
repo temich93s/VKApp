@@ -5,6 +5,7 @@
 --wrapparameters before-first
 --wrapcollections before-first
 --indent 4
+--exclude Pods
 
 # Генерируем хедер
 --header "{file}\nCopyright © RoadMap. All rights reserved."
