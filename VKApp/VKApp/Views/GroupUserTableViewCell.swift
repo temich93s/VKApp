@@ -17,16 +17,12 @@ final class GroupUserTableViewCell: UITableViewCell {
     @IBOutlet private var groupNameLabel: UILabel!
     @IBOutlet private var groupPhotoImageView: UIImageView!
 
-    // MARK: - Private Properties
-
-    private let vkNetworkService = VKNetworkService()
-
     // MARK: - Public Methods
 
     func configure(group: Group) {
         selectionStyle = .none
         groupNameLabel.text = group.groupName
-        vkNetworkService.setupImage(urlPath: group.groupPhotoName, imageView: groupPhotoImageView)
+        groupPhotoImageView.setupImage(urlPath: group.groupPhotoName)
     }
 
     func animateGroupPhotoImageView() {
