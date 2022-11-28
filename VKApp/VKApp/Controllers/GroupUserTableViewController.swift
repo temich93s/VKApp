@@ -89,6 +89,7 @@ final class GroupUserTableViewController: UITableViewController {
     private func loadFromRealm() {
         guard let groupsResults = groupsResults else { return }
         vkGroups = Array(groupsResults)
+        tableView.reloadData()
     }
 
     private func loadFromNetwork() {
