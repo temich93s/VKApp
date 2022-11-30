@@ -81,16 +81,16 @@ final class BigPhotosUserViewController: UIViewController {
         currentUserPhotoTrailingConstraint.constant = 0
         currentUserPhotoLeadingConstraint.constant = 0
         currentUserPhotoImageView.layer.zPosition = 1
-        vkNetworkService.setupImage(
+        currentUserPhotoImageView.setupImage(
             urlPath: userPhotoNames[currentUserPhotoIndex],
-            imageView: currentUserPhotoImageView
+            networkService: vkNetworkService
         )
         nextUserPhotoTrailingConstraint.constant = -view.frame.width
         nextUserPhotoLeadingConstraint.constant = view.frame.width
         nextUserPhotoImageView.layer.zPosition = 2
-        vkNetworkService.setupImage(
+        nextUserPhotoImageView.setupImage(
             urlPath: userPhotoNames[currentUserPhotoIndex + 1],
-            imageView: nextUserPhotoImageView
+            networkService: vkNetworkService
         )
         view.layoutIfNeeded()
         currentUserPhotoIndex += 1
@@ -117,16 +117,16 @@ final class BigPhotosUserViewController: UIViewController {
         currentUserPhotoTrailingConstraint.constant = 0
         currentUserPhotoLeadingConstraint.constant = 0
         currentUserPhotoImageView.layer.zPosition = 2
-        vkNetworkService.setupImage(
+        currentUserPhotoImageView.setupImage(
             urlPath: userPhotoNames[currentUserPhotoIndex],
-            imageView: currentUserPhotoImageView
+            networkService: vkNetworkService
         )
         nextUserPhotoTrailingConstraint.constant = 50
         nextUserPhotoLeadingConstraint.constant = 50
         nextUserPhotoImageView.layer.zPosition = 1
-        vkNetworkService.setupImage(
+        nextUserPhotoImageView.setupImage(
             urlPath: userPhotoNames[currentUserPhotoIndex - 1],
-            imageView: nextUserPhotoImageView
+            networkService: vkNetworkService
         )
         view.layoutIfNeeded()
         currentUserPhotoIndex -= 1
@@ -139,9 +139,9 @@ final class BigPhotosUserViewController: UIViewController {
 
     private func setupImageViews() {
         guard 0 ..< userPhotoNames.count ~= currentUserPhotoIndex else { return }
-        vkNetworkService.setupImage(
+        currentUserPhotoImageView.setupImage(
             urlPath: userPhotoNames[currentUserPhotoIndex],
-            imageView: currentUserPhotoImageView
+            networkService: vkNetworkService
         )
     }
 

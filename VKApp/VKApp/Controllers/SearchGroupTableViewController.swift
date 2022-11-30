@@ -51,7 +51,7 @@ final class SearchGroupTableViewController: UITableViewController {
             ) as? SearchGroupTableViewCell,
             indexPath.row < searchGroups.count
         else { return UITableViewCell() }
-        cell.configure(group: searchGroups[indexPath.row])
+        cell.configure(group: searchGroups[indexPath.row], vkNetworkService: vkNetworkService)
         return cell
     }
 

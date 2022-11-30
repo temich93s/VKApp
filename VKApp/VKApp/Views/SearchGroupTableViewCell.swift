@@ -26,10 +26,10 @@ final class SearchGroupTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configure(group: VKGroups) {
+    func configure(group: VKGroups, vkNetworkService: VKNetworkService) {
         selectionStyle = .none
         groupNameLabel.text = group.name
-        vkNetworkService.setupImage(urlPath: group.photo200, imageView: groupPhotoImageView)
+        groupPhotoImageView.setupImage(urlPath: group.photo200, networkService: vkNetworkService)
         self.group = group
     }
 }

@@ -66,11 +66,9 @@ final class VKNetworkService {
         return parameters
     }()
 
-    private var realmService = RealmService()
-
     // MARK: - Public Methods
 
-    func fetchFriendsVK(completion: @escaping () -> ()) {
+    func fetchFriendsVK(completion: @escaping ([ItemPerson]) -> ()) {
         let path = "\(Constants.methodText)\(Constants.friendsGetText)"
         let url = "\(Constants.baseUrl)\(path)"
         Alamofire.request(url, method: .get, parameters: parametersFriendsVK).responseData { response in
@@ -78,12 +76,11 @@ final class VKNetworkService {
                 let data = response.value,
                 let items = try? JSONDecoder().decode(Person.self, from: data).response.items
             else { return }
-            self.realmService.saveFriendsData(items)
-            completion()
+            completion(items)
         }
     }
 
-    func fetchPhotosVK(person: ItemPerson, completion: @escaping () -> ()) {
+    func fetchPhotosVK(person: ItemPerson, completion: @escaping (ItemPerson) -> ()) {
         let path = "\(Constants.methodText)\(Constants.photosGetAllText)"
         let url = "\(Constants.baseUrl)\(path)"
         var parametersPhotos = generalParameters
@@ -97,12 +94,11 @@ final class VKNetworkService {
             let photosPerson = List<ItemPhoto>()
             photosPerson.append(objectsIn: items)
             updatePerson.photos = photosPerson
-            self.realmService.savePhotosData(updatePerson)
-            completion()
+            completion(updatePerson)
         }
     }
 
-    func fetchUserGroupsVK(completion: @escaping () -> ()) {
+    func fetchUserGroupsVK(completion: @escaping ([VKGroups]) -> ()) {
         let path = "\(Constants.methodText)\(Constants.groupsGetText)"
         let url = "\(Constants.baseUrl)\(path)"
         Alamofire.request(url, method: .get, parameters: parametersGroupVK).responseData { response in
@@ -110,8 +106,7 @@ final class VKNetworkService {
                 let data = response.value,
                 let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items
             else { return }
-            self.realmService.saveGroupVKData(items)
-            completion()
+            completion(items)
         }
     }
 
@@ -145,17 +140,14 @@ final class VKNetworkService {
         return urlComponents
     }
 
-    func setupImage(urlPath: String?, imageView: UIImageView) {
+    func loadData(urlPath: String?, completion: @escaping (Data?) -> ()) {
         guard
             let urlPath = urlPath,
             let url = URL(string: urlPath)
         else { return }
         DispatchQueue.global().async {
             let data = try? Data(contentsOf: url)
-            DispatchQueue.main.async {
-                guard let data = data else { return }
-                imageView.image = UIImage(data: data)
-            }
+            completion(data)
         }
     }
 }

@@ -116,12 +116,13 @@ final class FriendsUserViewController: UIViewController {
     }
 
     private func fetchFriendsVK() {
-        vkNetworkService.fetchFriendsVK { [weak self] in
+        vkNetworkService.fetchFriendsVK { [weak self] items in
             guard let self = self,
                   let resultsItemPerson = self.realmService.loadData(objectType: ItemPerson.self)
             else { return }
             let persons = Array(resultsItemPerson)
             self.itemPersons = persons
+            self.realmService.saveFriendsData(items)
             self.setupUI(persons: self.itemPersons)
         }
     }
@@ -190,7 +191,7 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
             indexPath.section < charactersName.count,
             let friendsForSectionMap = friendsForSectionMap[charactersName[indexPath.section]]
         else { return UITableViewCell() }
-        cell.configure(user: friendsForSectionMap[indexPath.row])
+        cell.configure(user: friendsForSectionMap[indexPath.row], networkService: vkNetworkService)
         return cell
     }
 

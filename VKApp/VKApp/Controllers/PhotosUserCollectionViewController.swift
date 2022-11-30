@@ -51,7 +51,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             ) as? PhotosUserCollectionViewCell,
             indexPath.row < currentPerson.photos.count
         else { return UICollectionViewCell() }
-        cell.configure(userPhoto: currentPerson.photos[indexPath.row].url)
+        cell.configure(userPhoto: currentPerson.photos[indexPath.row].url, networkService: vkNetworkService)
         return cell
     }
 
@@ -102,7 +102,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     }
 
     private func fetchPhotosVK() {
-        vkNetworkService.fetchPhotosVK(person: createPersonForSave()) { [weak self] in
+        vkNetworkService.fetchPhotosVK(person: createPersonForSave()) { [weak self] person in
             guard let self = self,
                   let resultsItemPersons = self.realmService.loadData(objectType: ItemPerson.self)
             else { return }
@@ -110,6 +110,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             for person in safeItemPersons where person.id == self.currentPerson.id {
                 self.currentPerson = person
             }
+            self.realmService.savePhotosData(person)
             self.collectionView.reloadData()
         }
     }

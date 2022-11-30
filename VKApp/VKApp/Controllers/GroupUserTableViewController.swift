@@ -45,7 +45,7 @@ final class GroupUserTableViewController: UITableViewController {
             ) as? GroupUserTableViewCell,
             indexPath.row < vkGroups.count
         else { return UITableViewCell() }
-        cell.configure(group: vkGroups[indexPath.row])
+        cell.configure(group: vkGroups[indexPath.row], vkNetworkService: vkNetworkService)
         return cell
     }
 
@@ -93,11 +93,12 @@ final class GroupUserTableViewController: UITableViewController {
     }
 
     private func fetchUserGroupsVK() {
-        vkNetworkService.fetchUserGroupsVK { [weak self] in
+        vkNetworkService.fetchUserGroupsVK { [weak self] items in
             guard let self = self,
                   let resultsVkGroups = self.realmService.loadData(objectType: VKGroups.self)
             else { return }
             self.vkGroups = Array(resultsVkGroups)
+            self.realmService.saveGroupVKData(items)
             self.tableView.reloadData()
         }
     }
