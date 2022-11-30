@@ -49,40 +49,11 @@ struct RealmService {
         } catch {}
     }
 
-    func loadFromRealmVKGroups() -> [VKGroups]? {
+    func loadData<T: Object>(objectType: T.Type) -> Results<T>? {
         do {
             let realm = try Realm()
-            let groupsResults = realm.objects(VKGroups.self)
-            let vkGroups = Array(groupsResults)
-            return vkGroups
-        } catch {}
-        return nil
-    }
-
-    func loadFromRealmItemPersons() -> [ItemPerson]? {
-        do {
-            let realm = try Realm()
-            let persons = realm.objects(ItemPerson.self)
-            let itemPerson = Array(persons)
-            return itemPerson
-        } catch {}
-        return nil
-    }
-
-    func loadResultsItemPerson() -> Results<ItemPerson>? {
-        do {
-            let realm = try Realm()
-            let friendsResults = realm.objects(ItemPerson.self)
-            return friendsResults
-        } catch {}
-        return nil
-    }
-
-    func loadResultsVKGroups() -> Results<VKGroups>? {
-        do {
-            let realm = try Realm()
-            let groupsResults = realm.objects(VKGroups.self)
-            return groupsResults
+            let results = realm.objects(objectType)
+            return results
         } catch {}
         return nil
     }

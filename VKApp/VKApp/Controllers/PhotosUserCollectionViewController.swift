@@ -92,22 +92,25 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     }
 
     private func loadData() {
-        loadFromRealm()
-        fetchPhotosVK()
-    }
-
-    private func loadFromRealm() {
-        guard let safeItemPersons = realmService.loadFromRealmItemPersons() else { return }
+        guard let resultsItemPersons = realmService.loadData(objectType: ItemPerson.self) else { return }
+        let safeItemPersons = Array(resultsItemPersons)
         for person in safeItemPersons where person.id == currentPerson.id {
             currentPerson = person
         }
         collectionView.reloadData()
+        fetchPhotosVK()
     }
 
     private func fetchPhotosVK() {
         vkNetworkService.fetchPhotosVK(person: createPersonForSave()) { [weak self] in
-            guard let self = self else { return }
-            self.loadFromRealm()
+            guard let self = self,
+                  let resultsItemPersons = self.realmService.loadData(objectType: ItemPerson.self)
+            else { return }
+            let safeItemPersons = Array(resultsItemPersons)
+            for person in safeItemPersons where person.id == self.currentPerson.id {
+                self.currentPerson = person
+            }
+            self.collectionView.reloadData()
         }
     }
 
@@ -126,7 +129,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             guard let self = self else { return }
             switch change {
             case .change, .deleted:
-                self.loadFromRealm()
+                self.loadData()
                 self.collectionView.reloadData()
             case .error:
                 break

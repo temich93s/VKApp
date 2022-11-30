@@ -79,14 +79,11 @@ final class FriendsUserViewController: UIViewController {
     }
 
     private func loadData() {
-        loadFromRealm()
-        fetchFriendsVK()
-    }
-
-    private func loadFromRealm() {
-        guard let safeItemPerson = realmService.loadFromRealmItemPersons() else { return }
-        itemPersons = safeItemPerson
+        guard let resultsItemPerson = realmService.loadData(objectType: ItemPerson.self) else { return }
+        let persons = Array(resultsItemPerson)
+        itemPersons = persons
         setupUI(persons: itemPersons)
+        fetchFriendsVK()
     }
 
     private func setupCharacters() {
@@ -120,8 +117,12 @@ final class FriendsUserViewController: UIViewController {
 
     private func fetchFriendsVK() {
         vkNetworkService.fetchFriendsVK { [weak self] in
-            guard let self = self else { return }
-            self.loadFromRealm()
+            guard let self = self,
+                  let resultsItemPerson = self.realmService.loadData(objectType: ItemPerson.self)
+            else { return }
+            let persons = Array(resultsItemPerson)
+            self.itemPersons = persons
+            self.setupUI(persons: self.itemPersons)
         }
     }
 
@@ -136,7 +137,7 @@ final class FriendsUserViewController: UIViewController {
     }
 
     private func setupNotificationToken() {
-        guard let friendsResults = realmService.loadResultsItemPerson() else { return }
+        guard let friendsResults = realmService.loadData(objectType: ItemPerson.self) else { return }
         notificationToken = friendsResults.observe { [weak self] (changes: RealmCollectionChange) in
             guard let self = self else { return }
             switch changes {

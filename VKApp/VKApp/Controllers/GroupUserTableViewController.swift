@@ -86,25 +86,24 @@ final class GroupUserTableViewController: UITableViewController {
     }
 
     private func loadData() {
-        loadFromRealm()
-        fetchUserGroupsVK()
-    }
-
-    private func loadFromRealm() {
-        guard let safeVkGroups = realmService.loadFromRealmVKGroups() else { return }
-        vkGroups = safeVkGroups
+        guard let resultsVkGroups = realmService.loadData(objectType: VKGroups.self) else { return }
+        vkGroups = Array(resultsVkGroups)
         tableView.reloadData()
+        fetchUserGroupsVK()
     }
 
     private func fetchUserGroupsVK() {
         vkNetworkService.fetchUserGroupsVK { [weak self] in
-            guard let self = self else { return }
-            self.loadFromRealm()
+            guard let self = self,
+                  let resultsVkGroups = self.realmService.loadData(objectType: VKGroups.self)
+            else { return }
+            self.vkGroups = Array(resultsVkGroups)
+            self.tableView.reloadData()
         }
     }
 
     private func setupNotificationToken() {
-        guard let groupsResults = realmService.loadResultsVKGroups() else { return }
+        guard let groupsResults = realmService.loadData(objectType: VKGroups.self) else { return }
         notificationToken = groupsResults.observe { [weak self] (changes: RealmCollectionChange) in
             guard let self = self else { return }
             self.vkGroups = Array(groupsResults)
