@@ -136,11 +136,7 @@ final class FriendsUserViewController: UIViewController {
     }
 
     private func setupNotificationToken() {
-        do {
-            let realm = try Realm()
-            friendsResults = realm.objects(ItemPerson.self)
-        } catch {}
-        guard let friendsResults = friendsResults else { return }
+        guard let friendsResults = realmService.loadResultsItemPerson() else { return }
         notificationToken = friendsResults.observe { [weak self] (changes: RealmCollectionChange) in
             guard let self = self else { return }
             switch changes {

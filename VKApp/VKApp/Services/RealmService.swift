@@ -68,4 +68,22 @@ struct RealmService {
         } catch {}
         return nil
     }
+
+    func loadResultsItemPerson() -> Results<ItemPerson>? {
+        do {
+            let realm = try Realm()
+            let friendsResults = realm.objects(ItemPerson.self)
+            return friendsResults
+        } catch {}
+        return nil
+    }
+
+    func loadResultsVKGroups() -> Results<VKGroups>? {
+        do {
+            let realm = try Realm()
+            let groupsResults = realm.objects(VKGroups.self)
+            return groupsResults
+        } catch {}
+        return nil
+    }
 }

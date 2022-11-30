@@ -104,11 +104,7 @@ final class GroupUserTableViewController: UITableViewController {
     }
 
     private func setupNotificationToken() {
-        do {
-            let realm = try Realm()
-            groupsResults = realm.objects(VKGroups.self)
-        } catch {}
-        guard let groupsResults = groupsResults else { return }
+        guard let groupsResults = realmService.loadResultsVKGroups() else { return }
         notificationToken = groupsResults.observe { [weak self] (changes: RealmCollectionChange) in
             guard let self = self else { return }
             self.vkGroups = Array(groupsResults)
