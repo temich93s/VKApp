@@ -74,7 +74,7 @@ final class FriendsUserViewController: UIViewController {
         characterSetControl.scrollFromCharacterHandler = scrollFromCharacterHandler
         setupNotificationToken()
         loadFromRealm()
-        loadFromNetwork()
+        fetchFriendsVK()
     }
 
     private func setupCharacters() {
@@ -110,18 +110,18 @@ final class FriendsUserViewController: UIViewController {
         do {
             let realm = try Realm()
             let persons = Array(realm.objects(ItemPerson.self))
-            setupDataUI(persons: persons)
+            setupUI(persons: persons)
         } catch {}
     }
 
-    private func loadFromNetwork() {
+    private func fetchFriendsVK() {
         vkNetworkService.fetchFriendsVK { [weak self] in
             guard let self = self else { return }
             self.loadFromRealm()
         }
     }
 
-    private func setupDataUI(persons: [ItemPerson]) {
+    private func setupUI(persons: [ItemPerson]) {
         allFriends = persons
         itemPersons = persons
         setupCharacters()
