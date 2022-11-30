@@ -84,7 +84,7 @@ final class GroupUserTableViewController: UITableViewController {
     private func setupView() {
         setupNotificationToken()
         loadFromRealm()
-        loadFromNetwork()
+        fetchUserGroupsVK()
     }
 
     private func loadFromRealm() {
@@ -97,7 +97,7 @@ final class GroupUserTableViewController: UITableViewController {
         tableView.reloadData()
     }
 
-    private func loadFromNetwork() {
+    private func fetchUserGroupsVK() {
         vkNetworkService.fetchUserGroupsVK { [weak self] in
             guard let self = self else { return }
             self.loadFromRealm()
