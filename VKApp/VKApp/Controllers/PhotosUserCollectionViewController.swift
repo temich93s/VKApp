@@ -87,7 +87,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     private func setupView() {
         setupNotificationToken()
         loadFromRealm()
-        loadFromNetwork()
+        fetchPhotosVK()
     }
 
     private func loadFromRealm() {
@@ -101,7 +101,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
         } catch {}
     }
 
-    private func loadFromNetwork() {
+    private func fetchPhotosVK() {
         vkNetworkService.fetchPhotosVK(person: createPersonForSave()) { [weak self] in
             guard let self = self else { return }
             self.loadFromRealm()
