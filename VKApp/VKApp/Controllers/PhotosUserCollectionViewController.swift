@@ -17,6 +17,8 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     // MARK: - Private Properties
 
     private let vkNetworkService = VKNetworkService()
+    private let realmService = RealmService()
+
     private var currentPerson = ItemPerson()
     private var pressedCellCurrentIndex = 0
     private var notificationToken: NotificationToken?
@@ -86,19 +88,20 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     private func setupView() {
         setupNotificationToken()
+        loadData()
+    }
+
+    private func loadData() {
         loadFromRealm()
         fetchPhotosVK()
     }
 
     private func loadFromRealm() {
-        do {
-            let realm = try Realm()
-            let persons = Array(realm.objects(ItemPerson.self))
-            for person in persons where person.id == currentPerson.id {
-                currentPerson = person
-            }
-            collectionView.reloadData()
-        } catch {}
+        guard let safeItemPersons = realmService.loadFromRealmItemPersons() else { return }
+        for person in safeItemPersons where person.id == currentPerson.id {
+            currentPerson = person
+        }
+        collectionView.reloadData()
     }
 
     private func fetchPhotosVK() {

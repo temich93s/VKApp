@@ -86,20 +86,20 @@ final class GroupUserTableViewController: UITableViewController {
     }
 
     private func loadData() {
+        loadFromRealm()
+        fetchUserGroupsVK()
+    }
+
+    private func loadFromRealm() {
         guard let safeVkGroups = realmService.loadFromRealmVKGroups() else { return }
         vkGroups = safeVkGroups
         tableView.reloadData()
-        fetchUserGroupsVK()
     }
 
     private func fetchUserGroupsVK() {
         vkNetworkService.fetchUserGroupsVK { [weak self] in
-            guard
-                let self = self,
-                let safeVkGroups = self.realmService.loadFromRealmVKGroups()
-            else { return }
-            self.vkGroups = safeVkGroups
-            self.tableView.reloadData()
+            guard let self = self else { return }
+            self.loadFromRealm()
         }
     }
 

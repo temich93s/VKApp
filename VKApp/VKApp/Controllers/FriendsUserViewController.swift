@@ -79,10 +79,14 @@ final class FriendsUserViewController: UIViewController {
     }
 
     private func loadData() {
-        guard let safeItemPerson = realmService.loadFromRealmItemPerson() else { return }
+        loadFromRealm()
+        fetchFriendsVK()
+    }
+
+    private func loadFromRealm() {
+        guard let safeItemPerson = realmService.loadFromRealmItemPersons() else { return }
         itemPersons = safeItemPerson
         setupUI(persons: itemPersons)
-        fetchFriendsVK()
     }
 
     private func setupCharacters() {
@@ -116,12 +120,8 @@ final class FriendsUserViewController: UIViewController {
 
     private func fetchFriendsVK() {
         vkNetworkService.fetchFriendsVK { [weak self] in
-            guard
-                let self = self,
-                let safeItemPerson = self.realmService.loadFromRealmItemPerson()
-            else { return }
-            self.itemPersons = safeItemPerson
-            self.setupUI(persons: safeItemPerson)
+            guard let self = self else { return }
+            self.loadFromRealm()
         }
     }
 

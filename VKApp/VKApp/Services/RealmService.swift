@@ -59,15 +59,11 @@ struct RealmService {
         return nil
     }
 
-    func loadFromRealmItemPerson() -> [ItemPerson]? {
+    func loadFromRealmItemPersons() -> [ItemPerson]? {
         do {
             let realm = try Realm()
             let persons = realm.objects(ItemPerson.self)
             let itemPerson = Array(persons)
-            //            let realm = try Realm()
-            //            let persons = Array(realm.objects(ItemPerson.self))
-            //            setupUI(persons: persons)
-
             return itemPerson
         } catch {}
         return nil
