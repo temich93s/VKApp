@@ -18,7 +18,7 @@ final class GroupUserTableViewController: UITableViewController {
 
     private let vkNetworkService = VKNetworkService()
     private let realmService = RealmService()
-    
+
     private var vkGroups: [VKGroups] = []
     private var notificationToken: NotificationToken?
     private var groupsResults: Results<VKGroups>?

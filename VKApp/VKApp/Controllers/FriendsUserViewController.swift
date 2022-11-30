@@ -30,7 +30,7 @@ final class FriendsUserViewController: UIViewController {
     private let vkNetworkService = VKNetworkService()
     private var friendsForSectionMap: [Character: [ItemPerson]] = [:]
     private var charactersName: [Character] = []
-    private var friends: [ItemPerson] = []
+    private var itemPersons: [ItemPerson] = []
     private var allFriends: [ItemPerson] = []
     private var notificationToken: NotificationToken?
     private var friendsResults: Results<ItemPerson>?
@@ -70,7 +70,7 @@ final class FriendsUserViewController: UIViewController {
         friendsSearchBar.delegate = self
         setupCharacters()
         makeFriendsForSection()
-        friends.sort { $0.fullName < $1.fullName }
+        itemPersons.sort { $0.fullName < $1.fullName }
         characterSetControl.scrollFromCharacterHandler = scrollFromCharacterHandler
         setupNotificationToken()
         loadFromRealm()
@@ -79,7 +79,7 @@ final class FriendsUserViewController: UIViewController {
 
     private func setupCharacters() {
         charactersName = []
-        for friend in friends {
+        for friend in itemPersons {
             guard
                 !friend.fullName.isEmpty,
                 let safeChatacter = friend.fullName.first,
@@ -94,7 +94,7 @@ final class FriendsUserViewController: UIViewController {
     private func makeFriendsForSection() {
         for character in charactersName {
             var friendsForCharacter: [ItemPerson] = []
-            for friend in friends {
+            for friend in itemPersons {
                 guard
                     !friend.fullName.isEmpty,
                     let safeChatacter = friend.fullName.first,
@@ -123,10 +123,10 @@ final class FriendsUserViewController: UIViewController {
 
     private func setupDataUI(persons: [ItemPerson]) {
         allFriends = persons
-        friends = persons
+        itemPersons = persons
         setupCharacters()
         makeFriendsForSection()
-        friends.sort { $0.fullName < $1.fullName }
+        itemPersons.sort { $0.fullName < $1.fullName }
         characterSetControl.scrollFromCharacterHandler = scrollFromCharacterHandler
         friendsTableView.reloadData()
     }
@@ -185,7 +185,7 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
                 withIdentifier: Constants.friendsUserCellID,
                 for: indexPath
             ) as? FriendsUserTableViewCell,
-            indexPath.row < friends.count,
+            indexPath.row < itemPersons.count,
             indexPath.section < charactersName.count,
             let friendsForSectionMap = friendsForSectionMap[charactersName[indexPath.section]]
         else { return UITableViewCell() }
@@ -215,11 +215,11 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
 
 extension FriendsUserViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        friends = allFriends
+        itemPersons = allFriends
         if searchText.isEmpty {
             searchBar.endEditing(true)
         } else {
-            friends = friends.filter { user in
+            itemPersons = itemPersons.filter { user in
                 user.fullName.range(of: searchText, options: .caseInsensitive) != nil
             }
         }
