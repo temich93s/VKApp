@@ -33,7 +33,7 @@ final class GroupUserTableViewController: UITableViewController {
     // MARK: - Public Methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        groupsResults?.count ?? 0
+        vkGroups.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -43,10 +43,9 @@ final class GroupUserTableViewController: UITableViewController {
                 withIdentifier: Constants.groupUserCellID,
                 for: indexPath
             ) as? GroupUserTableViewCell,
-            let groupsResults = groupsResults,
-            indexPath.row < groupsResults.count
+            indexPath.row < vkGroups.count
         else { return UITableViewCell() }
-        cell.configure(group: groupsResults[indexPath.row])
+        cell.configure(group: vkGroups[indexPath.row])
         return cell
     }
 
@@ -83,24 +82,24 @@ final class GroupUserTableViewController: UITableViewController {
 
     private func setupView() {
         setupNotificationToken()
-        loadFromRealm()
-        fetchUserGroupsVK()
+        loadData()
     }
 
-    private func loadFromRealm() {
-        do {
-            let realm = try Realm()
-            groupsResults = realm.objects(VKGroups.self)
-            guard let groupsResults = groupsResults else { return }
-            vkGroups = Array(groupsResults)
-        } catch {}
+    private func loadData() {
+        guard let safeVkGroups = realmService.loadFromRealmVKGroups() else { return }
+        vkGroups = safeVkGroups
         tableView.reloadData()
+        fetchUserGroupsVK()
     }
 
     private func fetchUserGroupsVK() {
         vkNetworkService.fetchUserGroupsVK { [weak self] in
-            guard let self = self else { return }
-            self.loadFromRealm()
+            guard
+                let self = self,
+                let safeVkGroups = self.realmService.loadFromRealmVKGroups()
+            else { return }
+            self.vkGroups = safeVkGroups
+            self.tableView.reloadData()
         }
     }
 
@@ -112,6 +111,7 @@ final class GroupUserTableViewController: UITableViewController {
         guard let groupsResults = groupsResults else { return }
         notificationToken = groupsResults.observe { [weak self] (changes: RealmCollectionChange) in
             guard let self = self else { return }
+            self.vkGroups = Array(groupsResults)
             switch changes {
             case .initial:
                 self.tableView.reloadData()

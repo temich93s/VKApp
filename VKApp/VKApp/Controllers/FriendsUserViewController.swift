@@ -28,6 +28,8 @@ final class FriendsUserViewController: UIViewController {
     // MARK: - Private Properties
 
     private let vkNetworkService = VKNetworkService()
+    private let realmService = RealmService()
+
     private var friendsForSectionMap: [Character: [ItemPerson]] = [:]
     private var charactersName: [Character] = []
     private var itemPersons: [ItemPerson] = []
@@ -73,7 +75,13 @@ final class FriendsUserViewController: UIViewController {
         itemPersons.sort { $0.fullName < $1.fullName }
         characterSetControl.scrollFromCharacterHandler = scrollFromCharacterHandler
         setupNotificationToken()
-        loadFromRealm()
+        loadData()
+    }
+
+    private func loadData() {
+        guard let safeItemPerson = realmService.loadFromRealmItemPerson() else { return }
+        itemPersons = safeItemPerson
+        setupUI(persons: itemPersons)
         fetchFriendsVK()
     }
 
@@ -106,18 +114,14 @@ final class FriendsUserViewController: UIViewController {
         }
     }
 
-    private func loadFromRealm() {
-        do {
-            let realm = try Realm()
-            let persons = Array(realm.objects(ItemPerson.self))
-            setupUI(persons: persons)
-        } catch {}
-    }
-
     private func fetchFriendsVK() {
         vkNetworkService.fetchFriendsVK { [weak self] in
-            guard let self = self else { return }
-            self.loadFromRealm()
+            guard
+                let self = self,
+                let safeItemPerson = self.realmService.loadFromRealmItemPerson()
+            else { return }
+            self.itemPersons = safeItemPerson
+            self.setupUI(persons: safeItemPerson)
         }
     }
 
