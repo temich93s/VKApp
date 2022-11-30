@@ -28,7 +28,7 @@ final class FriendsUserViewController: UIViewController {
     // MARK: - Private Properties
 
     private let vkNetworkService = VKNetworkService()
-    private var friendsForSection: [Character: [ItemPerson]] = [:]
+    private var friendsForSectionMap: [Character: [ItemPerson]] = [:]
     private var charactersName: [Character] = []
     private var friends: [ItemPerson] = []
     private var allFriends: [ItemPerson] = []
@@ -102,7 +102,7 @@ final class FriendsUserViewController: UIViewController {
                 else { continue }
                 friendsForCharacter.append(friend)
             }
-            friendsForSection[character] = friendsForCharacter
+            friendsForSectionMap[character] = friendsForCharacter
         }
     }
 
@@ -173,7 +173,7 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard
             section < charactersName.count,
-            let countFriendsForSection = friendsForSection[charactersName[section]]?.count
+            let countFriendsForSection = friendsForSectionMap[charactersName[section]]?.count
         else { return 0 }
         return countFriendsForSection
     }
@@ -187,9 +187,9 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
             ) as? FriendsUserTableViewCell,
             indexPath.row < friends.count,
             indexPath.section < charactersName.count,
-            let friendsForSection = friendsForSection[charactersName[indexPath.section]]
+            let friendsForSectionMap = friendsForSectionMap[charactersName[indexPath.section]]
         else { return UITableViewCell() }
-        cell.configure(user: friendsForSection[indexPath.row])
+        cell.configure(user: friendsForSectionMap[indexPath.row])
         return cell
     }
 
