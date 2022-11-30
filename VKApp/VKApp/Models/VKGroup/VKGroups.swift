@@ -5,13 +5,14 @@ import Foundation
 import RealmSwift
 
 /// Группа на которую подписан пользователь
+@objcMembers
 final class VKGroups: Object, Decodable {
     /// id группы
-    @objc dynamic var id = 0
+    dynamic var id = 0
     /// Имя группы
-    @objc dynamic var name: String = ""
+    dynamic var name: String = ""
     /// Фотография группы
-    @objc dynamic var photo200: String = ""
+    dynamic var photo200: String = ""
 
     // MARK: - enum
 
