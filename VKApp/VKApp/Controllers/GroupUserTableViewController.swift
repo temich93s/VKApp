@@ -88,8 +88,12 @@ final class GroupUserTableViewController: UITableViewController {
     }
 
     private func loadFromRealm() {
-        guard let groupsResults = groupsResults else { return }
-        vkGroups = Array(groupsResults)
+        do {
+            let realm = try Realm()
+            groupsResults = realm.objects(VKGroups.self)
+            guard let groupsResults = groupsResults else { return }
+            vkGroups = Array(groupsResults)
+        } catch {}
         tableView.reloadData()
     }
 
