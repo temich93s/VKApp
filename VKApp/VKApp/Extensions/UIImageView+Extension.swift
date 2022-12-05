@@ -5,7 +5,8 @@ import UIKit
 
 /// Установка изображения в UIImageView по ссылке из сети
 extension UIImageView {
-    // MARK - Public Methods
+    // MARK: - Public Methods
+
     func setupImage(urlPath: String?, networkService: VKNetworkService) {
         networkService.loadData(urlPath: urlPath) { [weak self] data in
             guard
