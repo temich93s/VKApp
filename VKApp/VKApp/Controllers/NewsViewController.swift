@@ -87,29 +87,36 @@ final class NewsViewController: UIViewController {
             UINib(nibName: Constants.newsTableViewCellID, bundle: nil),
             forCellReuseIdentifier: Constants.newsTableViewCellID
         )
+        newsTableView.register(
+            UINib(nibName: "FooterNewsTableViewCell", bundle: nil),
+            forCellReuseIdentifier: "FooterNewsTableViewCell"
+        )
     }
 
+//    private func hightCellForImageCollection(numberRow: Int) -> CGFloat {
+//        guard numberRow < allNews.count else { return 0 }
+//        switch allNews[numberRow].newsImagesName.count {
+//        case 1:
+//            return view.bounds.width
+//        case let count where count > 1:
+//            return (view.bounds.width / 2) * CGFloat(lroundf(Float(allNews[numberRow].newsImagesName.count) / 2))
+//        default:
+//            return 0
+//        }
+//    }
+
     private func hightCellForImageCollection(numberRow: Int) -> CGFloat {
-        guard numberRow < allNews.count else { return 0 }
-        switch allNews[numberRow].newsImagesName.count {
-        case 1:
-            return view.bounds.width
-        case let count where count > 1:
-            return (view.bounds.width / 2) * CGFloat(lroundf(Float(allNews[numberRow].newsImagesName.count) / 2))
-        default:
-            return 0
-        }
+        100
     }
 
     private func fetchUserNewsVK() {
         vkNetworkService.fetchUserNewsVK { items in
-            // print(items)
             for item in items {
                 print(item.photos?.items.last?.sizes.last?.url)
-                // print(item.views?.count)
-                // print(item.type)
             }
             print("111111")
+            self.userNews = items
+            self.newsTableView.reloadData()
         }
     }
 }
@@ -118,22 +125,20 @@ final class NewsViewController: UIViewController {
 
 extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        allNews.count
+        // allNews.count
+        print(userNews.count)
+        return userNews.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
             let cell = tableView.dequeueReusableCell(
-                withIdentifier: Constants.newsTableViewCellID,
+                withIdentifier: "FooterNewsTableViewCell",
                 for: indexPath
-            ) as? NewsTableViewCell,
-            indexPath.row < allNews.count
+            ) as? FooterNewsTableViewCell,
+            indexPath.row < userNews.count
         else { return UITableViewCell() }
-
-        cell.configure(
-            news: allNews[indexPath.row],
-            viewHight: hightCellForImageCollection(numberRow: indexPath.row)
-        )
+        cell.configure(news: userNews[indexPath.row])
         return cell
     }
 }
