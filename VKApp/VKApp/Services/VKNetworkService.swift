@@ -27,7 +27,7 @@ final class VKNetworkService {
         static let redirectUriText = "redirect_uri"
         static let redirectUriValueText = "https://oauth.vk.com/blank.html"
         static let scopeText = "scope"
-        static let scopeNumberText = "262150"
+        static let scopeNumberText = "8198"
         static let responseTypeText = "response_type"
         static let tokenText = "token"
         static let vValueText = "5.68"
@@ -42,6 +42,9 @@ final class VKNetworkService {
         static let ownerIdText = "owner_id"
         static let friendsGetText = "friends.get"
         static let photoText = "photo_100"
+        static let newsfeedGetText = "newsfeed.get"
+        static let countText = "count"
+        static let countNumberText = "20"
     }
 
     // MARK: - Private Properties
@@ -120,6 +123,21 @@ final class VKNetworkService {
                 let data = response.value,
                 let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items
             else { return }
+            completion(items)
+        }
+    }
+
+    func fetchUserNewsVK(completion: @escaping ([Newsfeed]) -> Void) {
+        let path = "\(Constants.methodText)\(Constants.newsfeedGetText)"
+        let url = "\(Constants.baseUrl)\(path)"
+        var parametersSearchGroupVK = generalParameters
+        parametersSearchGroupVK[Constants.countText] = Constants.countNumberText
+        Alamofire.request(url, method: .get, parameters: parametersSearchGroupVK).responseData { response in
+            guard
+                let data = response.value,
+                let items = try? JSONDecoder().decode(VKNews.self, from: data).response.items
+            else { return }
+            print("111111")
             completion(items)
         }
     }

@@ -40,6 +40,8 @@ final class NewsViewController: UIViewController {
 
     // MARK: - Private Properties
 
+    private let vkNetworkService = VKNetworkService()
+    private var userNews: [Newsfeed] = []
     private var allNews = [
         News(
             userName: Constants.firstUserName,
@@ -72,6 +74,7 @@ final class NewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        fetchUserNewsVK()
     }
 
     // MARK: - Private Methods
@@ -95,6 +98,16 @@ final class NewsViewController: UIViewController {
             return (view.bounds.width / 2) * CGFloat(lroundf(Float(allNews[numberRow].newsImagesName.count) / 2))
         default:
             return 0
+        }
+    }
+
+    private func fetchUserNewsVK() {
+        vkNetworkService.fetchUserNewsVK { items in
+            // print(items)
+            for item in items {
+                print(item.views?.count)
+            }
+            print("111111")
         }
     }
 }
