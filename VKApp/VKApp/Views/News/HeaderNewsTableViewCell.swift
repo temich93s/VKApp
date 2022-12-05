@@ -1,12 +1,13 @@
-// FooterNewsTableViewCell.swift
+// HeaderNewsTableViewCell.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
 ///
-final class FooterNewsTableViewCell: UITableViewCell {
-    @IBOutlet var likeLabel: UILabel!
-    @IBOutlet var viewsLabel: UILabel!
+class HeaderNewsTableViewCell: UITableViewCell {
+    @IBOutlet var imageAuthorImageView: UIImageView!
+    @IBOutlet var nameAuthorLabel: UILabel!
+    @IBOutlet var dateNewsAuthorLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,7 +20,7 @@ final class FooterNewsTableViewCell: UITableViewCell {
     }
 
     func configure(news: Newsfeed) {
-        likeLabel.text = "\(news.likes?.count ?? 0)"
-        viewsLabel.text = "\(news.views?.count ?? 0)"
+        nameAuthorLabel.text = "\(news.sourceID ?? 0)"
+        dateNewsAuthorLabel.text = "\(news.date ?? 0)"
     }
 }

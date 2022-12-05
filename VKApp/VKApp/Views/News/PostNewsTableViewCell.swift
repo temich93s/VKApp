@@ -1,12 +1,11 @@
-// FooterNewsTableViewCell.swift
+// PostNewsTableViewCell.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
 ///
-final class FooterNewsTableViewCell: UITableViewCell {
-    @IBOutlet var likeLabel: UILabel!
-    @IBOutlet var viewsLabel: UILabel!
+class PostNewsTableViewCell: UITableViewCell {
+    @IBOutlet var postTextView: UITextView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,7 +18,6 @@ final class FooterNewsTableViewCell: UITableViewCell {
     }
 
     func configure(news: Newsfeed) {
-        likeLabel.text = "\(news.likes?.count ?? 0)"
-        viewsLabel.text = "\(news.views?.count ?? 0)"
+        postTextView.text = news.text
     }
 }
