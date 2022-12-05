@@ -20,7 +20,10 @@ class HeaderNewsTableViewCell: UITableViewCell {
     }
 
     func configure(news: Newsfeed) {
-        nameAuthorLabel.text = "\(news.sourceID ?? 0)"
-        dateNewsAuthorLabel.text = "\(news.date ?? 0)"
+        nameAuthorLabel.text = "\(news.sourceID)"
+        let date = Date(timeIntervalSinceReferenceDate: Double(news.date))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
+        dateNewsAuthorLabel.text = dateFormatter.string(from: date)
     }
 }

@@ -21,7 +21,7 @@ final class VKNetworkService {
         static let oauthVkComText = "oauth.vk.com"
         static let authorizeText = "/authorize"
         static let clientIdText = "client_id"
-        static let clientIdNumberText = "51488018"
+        static let clientIdNumberText = "51485381"
         static let displayText = "display"
         static let mobileText = "mobile"
         static let redirectUriText = "redirect_uri"
@@ -44,7 +44,7 @@ final class VKNetworkService {
         static let photoText = "photo_100"
         static let newsfeedGetText = "newsfeed.get"
         static let countText = "count"
-        static let countNumberText = "20"
+        static let countNumberText = "50"
     }
 
     // MARK: - Private Properties

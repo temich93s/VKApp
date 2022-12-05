@@ -99,6 +99,10 @@ final class NewsViewController: UIViewController {
             UINib(nibName: "PostNewsTableViewCell", bundle: nil),
             forCellReuseIdentifier: "PostNewsTableViewCell"
         )
+        newsTableView.register(
+            UINib(nibName: "PhotoNewsTableViewCell", bundle: nil),
+            forCellReuseIdentifier: "PhotoNewsTableViewCell"
+        )
     }
 
 //    private func hightCellForImageCollection(numberRow: Int) -> CGFloat {
@@ -154,15 +158,30 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
             cell.configure(news: userNews[indexPath.section])
             return cell
         case 1:
-            guard
-                let cell = tableView.dequeueReusableCell(
-                    withIdentifier: "PostNewsTableViewCell",
-                    for: indexPath
-                ) as? PostNewsTableViewCell,
-                indexPath.section < userNews.count
-            else { return UITableViewCell() }
-            cell.configure(news: userNews[indexPath.section])
-            return cell
+            switch userNews[indexPath.section].type {
+            case .photo:
+                guard
+                    let cell = tableView.dequeueReusableCell(
+                        withIdentifier: "PhotoNewsTableViewCell",
+                        for: indexPath
+                    ) as? PhotoNewsTableViewCell,
+                    indexPath.section < userNews.count
+                else { return UITableViewCell() }
+                cell.configure(news: userNews[indexPath.section], networkService: vkNetworkService)
+                return cell
+            case .post:
+                guard
+                    let cell = tableView.dequeueReusableCell(
+                        withIdentifier: "PostNewsTableViewCell",
+                        for: indexPath
+                    ) as? PostNewsTableViewCell,
+                    indexPath.section < userNews.count
+                else { return UITableViewCell() }
+                cell.configure(news: userNews[indexPath.section])
+                return cell
+            default:
+                return UITableViewCell()
+            }
         case 2:
             guard
                 let cell = tableView.dequeueReusableCell(
