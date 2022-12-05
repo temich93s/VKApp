@@ -1,6 +1,7 @@
 // SearchGroupTableViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import RealmSwift
 import UIKit
 
 /// Экран с поиска групп
@@ -17,10 +18,8 @@ final class SearchGroupTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private var groups: [Group] = []
-    private var allGroups: [Group] = []
-    private var vkGroups: [VKGroups] = []
     private let vkNetworkService = VKNetworkService()
+    private var searchGroups: [VKGroups] = []
 
     // MARK: - Lifecycle
 
@@ -31,21 +30,16 @@ final class SearchGroupTableViewController: UITableViewController {
 
     // MARK: - Public Methods
 
-    func returnGroup(index: Int) -> Group? {
+    func returnGroup(index: Int) -> VKGroups? {
         guard
-            index < groups.count,
+            index < searchGroups.count,
             index >= 0
         else { return nil }
-        return groups[index]
-    }
-
-    func configureSearchGroupTableVC(groups: [Group]) {
-        allGroups = groups
-        self.groups = allGroups
+        return searchGroups[index]
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        groups.count
+        searchGroups.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -55,9 +49,9 @@ final class SearchGroupTableViewController: UITableViewController {
                 withIdentifier: Constants.groupUserCellID,
                 for: indexPath
             ) as? SearchGroupTableViewCell,
-            indexPath.row < groups.count
+            indexPath.row < searchGroups.count
         else { return UITableViewCell() }
-        cell.configure(group: groups[indexPath.row])
+        cell.configure(group: searchGroups[indexPath.row], vkNetworkService: vkNetworkService)
         return cell
     }
 
@@ -74,7 +68,6 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
     // MARK: - Public Methods
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        groups = allGroups
         searchGroup(searchBar: searchBar, searchText: searchText)
         tableView.reloadData()
     }
@@ -83,18 +76,13 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
         searchBar.endEditing(true)
     }
 
-    // MARK: - Private Methods
-
     func searchGroup(searchBar: UISearchBar, searchText: String) {
         if searchText.isEmpty {
             searchBar.endEditing(true)
         } else {
             vkNetworkService.fetchSearchGroupsVK(searchText: searchText) { [weak self] items in
                 guard let self = self else { return }
-                self.vkGroups = items
-                for item in items {
-                    self.groups.append(Group(groupName: item.name, groupPhotoName: item.photo200))
-                }
+                self.searchGroups = items
                 self.tableView.reloadData()
             }
         }

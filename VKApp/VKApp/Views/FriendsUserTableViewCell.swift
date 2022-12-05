@@ -9,7 +9,6 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     private enum Constants {
         static let emptyText = ""
-        static let friendPhotoOneText = "FriendPhotoOne"
     }
 
     // MARK: - Private Outlets
@@ -17,10 +16,6 @@ final class FriendsUserTableViewCell: UITableViewCell {
     @IBOutlet private var friendNameLabel: UILabel!
     @IBOutlet private var friendPhotoImageView: UIImageView!
     @IBOutlet private var shadowView: ShadowView!
-
-    // MARK: - Private Properties
-
-    private let vkNetworkService = VKNetworkService()
 
     // MARK: - Lifecycle
 
@@ -31,18 +26,13 @@ final class FriendsUserTableViewCell: UITableViewCell {
 
     // MARK: - Public Properties
 
-    var user = User(
-        userName: Constants.emptyText,
-        userPhotoURLText: Constants.emptyText,
-        userPhotoNames: [Constants.friendPhotoOneText],
-        id: 0
-    )
+    var user = ItemPerson()
 
     // MARK: - Public Methods
 
-    func configure(user: User) {
-        friendNameLabel.text = user.userName
-        vkNetworkService.setupImage(urlPath: user.userPhotoURLText, imageView: friendPhotoImageView)
+    func configure(user: ItemPerson, networkService: VKNetworkService) {
+        friendNameLabel.text = user.fullName
+        friendPhotoImageView.setupImage(urlPath: user.photo, networkService: networkService)
         self.user = user
     }
 

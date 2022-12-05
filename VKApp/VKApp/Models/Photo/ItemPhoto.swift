@@ -5,11 +5,14 @@ import Foundation
 import RealmSwift
 
 /// Фотография пользователя
+@objcMembers
 final class ItemPhoto: Object, Decodable {
     /// Размер фотографии
-    @objc dynamic var type: String = ""
+    dynamic var type: String = ""
     /// Ссылка на фотографию
-    @objc dynamic var url: String = ""
+    dynamic var url: String = ""
+    /// Владелец фотографий
+    let parentCategory = LinkingObjects(fromType: ItemPerson.self, property: "photos")
 
     // MARK: - enum
 
