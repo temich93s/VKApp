@@ -5,21 +5,20 @@ import Foundation
 
 /// Новость пользователя
 final class Newsfeed: Decodable {
-    // let type: PostTypeEnum //
+    var type: PostTypeEnum //
     var sourceID = 0
     var date = 0 //
-    let photos: Photos? //
+    var photos: Photos? //
     var text: String? //
     // let attachments: [Attachment]? //
-    let likes: PurpleLikes? //
-    let views: Views? //
+    var likes: PurpleLikes? //
+    var views: Views? //
 
     enum CodingKeys: String, CodingKey {
-        // case type
+        case type
         case sourceID = "source_id"
         case date
         case photos
-        // case postType = "post_type"
         case text
         // case attachments
         case likes
@@ -29,6 +28,7 @@ final class Newsfeed: Decodable {
 
 ///
 enum PostTypeEnum: String, Codable {
+    case friend
     case photo
     case post
     case wallPhoto = "wall_photo"
