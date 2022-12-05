@@ -105,7 +105,9 @@ final class NewsViewController: UIViewController {
         vkNetworkService.fetchUserNewsVK { items in
             // print(items)
             for item in items {
+                // print(item.photos?.items.last?.sizes.last?.url)
                 print(item.views?.count)
+                // print(item.type)
             }
             print("111111")
         }

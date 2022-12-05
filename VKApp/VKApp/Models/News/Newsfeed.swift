@@ -8,26 +8,30 @@ final class Newsfeed: Decodable {
     // let type: PostTypeEnum //
     var sourceID = 0
     var date = 0 //
-    // let photos: Photos? //
-    // let postType: PostTypeEnum? //
+    let photos: Photos? //
     var text: String? //
     // let attachments: [Attachment]? //
     let likes: PurpleLikes? //
-    // let reposts: Reposts?
     let views: Views? //
 
     enum CodingKeys: String, CodingKey {
         // case type
         case sourceID = "source_id"
         case date
-        // case photos
+        case photos
         // case postType = "post_type"
         case text
         // case attachments
-        // case reposts
         case likes
         case views
     }
+}
+
+///
+enum PostTypeEnum: String, Codable {
+    case photo
+    case post
+    case wallPhoto = "wall_photo"
 }
 
 /// количество просмотров
@@ -54,56 +58,31 @@ struct PurpleLikes: Codable {
  }
 
  // MARK: - Photo
+ */
 
- struct Phto: Codable {
-     let albumID, date, id, ownerID: Int
-     let accessKey: String
-     let sizes: [Size]
-     let text: String
-     let userID: Int
-     let hasTags: Bool
-     let postID: Int?
+///
+struct Photos: Codable {
+    let items: [PhotosItem]
+}
 
-     enum CodingKeys: String, CodingKey {
-         case albumID = "album_id"
-         case date, id
-         case ownerID = "owner_id"
-         case accessKey = "access_key"
-         case sizes, text
-         case userID = "user_id"
-         case hasTags = "has_tags"
-         case postID = "post_id"
-     }
- }
+///
+struct PhotosItem: Codable {
+    let sizes: [Size]
 
- // MARK: - Size
+    enum CodingKeys: String, CodingKey {
+        case sizes
+    }
+}
 
- struct Size: Codable {
-     let height: Int
-     let type: SizeType?
-     let width: Int
-     let url: String
-     let withPadding: Int?
+///
+struct Size: Codable {
+    let url: String
+    enum CodingKeys: String, CodingKey {
+        case url
+    }
+}
 
-     enum CodingKeys: String, CodingKey {
-         case height, type, width, url
-         case withPadding = "with_padding"
-     }
- }
-
- ///
- enum SizeType: String, Codable {
-     case m
-     case o
-     case p
-     case q
-     case r
-     case s
-     case w
-     case x
-     case y
-     case z
- }
+/*
 
  ///
  enum AttachmentType: String, Codable {
@@ -220,12 +199,6 @@ struct PurpleLikes: Codable {
  enum PostSourceType: String, Codable {
      case api
      case vk
- }
-
- enum PostTypeEnum: String, Codable {
-     case photo
-     case post
-     case wallPhoto = "wall_photo"
  }
 
  // MARK: - Profile
