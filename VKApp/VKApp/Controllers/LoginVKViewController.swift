@@ -80,7 +80,6 @@ extension LoginVKViewController: WKNavigationDelegate {
         let userId = params[Constants.userIdText]
         guard let safeToken = token, let userIdString = userId, let safeUserId = Int(userIdString) else { return }
         Session.shared.token = safeToken
-        print(safeToken)
         Session.shared.userId = safeUserId
         decisionHandler(.cancel)
         performSegue(withIdentifier: Constants.loginSegueIdentifier, sender: self)

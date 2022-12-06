@@ -20,7 +20,7 @@ final class Newsfeed: Decodable {
     /// просмотри новости
     let views: Views?
 
-    // MARK: - enum
+    // MARK: - CodingKeys
 
     enum CodingKeys: String, CodingKey {
         case type
@@ -31,6 +31,8 @@ final class Newsfeed: Decodable {
         case likes
         case views
     }
+
+    // MARK: - enum
 
     enum PostTypeEnum: String, Codable {
         case friend

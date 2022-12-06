@@ -8,7 +8,7 @@ final class PurpleLikes: Decodable {
     /// Количество лайков
     let count: Int
 
-    // MARK: - enum
+    // MARK: - CodingKeys
 
     enum CodingKeys: String, CodingKey {
         case count

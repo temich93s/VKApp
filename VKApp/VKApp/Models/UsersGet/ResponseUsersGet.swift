@@ -7,6 +7,7 @@ import Foundation
 final class ResponseUsersGet: Decodable {
     /// Идентификатор пользователя.
     let id: Int?
+    /// Ссылка по которой хранится фотография
     let photo100: String?
     /// Имя
     let firstName: String?
@@ -22,7 +23,7 @@ final class ResponseUsersGet: Decodable {
         return "\(firstName) \(lastName)"
     }
 
-    // MARK: - enum
+    // MARK: - CodingKeys
 
     enum CodingKeys: String, CodingKey {
         case id

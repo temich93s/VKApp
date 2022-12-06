@@ -8,7 +8,7 @@ final class ResponseVKNews: Decodable {
     /// Новости
     let items: [Newsfeed]
 
-    // MARK: - enum
+    // MARK: - CodingKeys
 
     enum CodingKeys: String, CodingKey {
         case items

@@ -35,7 +35,6 @@ final class NewsViewController: UIViewController {
     // MARK: - Private Methods
 
     private func setupView() {
-        newsTableView.delegate = self
         newsTableView.dataSource = self
         newsTableView.rowHeight = UITableView.automaticDimension
         newsTableView.register(
@@ -61,7 +60,8 @@ final class NewsViewController: UIViewController {
     }
 
     private func fetchUserNewsVK() {
-        vkNetworkService.fetchUserNewsVK { items in
+        vkNetworkService.fetchUserNewsVK { [weak self] items in
+            guard let self = self else { return }
             self.userNews = []
             for item in items where (item.type == .post) || (item.type == .photo) {
                 self.userNews.append(item)
@@ -71,9 +71,9 @@ final class NewsViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDelegate, UITableViewDataSource
+// MARK: - UITableViewDataSource
 
-extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
+extension NewsViewController: UITableViewDataSource {
     // MARK: - Public Methods
 
     func numberOfSections(in tableView: UITableView) -> Int {

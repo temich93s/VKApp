@@ -8,7 +8,7 @@ final class PhotosItem: Decodable {
     /// размеры фотографии
     let sizes: [Size]
 
-    // MARK: - enum
+    // MARK: - CodingKeys
 
     enum CodingKeys: String, CodingKey {
         case sizes
