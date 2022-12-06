@@ -5,6 +5,12 @@ import UIKit
 
 /// Ячейка - верний колонтитул новости
 final class HeaderNewsTableViewCell: UITableViewCell {
+    // MARK: - Constants
+
+    private enum Constants {
+        static let dateFormatText = "HH:mm   dd MMMM"
+    }
+
     // MARK: - Private Outlets
 
     @IBOutlet private var imageAuthorImageView: UIImageView!
@@ -13,11 +19,20 @@ final class HeaderNewsTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configure(news: Newsfeed) {
+    override func prepareForReuse() {
+        imageAuthorImageView.image = nil
+    }
+
+    func configure(news: Newsfeed, vkNetworkService: VKNetworkService) {
         nameAuthorLabel.text = "\(news.sourceID)"
         let date = Date(timeIntervalSinceReferenceDate: Double(news.date))
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm   dd MMMM"
+        dateFormatter.dateFormat = Constants.dateFormatText
         dateNewsAuthorLabel.text = dateFormatter.string(from: date)
+        vkNetworkService.fetchAuthorVK(authorID: "\(news.sourceID)") { [weak self] person in
+            guard let self = self else { return }
+            self.imageAuthorImageView.setupImage(urlPath: person.photo100, networkService: vkNetworkService)
+            self.nameAuthorLabel.text = person.fullName
+        }
     }
 }

@@ -27,7 +27,7 @@ final class VKNetworkService {
         static let redirectUriText = "redirect_uri"
         static let redirectUriValueText = "https://oauth.vk.com/blank.html"
         static let scopeText = "scope"
-        static let scopeNumberText = "8198"
+        static let scopeNumberText = "270342" // "8198"
         static let responseTypeText = "response_type"
         static let tokenText = "token"
         static let vValueText = "5.68"
@@ -45,6 +45,7 @@ final class VKNetworkService {
         static let newsfeedGetText = "newsfeed.get"
         static let countText = "count"
         static let countNumberText = "40"
+        static let usersGetText = "users.get"
     }
 
     // MARK: - Private Properties
@@ -65,6 +66,12 @@ final class VKNetworkService {
     private lazy var parametersFriendsVK: Parameters = {
         var parameters = generalParameters
         parameters[Constants.userIdText] = "\(Session.shared.userId)"
+        parameters[Constants.fieldsText] = Constants.photoText
+        return parameters
+    }()
+
+    private lazy var parametersUsersGetVK: Parameters = {
+        var parameters = generalParameters
         parameters[Constants.fieldsText] = Constants.photoText
         return parameters
     }()
@@ -156,6 +163,25 @@ final class VKNetworkService {
                 else { return }
                 DispatchQueue.main.async {
                     completion(items)
+                }
+            }
+        }
+    }
+
+    func fetchAuthorVK(authorID: String, completion: @escaping (ResponseUsersGet) -> Void) {
+        let path = "\(Constants.methodText)\(Constants.usersGetText)"
+        let url = "\(Constants.baseUrl)\(path)"
+        var parametersUsersGetVK = parametersUsersGetVK
+        parametersUsersGetVK[Constants.userIdText] = authorID
+        DispatchQueue.global().async {
+            Alamofire.request(url, method: .get, parameters: parametersUsersGetVK).responseData { response in
+                guard
+                    let data = response.value,
+                    let items = try? JSONDecoder().decode(UsersGet.self, from: data).response,
+                    let author = items.first
+                else { return }
+                DispatchQueue.main.async {
+                    completion(author)
                 }
             }
         }

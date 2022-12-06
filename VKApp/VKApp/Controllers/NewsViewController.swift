@@ -150,7 +150,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
             ) as? HeaderNewsTableViewCell,
             indexPath.section < userNews.count
         else { return UITableViewCell() }
-        cell.configure(news: userNews[indexPath.section])
+        cell.configure(news: userNews[indexPath.section], vkNetworkService: vkNetworkService)
         return cell
     }
 }

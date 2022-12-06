@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,8 +22,9 @@
                     <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Kcn-e8-z1L">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="826"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FriendPhotoOne" translatesAutoresizingMaskIntoConstraints="NO" id="rzl-JI-Eah">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rzl-JI-Eah">
                                 <rect key="frame" x="8" y="8" width="40" height="810"/>
+                                <color key="backgroundColor" name="LightBlueColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="I3J-TI-BRh"/>
                                     <constraint firstAttribute="height" constant="40" id="nFY-oO-yIx"/>
@@ -65,10 +67,12 @@
                 <outlet property="imageAuthorImageView" destination="rzl-JI-Eah" id="sJn-Sg-8sN"/>
                 <outlet property="nameAuthorLabel" destination="Wxz-is-Jyj" id="0Mp-Nj-UFB"/>
             </connections>
-            <point key="canvasLocation" x="132" y="46"/>
+            <point key="canvasLocation" x="131.8840579710145" y="45.535714285714285"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="FriendPhotoOne" width="1440" height="810"/>
+        <namedColor name="LightBlueColor">
+            <color red="0.67599999904632568" green="0.78100001811981201" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>
