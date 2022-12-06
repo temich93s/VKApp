@@ -5,13 +5,22 @@ import Foundation
 
 /// Новость пользователя
 final class Newsfeed: Decodable {
-    var type: PostTypeEnum
-    var sourceID: Int
-    var date: Int
-    var photos: Photos?
-    var text: String?
-    var likes: PurpleLikes?
-    var views: Views?
+    /// тип списка новости
+    let type: PostTypeEnum
+    /// идентификатор источника новости
+    let sourceID: Int
+    /// время публикации новости
+    let date: Int
+    /// фотографии
+    let photos: Photos?
+    /// текст записи
+    let text: String?
+    /// лайки новости
+    let likes: PurpleLikes?
+    /// просмотри новости
+    let views: Views?
+
+    // MARK: - enum
 
     enum CodingKeys: String, CodingKey {
         case type

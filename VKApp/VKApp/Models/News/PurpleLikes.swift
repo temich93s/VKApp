@@ -3,9 +3,12 @@
 
 import Foundation
 
-/// Количество лайков
+/// Лайки
 final class PurpleLikes: Decodable {
+    /// Количество лайков
     let count: Int
+
+    // MARK: - enum
 
     enum CodingKeys: String, CodingKey {
         case count

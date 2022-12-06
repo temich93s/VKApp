@@ -3,7 +3,8 @@
 
 import Foundation
 
-/// количество просмотров
+/// Просмотры
 final class Views: Decodable {
+    /// Количество просмотров
     let count: Int
 }

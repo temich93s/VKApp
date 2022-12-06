@@ -5,5 +5,6 @@ import Foundation
 
 /// Фотографии
 final class Photos: Decodable {
+    /// Фотографии
     let items: [PhotosItem]
 }

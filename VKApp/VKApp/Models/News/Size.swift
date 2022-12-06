@@ -5,7 +5,11 @@ import Foundation
 
 /// Размер фотографии
 final class Size: Decodable {
+    /// ссылка по которой хранится фотография
     let url: String
+
+    // MARK: - enum
+
     enum CodingKeys: String, CodingKey {
         case url
     }

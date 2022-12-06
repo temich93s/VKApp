@@ -3,7 +3,8 @@
 
 import Foundation
 
-/// Новость
+/// Список новостей текущего пользователя
 final class VKNews: Decodable {
+    /// ответ с сервера о новостях текущего пользователя
     let response: ResponseVKNews
 }

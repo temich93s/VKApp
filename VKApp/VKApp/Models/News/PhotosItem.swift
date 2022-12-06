@@ -3,9 +3,12 @@
 
 import Foundation
 
-/// Размеры фотографии
+/// Фотография
 final class PhotosItem: Decodable {
+    /// размеры фотографии
     let sizes: [Size]
+
+    // MARK: - enum
 
     enum CodingKeys: String, CodingKey {
         case sizes
