@@ -44,7 +44,7 @@ final class VKNetworkService {
         static let photoText = "photo_100"
         static let newsfeedGetText = "newsfeed.get"
         static let countText = "count"
-        static let countNumberText = "50"
+        static let countNumberText = "40"
     }
 
     // MARK: - Private Properties

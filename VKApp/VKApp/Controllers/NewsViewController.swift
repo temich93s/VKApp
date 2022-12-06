@@ -47,16 +47,16 @@ final class NewsViewController: UIViewController {
             forCellReuseIdentifier: Constants.footerNewsTableViewCellID
         )
         newsTableView.register(
-            UINib(nibName: "HeaderNewsTableViewCell", bundle: nil),
-            forCellReuseIdentifier: "HeaderNewsTableViewCell"
+            UINib(nibName: Constants.headerNewsTableViewCellID, bundle: nil),
+            forCellReuseIdentifier: Constants.headerNewsTableViewCellID
         )
         newsTableView.register(
-            UINib(nibName: "PostNewsTableViewCell", bundle: nil),
-            forCellReuseIdentifier: "PostNewsTableViewCell"
+            UINib(nibName: Constants.postNewsTableViewCellID, bundle: nil),
+            forCellReuseIdentifier: Constants.postNewsTableViewCellID
         )
         newsTableView.register(
-            UINib(nibName: "PhotoNewsTableViewCell", bundle: nil),
-            forCellReuseIdentifier: "PhotoNewsTableViewCell"
+            UINib(nibName: Constants.photoNewsTableViewCellID, bundle: nil),
+            forCellReuseIdentifier: Constants.photoNewsTableViewCellID
         )
     }
 
@@ -74,6 +74,8 @@ final class NewsViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 
 extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
+    // MARK: - Public Methods
+
     func numberOfSections(in tableView: UITableView) -> Int {
         userNews.count
     }
@@ -85,52 +87,70 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            guard
-                let cell = tableView.dequeueReusableCell(
-                    withIdentifier: "HeaderNewsTableViewCell",
-                    for: indexPath
-                ) as? HeaderNewsTableViewCell,
-                indexPath.section < userNews.count
-            else { return UITableViewCell() }
-            cell.configure(news: userNews[indexPath.section])
-            return cell
+            return headerNewsTableViewCell(tableView: tableView, indexPath: indexPath)
         case 1:
             switch userNews[indexPath.section].type {
             case .photo:
-                guard
-                    let cell = tableView.dequeueReusableCell(
-                        withIdentifier: "PhotoNewsTableViewCell",
-                        for: indexPath
-                    ) as? PhotoNewsTableViewCell,
-                    indexPath.section < userNews.count
-                else { return UITableViewCell() }
-                cell.configure(news: userNews[indexPath.section], networkService: vkNetworkService)
-                return cell
+                return photoNewsTableViewCell(tableView: tableView, indexPath: indexPath)
             case .post:
-                guard
-                    let cell = tableView.dequeueReusableCell(
-                        withIdentifier: "PostNewsTableViewCell",
-                        for: indexPath
-                    ) as? PostNewsTableViewCell,
-                    indexPath.section < userNews.count
-                else { return UITableViewCell() }
-                cell.configure(news: userNews[indexPath.section])
-                return cell
+                return postNewsTableViewCell(tableView: tableView, indexPath: indexPath)
             default:
                 return UITableViewCell()
             }
         case 2:
-            guard
-                let cell = tableView.dequeueReusableCell(
-                    withIdentifier: "FooterNewsTableViewCell",
-                    for: indexPath
-                ) as? FooterNewsTableViewCell,
-                indexPath.section < userNews.count
-            else { return UITableViewCell() }
-            cell.configure(news: userNews[indexPath.section])
-            return cell
+            return footerNewsTableViewCell(tableView: tableView, indexPath: indexPath)
         default:
             return UITableViewCell()
         }
+    }
+
+    // MARK: - Private Methods
+
+    private func footerNewsTableViewCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.footerNewsTableViewCellID,
+                for: indexPath
+            ) as? FooterNewsTableViewCell,
+            indexPath.section < userNews.count
+        else { return UITableViewCell() }
+        cell.configure(news: userNews[indexPath.section])
+        return cell
+    }
+
+    private func postNewsTableViewCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.postNewsTableViewCellID,
+                for: indexPath
+            ) as? PostNewsTableViewCell,
+            indexPath.section < userNews.count
+        else { return UITableViewCell() }
+        cell.configure(news: userNews[indexPath.section])
+        return cell
+    }
+
+    private func photoNewsTableViewCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.photoNewsTableViewCellID,
+                for: indexPath
+            ) as? PhotoNewsTableViewCell,
+            indexPath.section < userNews.count
+        else { return UITableViewCell() }
+        cell.configure(news: userNews[indexPath.section], networkService: vkNetworkService)
+        return cell
+    }
+
+    private func headerNewsTableViewCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.headerNewsTableViewCellID,
+                for: indexPath
+            ) as? HeaderNewsTableViewCell,
+            indexPath.section < userNews.count
+        else { return UITableViewCell() }
+        cell.configure(news: userNews[indexPath.section])
+        return cell
     }
 }
