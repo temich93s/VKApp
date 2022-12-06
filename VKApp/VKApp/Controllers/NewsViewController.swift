@@ -9,29 +9,10 @@ final class NewsViewController: UIViewController {
 
     private enum Constants {
         static let newsTableViewCellID = "NewsTableViewCell"
-        static let firstUserName = "Никита"
-        static let firstUserPhotoName = "FriendPhotoOne"
-        static let firstUserNewsDateText = "11.12.2016"
-        static let firstUserNewsText = "Всем самого счастливого дня!"
-        static let firstUserNewsImagesName = ["FriendPhotoSecond", "FriendPhotoThird"]
-        static let firstUserNewsLikeCount = 12
-        static let secondUserName = "Виталя"
-        static let secondUserPhotoName = "FriendPhotoSecond"
-        static let secondUserNewsDateText = "14.12.2016"
-        static let secondUserNewsText = "Всем хороших выходных!"
-        static let secondUserNewsImagesName = [
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
-            "FriendPhotoSecond"
-        ]
-        static let secondUserNewsLikeCount = 19
-        static let thirdUserName = "Иван"
-        static let thirdUserPhotoName = "FriendPhotoThird"
-        static let thirdUserNewsDateText = "18.12.2016"
-        static let thirdUserNewsText = "Всем хороших праздников!"
-        static let thirdUserNewsImagesName = ["FriendPhotoSecond"]
-        static let thirdUserNewsLikeCount = 26
+        static let footerNewsTableViewCellID = "FooterNewsTableViewCell"
+        static let headerNewsTableViewCellID = "HeaderNewsTableViewCell"
+        static let postNewsTableViewCellID = "PostNewsTableViewCell"
+        static let photoNewsTableViewCellID = "PhotoNewsTableViewCell"
     }
 
     // MARK: - Private Outlets
@@ -42,32 +23,6 @@ final class NewsViewController: UIViewController {
 
     private let vkNetworkService = VKNetworkService()
     private var userNews: [Newsfeed] = []
-    private var allNews = [
-        News(
-            userName: Constants.firstUserName,
-            userPhotoName: Constants.firstUserPhotoName,
-            userNewsDateText: Constants.firstUserNewsDateText,
-            newsText: Constants.firstUserNewsText,
-            newsImagesName: Constants.firstUserNewsImagesName,
-            newsLikeCount: Constants.firstUserNewsLikeCount
-        ),
-        News(
-            userName: Constants.secondUserName,
-            userPhotoName: Constants.secondUserPhotoName,
-            userNewsDateText: Constants.secondUserNewsDateText,
-            newsText: Constants.secondUserNewsText,
-            newsImagesName: Constants.secondUserNewsImagesName,
-            newsLikeCount: Constants.secondUserNewsLikeCount
-        ),
-        News(
-            userName: Constants.thirdUserName,
-            userPhotoName: Constants.thirdUserPhotoName,
-            userNewsDateText: Constants.thirdUserNewsDateText,
-            newsText: Constants.thirdUserNewsText,
-            newsImagesName: Constants.thirdUserNewsImagesName,
-            newsLikeCount: Constants.thirdUserNewsLikeCount
-        )
-    ]
 
     // MARK: - Lifecycle
 
@@ -88,8 +43,8 @@ final class NewsViewController: UIViewController {
             forCellReuseIdentifier: Constants.newsTableViewCellID
         )
         newsTableView.register(
-            UINib(nibName: "FooterNewsTableViewCell", bundle: nil),
-            forCellReuseIdentifier: "FooterNewsTableViewCell"
+            UINib(nibName: Constants.footerNewsTableViewCellID, bundle: nil),
+            forCellReuseIdentifier: Constants.footerNewsTableViewCellID
         )
         newsTableView.register(
             UINib(nibName: "HeaderNewsTableViewCell", bundle: nil),
@@ -105,30 +60,12 @@ final class NewsViewController: UIViewController {
         )
     }
 
-//    private func hightCellForImageCollection(numberRow: Int) -> CGFloat {
-//        guard numberRow < allNews.count else { return 0 }
-//        switch allNews[numberRow].newsImagesName.count {
-//        case 1:
-//            return view.bounds.width
-//        case let count where count > 1:
-//            return (view.bounds.width / 2) * CGFloat(lroundf(Float(allNews[numberRow].newsImagesName.count) / 2))
-//        default:
-//            return 0
-//        }
-//    }
-
-    private func hightCellForImageCollection(numberRow: Int) -> CGFloat {
-        100
-    }
-
     private func fetchUserNewsVK() {
         vkNetworkService.fetchUserNewsVK { items in
-            for item in items {
-                // print(item.photos?.items.last?.sizes.last?.url)
-                print(item.likes?.count)
+            self.userNews = []
+            for item in items where (item.type == .post) || (item.type == .photo) {
+                self.userNews.append(item)
             }
-            print("111111")
-            self.userNews = items
             self.newsTableView.reloadData()
         }
     }

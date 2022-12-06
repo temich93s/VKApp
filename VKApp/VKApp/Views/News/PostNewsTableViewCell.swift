@@ -3,19 +3,13 @@
 
 import UIKit
 
-///
-class PostNewsTableViewCell: UITableViewCell {
-    @IBOutlet var postTextView: UITextView!
+/// Новость типа пост
+final class PostNewsTableViewCell: UITableViewCell {
+    // MARK: - Private Outlets
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    @IBOutlet private var postTextView: UITextView!
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
+    // MARK: - Public Methods
 
     func configure(news: Newsfeed) {
         postTextView.text = news.text

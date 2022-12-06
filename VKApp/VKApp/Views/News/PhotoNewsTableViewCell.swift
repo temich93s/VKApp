@@ -3,19 +3,13 @@
 
 import UIKit
 
-///
-class PhotoNewsTableViewCell: UITableViewCell {
-    @IBOutlet var photoImageView: UIImageView!
+/// Новость типа фото
+final class PhotoNewsTableViewCell: UITableViewCell {
+    // MARK: - Private Outlets
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    @IBOutlet private var photoImageView: UIImageView!
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
+    // MARK: - Public Methods
 
     override func prepareForReuse() {
         photoImageView.image = nil

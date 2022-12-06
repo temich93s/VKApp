@@ -3,27 +3,21 @@
 
 import UIKit
 
-///
-class HeaderNewsTableViewCell: UITableViewCell {
-    @IBOutlet var imageAuthorImageView: UIImageView!
-    @IBOutlet var nameAuthorLabel: UILabel!
-    @IBOutlet var dateNewsAuthorLabel: UILabel!
+/// Ячейка - верний колонтитул новости
+final class HeaderNewsTableViewCell: UITableViewCell {
+    // MARK: - Private Outlets
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    @IBOutlet private var imageAuthorImageView: UIImageView!
+    @IBOutlet private var nameAuthorLabel: UILabel!
+    @IBOutlet private var dateNewsAuthorLabel: UILabel!
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
+    // MARK: - Public Methods
 
     func configure(news: Newsfeed) {
         nameAuthorLabel.text = "\(news.sourceID)"
         let date = Date(timeIntervalSinceReferenceDate: Double(news.date))
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
+        dateFormatter.dateFormat = "HH:mm   dd MMMM"
         dateNewsAuthorLabel.text = dateFormatter.string(from: date)
     }
 }

@@ -3,20 +3,14 @@
 
 import UIKit
 
-///
+/// Ячейка - нижний колонтитул новости
 final class FooterNewsTableViewCell: UITableViewCell {
-    @IBOutlet var likeLabel: UILabel!
-    @IBOutlet var viewsLabel: UILabel!
+    // MARK: - Private Outlets
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    @IBOutlet private var likeLabel: UILabel!
+    @IBOutlet private var viewsLabel: UILabel!
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
+    // MARK: - Public Methods
 
     func configure(news: Newsfeed) {
         likeLabel.text = "\(news.likes?.count ?? 0)"
