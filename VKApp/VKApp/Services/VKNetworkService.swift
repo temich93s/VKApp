@@ -27,7 +27,7 @@ final class VKNetworkService {
         static let redirectUriText = "redirect_uri"
         static let redirectUriValueText = "https://oauth.vk.com/blank.html"
         static let scopeText = "scope"
-        static let scopeNumberText = "270342" // "8198"
+        static let scopeNumberText = "8198"
         static let responseTypeText = "response_type"
         static let tokenText = "token"
         static let vValueText = "5.68"
