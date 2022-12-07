@@ -80,10 +80,15 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
         if searchText.isEmpty {
             searchBar.endEditing(true)
         } else {
-            vkNetworkService.fetchSearchGroupsVK(searchText: searchText) { [weak self] items in
+            vkNetworkService.fetchSearchGroupsVK(searchText: searchText) { [weak self] result in
                 guard let self = self else { return }
-                self.searchGroups = items
-                self.tableView.reloadData()
+                switch result {
+                case let .success(response):
+                    self.searchGroups = response
+                    self.tableView.reloadData()
+                case let .failure(error):
+                    self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
+                }
             }
         }
     }

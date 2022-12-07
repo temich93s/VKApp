@@ -9,29 +9,11 @@ final class NewsViewController: UIViewController {
 
     private enum Constants {
         static let newsTableViewCellID = "NewsTableViewCell"
-        static let firstUserName = "Никита"
-        static let firstUserPhotoName = "FriendPhotoOne"
-        static let firstUserNewsDateText = "11.12.2016"
-        static let firstUserNewsText = "Всем самого счастливого дня!"
-        static let firstUserNewsImagesName = ["FriendPhotoSecond", "FriendPhotoThird"]
-        static let firstUserNewsLikeCount = 12
-        static let secondUserName = "Виталя"
-        static let secondUserPhotoName = "FriendPhotoSecond"
-        static let secondUserNewsDateText = "14.12.2016"
-        static let secondUserNewsText = "Всем хороших выходных!"
-        static let secondUserNewsImagesName = [
-            "FriendPhotoOne",
-            "FriendPhotoSecond",
-            "FriendPhotoThird",
-            "FriendPhotoSecond"
-        ]
-        static let secondUserNewsLikeCount = 19
-        static let thirdUserName = "Иван"
-        static let thirdUserPhotoName = "FriendPhotoThird"
-        static let thirdUserNewsDateText = "18.12.2016"
-        static let thirdUserNewsText = "Всем хороших праздников!"
-        static let thirdUserNewsImagesName = ["FriendPhotoSecond"]
-        static let thirdUserNewsLikeCount = 26
+        static let footerNewsTableViewCellID = "FooterNewsTableViewCell"
+        static let headerNewsTableViewCellID = "HeaderNewsTableViewCell"
+        static let postNewsTableViewCellID = "PostNewsTableViewCell"
+        static let photoNewsTableViewCellID = "PhotoNewsTableViewCell"
+        static let countCellNumber = 3
     }
 
     // MARK: - Private Outlets
@@ -40,85 +22,141 @@ final class NewsViewController: UIViewController {
 
     // MARK: - Private Properties
 
-    private var allNews = [
-        News(
-            userName: Constants.firstUserName,
-            userPhotoName: Constants.firstUserPhotoName,
-            userNewsDateText: Constants.firstUserNewsDateText,
-            newsText: Constants.firstUserNewsText,
-            newsImagesName: Constants.firstUserNewsImagesName,
-            newsLikeCount: Constants.firstUserNewsLikeCount
-        ),
-        News(
-            userName: Constants.secondUserName,
-            userPhotoName: Constants.secondUserPhotoName,
-            userNewsDateText: Constants.secondUserNewsDateText,
-            newsText: Constants.secondUserNewsText,
-            newsImagesName: Constants.secondUserNewsImagesName,
-            newsLikeCount: Constants.secondUserNewsLikeCount
-        ),
-        News(
-            userName: Constants.thirdUserName,
-            userPhotoName: Constants.thirdUserPhotoName,
-            userNewsDateText: Constants.thirdUserNewsDateText,
-            newsText: Constants.thirdUserNewsText,
-            newsImagesName: Constants.thirdUserNewsImagesName,
-            newsLikeCount: Constants.thirdUserNewsLikeCount
-        )
-    ]
+    private let vkNetworkService = VKNetworkService()
+    private var userNews: [Newsfeed] = []
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        fetchUserNewsVK()
     }
 
     // MARK: - Private Methods
 
     private func setupView() {
-        newsTableView.delegate = self
         newsTableView.dataSource = self
         newsTableView.rowHeight = UITableView.automaticDimension
         newsTableView.register(
             UINib(nibName: Constants.newsTableViewCellID, bundle: nil),
             forCellReuseIdentifier: Constants.newsTableViewCellID
         )
+        newsTableView.register(
+            UINib(nibName: Constants.footerNewsTableViewCellID, bundle: nil),
+            forCellReuseIdentifier: Constants.footerNewsTableViewCellID
+        )
+        newsTableView.register(
+            UINib(nibName: Constants.headerNewsTableViewCellID, bundle: nil),
+            forCellReuseIdentifier: Constants.headerNewsTableViewCellID
+        )
+        newsTableView.register(
+            UINib(nibName: Constants.postNewsTableViewCellID, bundle: nil),
+            forCellReuseIdentifier: Constants.postNewsTableViewCellID
+        )
+        newsTableView.register(
+            UINib(nibName: Constants.photoNewsTableViewCellID, bundle: nil),
+            forCellReuseIdentifier: Constants.photoNewsTableViewCellID
+        )
     }
 
-    private func hightCellForImageCollection(numberRow: Int) -> CGFloat {
-        guard numberRow < allNews.count else { return 0 }
-        switch allNews[numberRow].newsImagesName.count {
-        case 1:
-            return view.bounds.width
-        case let count where count > 1:
-            return (view.bounds.width / 2) * CGFloat(lroundf(Float(allNews[numberRow].newsImagesName.count) / 2))
-        default:
-            return 0
+    private func fetchUserNewsVK() {
+        vkNetworkService.fetchUserNewsVK { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(response):
+                self.userNews = []
+                for item in response where (item.type == .post) || (item.type == .photo) {
+                    self.userNews.append(item)
+                }
+                self.newsTableView.reloadData()
+            case let .failure(error):
+                self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
+            }
         }
     }
 }
 
-// MARK: - UITableViewDelegate, UITableViewDataSource
+// MARK: - UITableViewDataSource
 
-extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
+extension NewsViewController: UITableViewDataSource {
+    // MARK: - Public Methods
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        userNews.count
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        allNews.count
+        Constants.countCellNumber
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.row {
+        case 0:
+            return headerNewsTableViewCell(tableView: tableView, indexPath: indexPath)
+        case 1:
+            switch userNews[indexPath.section].type {
+            case .photo:
+                return photoNewsTableViewCell(tableView: tableView, indexPath: indexPath)
+            case .post:
+                return postNewsTableViewCell(tableView: tableView, indexPath: indexPath)
+            default:
+                return UITableViewCell()
+            }
+        case 2:
+            return footerNewsTableViewCell(tableView: tableView, indexPath: indexPath)
+        default:
+            return UITableViewCell()
+        }
+    }
+
+    // MARK: - Private Methods
+
+    private func footerNewsTableViewCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard
             let cell = tableView.dequeueReusableCell(
-                withIdentifier: Constants.newsTableViewCellID,
+                withIdentifier: Constants.footerNewsTableViewCellID,
                 for: indexPath
-            ) as? NewsTableViewCell,
-            indexPath.row < allNews.count
+            ) as? FooterNewsTableViewCell,
+            indexPath.section < userNews.count
         else { return UITableViewCell() }
+        cell.configure(news: userNews[indexPath.section])
+        return cell
+    }
 
-        cell.configure(
-            news: allNews[indexPath.row],
-            viewHight: hightCellForImageCollection(numberRow: indexPath.row)
-        )
+    private func postNewsTableViewCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.postNewsTableViewCellID,
+                for: indexPath
+            ) as? PostNewsTableViewCell,
+            indexPath.section < userNews.count
+        else { return UITableViewCell() }
+        cell.configure(news: userNews[indexPath.section])
+        return cell
+    }
+
+    private func photoNewsTableViewCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.photoNewsTableViewCellID,
+                for: indexPath
+            ) as? PhotoNewsTableViewCell,
+            indexPath.section < userNews.count
+        else { return UITableViewCell() }
+        cell.configure(news: userNews[indexPath.section], networkService: vkNetworkService)
+        return cell
+    }
+
+    private func headerNewsTableViewCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.headerNewsTableViewCellID,
+                for: indexPath
+            ) as? HeaderNewsTableViewCell,
+            indexPath.section < userNews.count
+        else { return UITableViewCell() }
+        cell.configure(news: userNews[indexPath.section], vkNetworkService: vkNetworkService)
         return cell
     }
 }

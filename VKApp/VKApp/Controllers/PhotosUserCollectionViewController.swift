@@ -102,16 +102,20 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
     }
 
     private func fetchPhotosVK() {
-        vkNetworkService.fetchPhotosVK(person: createPersonForSave()) { [weak self] person in
-            guard let self = self,
-                  let resultsItemPersons = self.realmService.loadData(objectType: ItemPerson.self)
-            else { return }
-            let safeItemPersons = Array(resultsItemPersons)
-            for person in safeItemPersons where person.id == self.currentPerson.id {
-                self.currentPerson = person
+        vkNetworkService.fetchPhotosVK(person: createPersonForSave()) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(response):
+                self.realmService.savePhotosData(response)
+                guard let resultsItemPersons = self.realmService.loadData(objectType: ItemPerson.self) else { return }
+                let safeItemPersons = Array(resultsItemPersons)
+                for person in safeItemPersons where person.id == self.currentPerson.id {
+                    self.currentPerson = person
+                }
+                self.collectionView.reloadData()
+            case let .failure(error):
+                self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
             }
-            self.realmService.savePhotosData(person)
-            self.collectionView.reloadData()
         }
     }
 

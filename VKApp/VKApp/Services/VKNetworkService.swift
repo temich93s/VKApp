@@ -21,13 +21,13 @@ final class VKNetworkService {
         static let oauthVkComText = "oauth.vk.com"
         static let authorizeText = "/authorize"
         static let clientIdText = "client_id"
-        static let clientIdNumberText = "51488018"
+        static let clientIdNumberText = "51485381"
         static let displayText = "display"
         static let mobileText = "mobile"
         static let redirectUriText = "redirect_uri"
         static let redirectUriValueText = "https://oauth.vk.com/blank.html"
         static let scopeText = "scope"
-        static let scopeNumberText = "262150"
+        static let scopeNumberText = "8198"
         static let responseTypeText = "response_type"
         static let tokenText = "token"
         static let vValueText = "5.68"
@@ -42,6 +42,10 @@ final class VKNetworkService {
         static let ownerIdText = "owner_id"
         static let friendsGetText = "friends.get"
         static let photoText = "photo_100"
+        static let newsfeedGetText = "newsfeed.get"
+        static let countText = "count"
+        static let countNumberText = "40"
+        static let usersGetText = "users.get"
     }
 
     // MARK: - Private Properties
@@ -66,61 +70,108 @@ final class VKNetworkService {
         return parameters
     }()
 
+    private lazy var parametersUsersGetVK: Parameters = {
+        var parameters = generalParameters
+        parameters[Constants.fieldsText] = Constants.photoText
+        return parameters
+    }()
+
     // MARK: - Public Methods
 
-    func fetchFriendsVK(completion: @escaping ([ItemPerson]) -> ()) {
+    func fetchFriendsVK(completion: @escaping (Result<[ItemPerson], Error>) -> ()) {
         let path = "\(Constants.methodText)\(Constants.friendsGetText)"
         let url = "\(Constants.baseUrl)\(path)"
-        Alamofire.request(url, method: .get, parameters: parametersFriendsVK).responseData { response in
-            guard
-                let data = response.value,
-                let items = try? JSONDecoder().decode(Person.self, from: data).response.items
-            else { return }
-            completion(items)
+        AF.request(url, method: .get, parameters: parametersFriendsVK).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                let items = try JSONDecoder().decode(Person.self, from: data).response.items
+                completion(.success(items))
+            } catch {
+                completion(.failure(error))
+            }
         }
     }
 
-    func fetchPhotosVK(person: ItemPerson, completion: @escaping (ItemPerson) -> ()) {
+    func fetchPhotosVK(person: ItemPerson, completion: @escaping (Result<ItemPerson, Error>) -> ()) {
         let path = "\(Constants.methodText)\(Constants.photosGetAllText)"
         let url = "\(Constants.baseUrl)\(path)"
         var parametersPhotos = generalParameters
         parametersPhotos[Constants.ownerIdText] = "\(person.id)"
-        Alamofire.request(url, method: .get, parameters: parametersPhotos).responseData { response in
-            guard
-                let data = response.value,
-                let items = try? JSONDecoder().decode(Photo.self, from: data).response.items
-            else { return }
-            let updatePerson = person
-            let photosPerson = List<ItemPhoto>()
-            photosPerson.append(objectsIn: items)
-            updatePerson.photos = photosPerson
-            completion(updatePerson)
+        AF.request(url, method: .get, parameters: parametersPhotos).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                let items = try JSONDecoder().decode(Photo.self, from: data).response.items
+                let updatePerson = person
+                let photosPerson = List<ItemPhoto>()
+                photosPerson.append(objectsIn: items)
+                updatePerson.photos = photosPerson
+                completion(.success(updatePerson))
+            } catch {
+                completion(.failure(error))
+            }
         }
     }
 
-    func fetchUserGroupsVK(completion: @escaping ([VKGroups]) -> ()) {
+    func fetchUserGroupsVK(completion: @escaping (Result<[VKGroups], Error>) -> Void) {
         let path = "\(Constants.methodText)\(Constants.groupsGetText)"
         let url = "\(Constants.baseUrl)\(path)"
-        Alamofire.request(url, method: .get, parameters: parametersGroupVK).responseData { response in
-            guard
-                let data = response.value,
-                let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items
-            else { return }
-            completion(items)
+        AF.request(url, method: .get, parameters: parametersGroupVK).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                let items = try JSONDecoder().decode(VKGroup.self, from: data).response.items
+                completion(.success(items))
+            } catch {
+                completion(.failure(error))
+            }
         }
     }
 
-    func fetchSearchGroupsVK(searchText: String, completion: @escaping ([VKGroups]) -> Void) {
+    func fetchSearchGroupsVK(searchText: String, completion: @escaping (Result<[VKGroups], Error>) -> Void) {
         let path = "\(Constants.methodText)\(Constants.groupsSearchText)"
         let url = "\(Constants.baseUrl)\(path)"
         var parametersSearchGroupVK = generalParameters
         parametersSearchGroupVK[Constants.qText] = searchText
-        Alamofire.request(url, method: .get, parameters: parametersSearchGroupVK).responseData { response in
-            guard
-                let data = response.value,
-                let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items
-            else { return }
-            completion(items)
+        AF.request(url, method: .get, parameters: parametersSearchGroupVK).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                let items = try JSONDecoder().decode(VKGroup.self, from: data).response.items
+                completion(.success(items))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func fetchUserNewsVK(completion: @escaping (Result<[Newsfeed], Error>) -> Void) {
+        let path = "\(Constants.methodText)\(Constants.newsfeedGetText)"
+        let url = "\(Constants.baseUrl)\(path)"
+        var parametersSearchGroupVK = generalParameters
+        parametersSearchGroupVK[Constants.countText] = Constants.countNumberText
+        AF.request(url, method: .get, parameters: parametersSearchGroupVK).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                let items = try JSONDecoder().decode(VKNews.self, from: data).response.items
+                completion(.success(items))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func fetchAuthorVK(authorID: String, completion: @escaping (Result<ResponseUsersGet, Error>) -> Void) {
+        let path = "\(Constants.methodText)\(Constants.usersGetText)"
+        let url = "\(Constants.baseUrl)\(path)"
+        var parametersUsersGetVK = parametersUsersGetVK
+        parametersUsersGetVK[Constants.userIdText] = authorID
+        AF.request(url, method: .get, parameters: parametersUsersGetVK).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                let items = try JSONDecoder().decode(UsersGet.self, from: data).response
+                guard let author = items.first else { return }
+                completion(.success(author))
+            } catch {
+                completion(.failure(error))
+            }
         }
     }
 
