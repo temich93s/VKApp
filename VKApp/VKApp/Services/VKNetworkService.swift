@@ -90,21 +90,23 @@ final class VKNetworkService {
         }
     }
 
-    func fetchPhotosVK(person: ItemPerson, completion: @escaping (ItemPerson) -> ()) {
+    func fetchPhotosVK(person: ItemPerson, completion: @escaping (Result<ItemPerson, Error>) -> ()) {
         let path = "\(Constants.methodText)\(Constants.photosGetAllText)"
         let url = "\(Constants.baseUrl)\(path)"
         var parametersPhotos = generalParameters
         parametersPhotos[Constants.ownerIdText] = "\(person.id)"
         AF.request(url, method: .get, parameters: parametersPhotos).responseData { response in
-            guard
-                let data = response.value,
-                let items = try? JSONDecoder().decode(Photo.self, from: data).response.items
-            else { return }
-            let updatePerson = person
-            let photosPerson = List<ItemPhoto>()
-            photosPerson.append(objectsIn: items)
-            updatePerson.photos = photosPerson
-            completion(updatePerson)
+            guard let data = response.value else { return }
+            do {
+                let items = try JSONDecoder().decode(Photo.self, from: data).response.items
+                let updatePerson = person
+                let photosPerson = List<ItemPhoto>()
+                photosPerson.append(objectsIn: items)
+                updatePerson.photos = photosPerson
+                completion(.success(updatePerson))
+            } catch {
+                completion(.failure(error))
+            }
         }
     }
 
