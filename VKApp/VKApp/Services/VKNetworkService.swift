@@ -124,17 +124,19 @@ final class VKNetworkService {
         }
     }
 
-    func fetchSearchGroupsVK(searchText: String, completion: @escaping ([VKGroups]) -> Void) {
+    func fetchSearchGroupsVK(searchText: String, completion: @escaping (Result<[VKGroups], Error>) -> Void) {
         let path = "\(Constants.methodText)\(Constants.groupsSearchText)"
         let url = "\(Constants.baseUrl)\(path)"
         var parametersSearchGroupVK = generalParameters
         parametersSearchGroupVK[Constants.qText] = searchText
         AF.request(url, method: .get, parameters: parametersSearchGroupVK).responseData { response in
-            guard
-                let data = response.value,
-                let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items
-            else { return }
-            completion(items)
+            guard let data = response.value else { return }
+            do {
+                let items = try JSONDecoder().decode(VKGroup.self, from: data).response.items
+                completion(.success(items))
+            } catch {
+                completion(.failure(error))
+            }
         }
     }
 
