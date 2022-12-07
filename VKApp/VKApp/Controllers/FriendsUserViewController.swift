@@ -118,6 +118,29 @@ final class FriendsUserViewController: UIViewController {
         }
     }
 
+    ///
+
+    private func op() {
+        let op1 = BlockOperation {
+            print("op1")
+        }
+
+        let op2 = BlockOperation {
+            print("op2")
+        }
+
+        let opCom = BlockOperation {
+            print("opCom")
+        }
+
+        opCom.addDependency(op1)
+        opCom.addDependency(op2)
+        let operations = [op1, op2, opCom]
+
+        let queeu = OperationQueue()
+        queeu.addOperations(operations, waitUntilFinished: false)
+    }
+
     private func fetchFriendsVK() {
         let friendsNetworkOperation = NetworkOperation()
         friendsNetworkOperation.completionBlock = {
@@ -141,6 +164,8 @@ final class FriendsUserViewController: UIViewController {
         }
         friendsNetworkOperation.start()
     }
+
+    ///
 
 //    private func fetchFriendsVK() {
 //        vkNetworkService.fetchFriendsVK { [weak self] result in
