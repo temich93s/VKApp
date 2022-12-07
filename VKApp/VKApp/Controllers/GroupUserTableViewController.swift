@@ -86,20 +86,22 @@ final class GroupUserTableViewController: UITableViewController {
     }
 
     private func loadData() {
-        guard let resultsVkGroups = realmService.loadData(objectType: VKGroups.self) else { return }
-        vkGroups = Array(resultsVkGroups)
         tableView.reloadData()
         fetchUserGroupsVK()
     }
 
     private func fetchUserGroupsVK() {
-        vkNetworkService.fetchUserGroupsVK { [weak self] _ in // items in
-            guard let self = self,
-                  let resultsVkGroups = self.realmService.loadData(objectType: VKGroups.self)
-            else { return }
-            self.vkGroups = Array(resultsVkGroups)
-            // self.realmService.saveGroupVKData(items)
-            self.tableView.reloadData()
+        vkNetworkService.fetchUserGroupsVK { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(response):
+                self.realmService.saveGroupVKData(response)
+                guard let resultsVkGroups = self.realmService.loadData(objectType: VKGroups.self) else { return }
+                self.vkGroups = Array(resultsVkGroups)
+                self.tableView.reloadData()
+            case let .failure(error):
+                self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
+            }
         }
     }
 
