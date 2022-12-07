@@ -81,16 +81,12 @@ final class VKNetworkService {
     func fetchFriendsVK(completion: @escaping ([ItemPerson]) -> ()) {
         let path = "\(Constants.methodText)\(Constants.friendsGetText)"
         let url = "\(Constants.baseUrl)\(path)"
-        DispatchQueue.global().async {
-            Alamofire.request(url, method: .get, parameters: self.parametersFriendsVK).responseData { response in
-                guard
-                    let data = response.value,
-                    let items = try? JSONDecoder().decode(Person.self, from: data).response.items
-                else { return }
-                DispatchQueue.main.async {
-                    completion(items)
-                }
-            }
+        AF.request(url, method: .get, parameters: parametersFriendsVK).responseData { response in
+            guard
+                let data = response.value else { return }
+            guard let items = try? JSONDecoder().decode(Person.self, from: data).response.items
+            else { return }
+            completion(items)
         }
     }
 
@@ -99,35 +95,29 @@ final class VKNetworkService {
         let url = "\(Constants.baseUrl)\(path)"
         var parametersPhotos = generalParameters
         parametersPhotos[Constants.ownerIdText] = "\(person.id)"
-        DispatchQueue.global().async {
-            Alamofire.request(url, method: .get, parameters: parametersPhotos).responseData { response in
-                guard
-                    let data = response.value,
-                    let items = try? JSONDecoder().decode(Photo.self, from: data).response.items
-                else { return }
-                let updatePerson = person
-                let photosPerson = List<ItemPhoto>()
-                photosPerson.append(objectsIn: items)
-                updatePerson.photos = photosPerson
-                DispatchQueue.main.async {
-                    completion(updatePerson)
-                }
-            }
+        AF.request(url, method: .get, parameters: parametersPhotos).responseData { response in
+            guard
+                let data = response.value,
+                let items = try? JSONDecoder().decode(Photo.self, from: data).response.items
+            else { return }
+            let updatePerson = person
+            let photosPerson = List<ItemPhoto>()
+            photosPerson.append(objectsIn: items)
+            updatePerson.photos = photosPerson
+            completion(updatePerson)
         }
     }
 
-    func fetchUserGroupsVK(completion: @escaping ([VKGroups]) -> ()) {
+    func fetchUserGroupsVK(completion: @escaping (Result<[VKGroups], Error>) -> Void) {
         let path = "\(Constants.methodText)\(Constants.groupsGetText)"
         let url = "\(Constants.baseUrl)\(path)"
-        DispatchQueue.global().async {
-            Alamofire.request(url, method: .get, parameters: self.parametersGroupVK).responseData { response in
-                guard
-                    let data = response.value,
-                    let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items
-                else { return }
-                DispatchQueue.main.async {
-                    completion(items)
-                }
+        AF.request(url, method: .get, parameters: parametersGroupVK).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                let items = try JSONDecoder().decode(VKGroup.self, from: data).response.items
+                completion(.success(items))
+            } catch {
+                completion(.failure(error))
             }
         }
     }
@@ -137,33 +127,27 @@ final class VKNetworkService {
         let url = "\(Constants.baseUrl)\(path)"
         var parametersSearchGroupVK = generalParameters
         parametersSearchGroupVK[Constants.qText] = searchText
-        DispatchQueue.global().async {
-            Alamofire.request(url, method: .get, parameters: parametersSearchGroupVK).responseData { response in
-                guard
-                    let data = response.value,
-                    let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items
-                else { return }
-                DispatchQueue.main.async {
-                    completion(items)
-                }
-            }
+        AF.request(url, method: .get, parameters: parametersSearchGroupVK).responseData { response in
+            guard
+                let data = response.value,
+                let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items
+            else { return }
+            completion(items)
         }
     }
 
-    func fetchUserNewsVK(completion: @escaping ([Newsfeed]) -> Void) {
+    func fetchUserNewsVK(completion: @escaping (Result<[Newsfeed], Error>) -> Void) {
         let path = "\(Constants.methodText)\(Constants.newsfeedGetText)"
         let url = "\(Constants.baseUrl)\(path)"
         var parametersSearchGroupVK = generalParameters
         parametersSearchGroupVK[Constants.countText] = Constants.countNumberText
-        DispatchQueue.global().async {
-            Alamofire.request(url, method: .get, parameters: parametersSearchGroupVK).responseData { response in
-                guard
-                    let data = response.value,
-                    let items = try? JSONDecoder().decode(VKNews.self, from: data).response.items
-                else { return }
-                DispatchQueue.main.async {
-                    completion(items)
-                }
+        AF.request(url, method: .get, parameters: parametersSearchGroupVK).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                let items = try JSONDecoder().decode(VKNews.self, from: data).response.items
+                completion(.success(items))
+            } catch {
+                completion(.failure(error))
             }
         }
     }
@@ -173,17 +157,13 @@ final class VKNetworkService {
         let url = "\(Constants.baseUrl)\(path)"
         var parametersUsersGetVK = parametersUsersGetVK
         parametersUsersGetVK[Constants.userIdText] = authorID
-        DispatchQueue.global().async {
-            Alamofire.request(url, method: .get, parameters: parametersUsersGetVK).responseData { response in
-                guard
-                    let data = response.value,
-                    let items = try? JSONDecoder().decode(UsersGet.self, from: data).response,
-                    let author = items.first
-                else { return }
-                DispatchQueue.main.async {
-                    completion(author)
-                }
-            }
+        AF.request(url, method: .get, parameters: parametersUsersGetVK).responseData { response in
+            guard
+                let data = response.value,
+                let items = try? JSONDecoder().decode(UsersGet.self, from: data).response,
+                let author = items.first
+            else { return }
+            completion(author)
         }
     }
 

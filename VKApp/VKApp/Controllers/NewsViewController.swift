@@ -61,13 +61,18 @@ final class NewsViewController: UIViewController {
     }
 
     private func fetchUserNewsVK() {
-        vkNetworkService.fetchUserNewsVK { [weak self] items in
+        vkNetworkService.fetchUserNewsVK { [weak self] result in
             guard let self = self else { return }
-            self.userNews = []
-            for item in items where (item.type == .post) || (item.type == .photo) {
-                self.userNews.append(item)
+            switch result {
+            case let .success(response):
+                self.userNews = []
+                for item in response where (item.type == .post) || (item.type == .photo) {
+                    self.userNews.append(item)
+                }
+                self.newsTableView.reloadData()
+            case let .failure(error):
+                self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
             }
-            self.newsTableView.reloadData()
         }
     }
 }
