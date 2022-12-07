@@ -78,15 +78,17 @@ final class VKNetworkService {
 
     // MARK: - Public Methods
 
-    func fetchFriendsVK(completion: @escaping ([ItemPerson]) -> ()) {
+    func fetchFriendsVK(completion: @escaping (Result<[ItemPerson], Error>) -> ()) {
         let path = "\(Constants.methodText)\(Constants.friendsGetText)"
         let url = "\(Constants.baseUrl)\(path)"
         AF.request(url, method: .get, parameters: parametersFriendsVK).responseData { response in
-            guard
-                let data = response.value else { return }
-            guard let items = try? JSONDecoder().decode(Person.self, from: data).response.items
-            else { return }
-            completion(items)
+            guard let data = response.value else { return }
+            do {
+                let items = try JSONDecoder().decode(Person.self, from: data).response.items
+                completion(.success(items))
+            } catch {
+                completion(.failure(error))
+            }
         }
     }
 
