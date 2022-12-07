@@ -33,10 +33,15 @@ final class HeaderNewsTableViewCell: UITableViewCell {
     }
 
     private func fetchAuthorVK(news: Newsfeed, vkNetworkService: VKNetworkService) {
-        vkNetworkService.fetchAuthorVK(authorID: "\(news.sourceID)") { [weak self] person in
+        vkNetworkService.fetchAuthorVK(authorID: "\(news.sourceID)") { [weak self] result in
             guard let self = self else { return }
-            self.imageAuthorImageView.setupImage(urlPath: person.photo100, networkService: vkNetworkService)
-            self.nameAuthorLabel.text = person.fullName
+            switch result {
+            case let .success(response):
+                self.imageAuthorImageView.setupImage(urlPath: response.photo100, networkService: vkNetworkService)
+                self.nameAuthorLabel.text = response.fullName
+            case .failure:
+                return
+            }
         }
     }
 }

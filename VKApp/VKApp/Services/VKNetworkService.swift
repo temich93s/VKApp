@@ -152,18 +152,20 @@ final class VKNetworkService {
         }
     }
 
-    func fetchAuthorVK(authorID: String, completion: @escaping (ResponseUsersGet) -> Void) {
+    func fetchAuthorVK(authorID: String, completion: @escaping (Result<ResponseUsersGet, Error>) -> Void) {
         let path = "\(Constants.methodText)\(Constants.usersGetText)"
         let url = "\(Constants.baseUrl)\(path)"
         var parametersUsersGetVK = parametersUsersGetVK
         parametersUsersGetVK[Constants.userIdText] = authorID
         AF.request(url, method: .get, parameters: parametersUsersGetVK).responseData { response in
-            guard
-                let data = response.value,
-                let items = try? JSONDecoder().decode(UsersGet.self, from: data).response,
-                let author = items.first
-            else { return }
-            completion(author)
+            guard let data = response.value else { return }
+            do {
+                let items = try JSONDecoder().decode(UsersGet.self, from: data).response
+                guard let author = items.first else { return }
+                completion(.success(author))
+            } catch {
+                completion(.failure(error))
+            }
         }
     }
 
