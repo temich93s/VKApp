@@ -13,7 +13,7 @@ final class NewsViewController: UIViewController {
         static let headerNewsTableViewCellID = "HeaderNewsTableViewCell"
         static let postNewsTableViewCellID = "PostNewsTableViewCell"
         static let photoNewsTableViewCellID = "PhotoNewsTableViewCell"
-        static let countCell = 3
+        static let countCellNumber = 3
     }
 
     // MARK: - Private Outlets
@@ -82,7 +82,7 @@ extension NewsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Constants.countCell
+        Constants.countCellNumber
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
