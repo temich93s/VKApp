@@ -30,6 +30,9 @@ final class FriendsUserViewController: UIViewController {
     private let vkNetworkService = VKNetworkService()
     private let realmService = RealmService()
 
+//    private var result: Result<[ItemPerson], Error>?
+//    private let friendsNetworkOperation = NetworkOperation()
+
     private var friendsForSectionMap: [Character: [ItemPerson]] = [:]
     private var charactersName: [Character] = []
     private var itemPersons: [ItemPerson] = []
@@ -116,20 +119,44 @@ final class FriendsUserViewController: UIViewController {
     }
 
     private func fetchFriendsVK() {
-        vkNetworkService.fetchFriendsVK { [weak self] result in
-            guard let self = self else { return }
+        let friendsNetworkOperation = NetworkOperation()
+        friendsNetworkOperation.completionBlock = {
+            let result = friendsNetworkOperation.result
             switch result {
             case let .success(response):
-                self.realmService.saveFriendsData(response)
-                guard let resultsItemPerson = self.realmService.loadData(objectType: ItemPerson.self) else { return }
-                let persons = Array(resultsItemPerson)
-                self.itemPersons = persons
-                self.setupUI(persons: self.itemPersons)
+                OperationQueue.main.addOperation {
+                    self.realmService.saveFriendsData(response)
+                    guard let resultsItemPerson = self.realmService.loadData(objectType: ItemPerson.self)
+                    else { return }
+                    let persons = Array(resultsItemPerson)
+                    self.itemPersons = persons
+
+                    self.setupUI(persons: self.itemPersons)
+                }
             case let .failure(error):
                 self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
+            case .none:
+                return
             }
         }
+        friendsNetworkOperation.start()
     }
+
+//    private func fetchFriendsVK() {
+//        vkNetworkService.fetchFriendsVK { [weak self] result in
+//            guard let self = self else { return }
+//            switch result {
+//            case let .success(response):
+//                self.realmService.saveFriendsData(response)
+//                guard let resultsItemPerson = self.realmService.loadData(objectType: ItemPerson.self) else { return }
+//                let persons = Array(resultsItemPerson)
+//                self.itemPersons = persons
+//                self.setupUI(persons: self.itemPersons)
+//            case let .failure(error):
+//                self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
+//            }
+//        }
+//    }
 
     private func setupUI(persons: [ItemPerson]) {
         allFriends = persons
