@@ -29,6 +29,10 @@ final class HeaderNewsTableViewCell: UITableViewCell {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = Constants.dateFormatText
         dateNewsAuthorLabel.text = dateFormatter.string(from: date)
+        fetchAuthorVK(news: news, vkNetworkService: vkNetworkService)
+    }
+
+    private func fetchAuthorVK(news: Newsfeed, vkNetworkService: VKNetworkService) {
         vkNetworkService.fetchAuthorVK(authorID: "\(news.sourceID)") { [weak self] person in
             guard let self = self else { return }
             self.imageAuthorImageView.setupImage(urlPath: person.photo100, networkService: vkNetworkService)
