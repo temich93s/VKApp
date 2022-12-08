@@ -105,7 +105,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
         vkNetworkService.fetchPhotosVK(person: createPersonForSave()) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case let .success(response):
+            case let .fulfilled(response):
                 self.realmService.savePhotosData(response)
                 guard let resultsItemPersons = self.realmService.loadData(objectType: ItemPerson.self) else { return }
                 let safeItemPersons = Array(resultsItemPersons)
@@ -113,7 +113,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
                     self.currentPerson = person
                 }
                 self.collectionView.reloadData()
-            case let .failure(error):
+            case let .rejected(error):
                 self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
             }
         }
