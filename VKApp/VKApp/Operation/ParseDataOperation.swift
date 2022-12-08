@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Операция по парсингу данных
+/// Парсинг данных
 final class ParseDataOperation: Operation {
     // MARK: - Public Properties
 
