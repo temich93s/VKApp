@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Асинхронные операции
+/// Асинхронная операция
 class AsyncOperation: Operation {
     // MARK: - Enum
 

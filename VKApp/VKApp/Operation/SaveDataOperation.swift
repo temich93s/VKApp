@@ -3,6 +3,7 @@
 
 import Foundation
 
+/// Операция сохранению данных
 final class SaveDataOperation: Operation {
     // MARK: - Private Properties
 

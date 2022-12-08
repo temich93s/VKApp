@@ -4,7 +4,7 @@
 import Alamofire
 import Foundation
 
-///
+/// Операция по получению данных  из сети
 final class GetDataOperation: AsyncOperation {
     // MARK: - Constants
 
