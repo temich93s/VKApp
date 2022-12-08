@@ -33,6 +33,8 @@ final class GetDataOperation: AsyncOperation {
         Constants.fieldsText: Constants.photoText
     ]
 
+    // MARK: - Public Methods
+
     override func main() {
         let path = "\(Constants.methodText)\(Constants.friendsGetText)"
         let url = "\(Constants.baseUrl)\(path)"
@@ -43,7 +45,6 @@ final class GetDataOperation: AsyncOperation {
             else { return }
             self.data = data
             self.state = .finished
-            print("3331111")
         }
     }
 }

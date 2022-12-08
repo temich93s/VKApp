@@ -134,7 +134,6 @@ final class FriendsUserViewController: UIViewController {
             let persons = Array(resultsItemPerson)
             self.itemPersons = persons
             self.setupUI(persons: self.itemPersons)
-            print("334444")
         }
         loadDataOperation.addDependency(saveDataOperation)
         OperationQueue.main.addOperation(loadDataOperation)

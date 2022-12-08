@@ -4,7 +4,11 @@
 import Foundation
 
 final class ParseDataOperation: Operation {
+    // MARK: - Public Properties
+
     var outputData: [ItemPerson] = []
+
+    // MARK: - Public Methods
 
     override func main() {
         guard
@@ -13,6 +17,5 @@ final class ParseDataOperation: Operation {
             let itemsPerson = try? JSONDecoder().decode(Person.self, from: data).response.items
         else { return }
         outputData = itemsPerson
-        print("3332222")
     }
 }
