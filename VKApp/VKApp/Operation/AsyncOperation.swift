@@ -5,12 +5,18 @@ import Foundation
 
 /// Асинхронная операция
 class AsyncOperation: Operation {
+    // MARK: - Private Constants
+
+    private enum Constants {
+        static let isText = "is"
+    }
+
     // MARK: - Enum
 
     enum State: String {
         case ready, executing, finished
         fileprivate var keyPath: String {
-            "is" + rawValue.capitalized
+            "\(Constants.isText)\(rawValue.capitalized)"
         }
     }
 
