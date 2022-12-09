@@ -11,6 +11,14 @@ private protocol DataReloadable {
 
 /// Cервис для загрузки, кеширования изображений
 class PhotoService {
+    // MARK: - Constants
+
+    private enum Constants {
+        static let imagesText = "images"
+        static let separatorText: Character = "/"
+        static let defaultText: Substring = "default"
+    }
+
     // MARK: - Private Properties
 
     private let vkNetworkService = VKNetworkService()
@@ -18,7 +26,7 @@ class PhotoService {
     private let container: DataReloadable
 
     private static let pathName: String = {
-        let pathName = "images"
+        let pathName = Constants.imagesText
         guard
             let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
         else { return pathName }
@@ -69,8 +77,9 @@ class PhotoService {
         guard
             let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
         else { return nil }
-        let hashName = url.split(separator: "/").last ?? "default"
-        return cachesDirectory.appendingPathComponent(PhotoService.pathName + "/" + hashName).path
+        let hashName = url.split(separator: Constants.separatorText).last ?? Constants.defaultText
+        return cachesDirectory.appendingPathComponent("\(PhotoService.pathName)\(Constants.separatorText)\(hashName)")
+            .path
     }
 
     private func saveImageToCache(url: String, image: UIImage) {
