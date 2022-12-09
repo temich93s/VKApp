@@ -5,7 +5,7 @@ import Alamofire
 import Foundation
 
 /// Протокол, декларирующий метод по перезагрузки ячейки
-private protocol DataReloadable {
+protocol DataReloadable {
     func reloadRow(at indexPath: IndexPath)
 }
 
@@ -121,57 +121,6 @@ final class PhotoService {
             DispatchQueue.main.async {
                 self.container.reloadRow(at: indexPath)
             }
-        }
-    }
-}
-
-/// Хранение в контейнере DataReloadable классы таблиц и коллекций
-extension PhotoService {
-    private class Table: DataReloadable {
-        let table: UITableView
-
-        init(table: UITableView) {
-            self.table = table
-        }
-
-        func reloadRow(at indexPath: IndexPath) {
-            table.reloadRows(at: [indexPath], with: .none)
-        }
-    }
-
-    private class TableViewController: DataReloadable {
-        let table: UITableViewController
-
-        init(table: UITableViewController) {
-            self.table = table
-        }
-
-        func reloadRow(at indexPath: IndexPath) {
-            table.tableView.reloadRows(at: [indexPath], with: .none)
-        }
-    }
-
-    private class Collection: DataReloadable {
-        let collection: UICollectionView
-
-        init(collection: UICollectionView) {
-            self.collection = collection
-        }
-
-        func reloadRow(at indexPath: IndexPath) {
-            collection.reloadItems(at: [indexPath])
-        }
-    }
-
-    private class CollectionViewController: DataReloadable {
-        let collection: UICollectionViewController
-
-        init(collection: UICollectionViewController) {
-            self.collection = collection
-        }
-
-        func reloadRow(at indexPath: IndexPath) {
-            collection.collectionView.reloadItems(at: [indexPath])
         }
     }
 }
