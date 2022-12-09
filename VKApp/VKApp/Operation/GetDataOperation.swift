@@ -3,7 +3,7 @@
 
 import Alamofire
 
-/// Получение данных из сети
+/// Асинхронная операция получение данных из сети
 final class GetDataOperation: AsyncOperation {
     // MARK: - Constants
 

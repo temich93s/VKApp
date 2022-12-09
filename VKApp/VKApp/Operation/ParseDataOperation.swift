@@ -3,11 +3,11 @@
 
 import Foundation
 
-/// Парсинг данных
+/// Асинхронный парсинг данных
 final class ParseDataOperation: Operation {
     // MARK: - Public Properties
 
-    var outputData: [ItemPerson] = []
+    var itemPersons: [ItemPerson] = []
 
     // MARK: - Public Methods
 
@@ -17,6 +17,6 @@ final class ParseDataOperation: Operation {
             let data = getDataOperation.data,
             let itemsPerson = try? JSONDecoder().decode(Person.self, from: data).response.items
         else { return }
-        outputData = itemsPerson
+        itemPersons = itemsPerson
     }
 }

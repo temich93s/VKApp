@@ -13,7 +13,7 @@ final class SaveDataOperation: Operation {
 
     override func main() {
         guard let getParseData = dependencies.first as? ParseDataOperation else { return }
-        let parseData = getParseData.outputData
+        let parseData = getParseData.itemPersons
         realmService.saveFriendsData(parseData)
     }
 }
