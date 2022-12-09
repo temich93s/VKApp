@@ -6,11 +6,11 @@ import Foundation
 
 /// Протокол, декларирующий метод по перезагрузки ячейки
 private protocol DataReloadable {
-    func reloadRow(atIndexpath indexPath: IndexPath)
+    func reloadRow(at indexPath: IndexPath)
 }
 
 /// Cервис для загрузки, кеширования изображений
-class PhotoService {
+final class PhotoService {
     // MARK: - Constants
 
     private enum Constants {
@@ -37,7 +37,7 @@ class PhotoService {
         return pathName
     }()
 
-    private var images = [String: UIImage]()
+    private var imagesMap: [String: UIImage] = [:]
 
     // MARK: - Initializers
 
@@ -61,7 +61,7 @@ class PhotoService {
 
     func photo(atIndexpath indexPath: IndexPath, byUrl url: String) -> UIImage? {
         var image: UIImage?
-        if let photo = images[url] {
+        if let photo = imagesMap[url] {
             image = photo
         } else if let photo = getImageFromCache(url: url) {
             image = photo
@@ -102,7 +102,7 @@ class PhotoService {
             let image = UIImage(contentsOfFile: fileName)
         else { return nil }
         DispatchQueue.main.async {
-            self.images[url] = image
+            self.imagesMap[url] = image
         }
         return image
     }
@@ -115,18 +115,17 @@ class PhotoService {
                 let image = UIImage(data: data)
             else { return }
             DispatchQueue.main.async {
-                self.images[url] = image
+                self.imagesMap[url] = image
             }
             self.saveImageToCache(url: url, image: image)
             DispatchQueue.main.async {
-                self.container.reloadRow(atIndexpath: indexPath)
+                self.container.reloadRow(at: indexPath)
             }
         }
     }
 }
 
-/// Расширение добавляющее возможность хранить в контейнере DataReloadable классы UITableView, UICollectionView,
-/// UICollectionViewController
+/// Хранение в контейнере DataReloadable классы таблиц и коллекций
 extension PhotoService {
     private class Table: DataReloadable {
         let table: UITableView
@@ -135,7 +134,7 @@ extension PhotoService {
             self.table = table
         }
 
-        func reloadRow(atIndexpath indexPath: IndexPath) {
+        func reloadRow(at indexPath: IndexPath) {
             table.reloadRows(at: [indexPath], with: .none)
         }
     }
@@ -147,7 +146,7 @@ extension PhotoService {
             self.table = table
         }
 
-        func reloadRow(atIndexpath indexPath: IndexPath) {
+        func reloadRow(at indexPath: IndexPath) {
             table.tableView.reloadRows(at: [indexPath], with: .none)
         }
     }
@@ -159,7 +158,7 @@ extension PhotoService {
             self.collection = collection
         }
 
-        func reloadRow(atIndexpath indexPath: IndexPath) {
+        func reloadRow(at indexPath: IndexPath) {
             collection.reloadItems(at: [indexPath])
         }
     }
@@ -171,7 +170,7 @@ extension PhotoService {
             self.collection = collection
         }
 
-        func reloadRow(atIndexpath indexPath: IndexPath) {
+        func reloadRow(at indexPath: IndexPath) {
             collection.collectionView.reloadItems(at: [indexPath])
         }
     }
