@@ -15,7 +15,7 @@ final class PhotoNewsTableViewCell: UITableViewCell {
         photoImageView.image = nil
     }
 
-    func configure(news: Newsfeed, networkService: VKNetworkService) {
-        photoImageView.setupImage(urlPath: news.photos?.items.first?.sizes.last?.url, networkService: networkService)
+    func configure(image: UIImage?) {
+        photoImageView.image = image
     }
 }
