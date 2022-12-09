@@ -106,21 +106,6 @@ final class GroupUserTableViewController: UITableViewController {
         }
     }
 
-    private func fetchUserGroupsVK() {
-        vkNetworkService.fetchUserGroupsVK { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .fulfilled(response):
-                self.realmService.saveGroupVKData(response)
-                guard let resultsVkGroups = self.realmService.loadData(objectType: VKGroups.self) else { return }
-                self.vkGroups = Array(resultsVkGroups)
-                self.tableView.reloadData()
-            case let .rejected(error):
-                self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
-            }
-        }
-    }
-
     private func setupNotificationToken() {
         guard let groupsResults = realmService.loadData(objectType: VKGroups.self) else { return }
         notificationToken = groupsResults.observe { [weak self] (changes: RealmCollectionChange) in

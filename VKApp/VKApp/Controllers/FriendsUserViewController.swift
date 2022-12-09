@@ -139,22 +139,6 @@ final class FriendsUserViewController: UIViewController {
         OperationQueue.main.addOperation(loadDataOperation)
     }
 
-    private func fetchFriendsVK() {
-        vkNetworkService.fetchFriendsVK { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .fulfilled(response):
-                self.realmService.saveFriendsData(response)
-                guard let resultsItemPerson = self.realmService.loadData(objectType: ItemPerson.self) else { return }
-                let persons = Array(resultsItemPerson)
-                self.itemPersons = persons
-                self.setupUI(persons: self.itemPersons)
-            case let .rejected(error):
-                self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
-            }
-        }
-    }
-
     private func setupUI(persons: [ItemPerson]) {
         allFriends = persons
         itemPersons = persons
