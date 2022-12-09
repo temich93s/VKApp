@@ -17,6 +17,7 @@ final class PhotoService {
         static let imagesText = "images"
         static let separatorText: Character = "/"
         static let defaultText: Substring = "default"
+        static let fileManagerDefault = FileManager.default
     }
 
     // MARK: - Private Properties
@@ -28,11 +29,15 @@ final class PhotoService {
     private static let pathName: String = {
         let pathName = Constants.imagesText
         guard
-            let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+            let cachesDirectory = Constants.fileManagerDefault.urls(for: .cachesDirectory, in: .userDomainMask).first
         else { return pathName }
         let url = cachesDirectory.appendingPathComponent(pathName, isDirectory: true)
-        if !FileManager.default.fileExists(atPath: url.path) {
-            try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+        if !Constants.fileManagerDefault.fileExists(atPath: url.path) {
+            try? Constants.fileManagerDefault.createDirectory(
+                at: url,
+                withIntermediateDirectories: true,
+                attributes: nil
+            )
         }
         return pathName
     }()
@@ -75,7 +80,7 @@ final class PhotoService {
 
     private func getFilePath(url: String) -> String? {
         guard
-            let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+            let cachesDirectory = Constants.fileManagerDefault.urls(for: .cachesDirectory, in: .userDomainMask).first
         else { return nil }
         let hashName = url.split(separator: Constants.separatorText).last ?? Constants.defaultText
         return cachesDirectory.appendingPathComponent("\(PhotoService.pathName)\(Constants.separatorText)\(hashName)")
@@ -87,13 +92,13 @@ final class PhotoService {
             let fileName = getFilePath(url: url),
             let data = image.pngData()
         else { return }
-        FileManager.default.createFile(atPath: fileName, contents: data, attributes: nil)
+        Constants.fileManagerDefault.createFile(atPath: fileName, contents: data, attributes: nil)
     }
 
     private func getImageFromCache(url: String) -> UIImage? {
         guard
             let fileName = getFilePath(url: url),
-            let info = try? FileManager.default.attributesOfItem(atPath: fileName),
+            let info = try? Constants.fileManagerDefault.attributesOfItem(atPath: fileName),
             let modificationDate = info[FileAttributeKey.modificationDate] as? Date
         else { return nil }
         let lifeTime = Date().timeIntervalSince(modificationDate)
