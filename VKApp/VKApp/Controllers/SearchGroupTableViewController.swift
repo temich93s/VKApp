@@ -83,10 +83,10 @@ extension SearchGroupTableViewController: UISearchBarDelegate {
             vkNetworkService.fetchSearchGroupsVK(searchText: searchText) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
-                case let .success(response):
+                case let .fulfilled(response):
                     self.searchGroups = response
                     self.tableView.reloadData()
-                case let .failure(error):
+                case let .rejected(error):
                     self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
                 }
             }

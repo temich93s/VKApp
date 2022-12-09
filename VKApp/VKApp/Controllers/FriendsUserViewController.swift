@@ -83,7 +83,7 @@ final class FriendsUserViewController: UIViewController {
         let persons = Array(resultsItemPerson)
         itemPersons = persons
         setupUI(persons: itemPersons)
-        fetchFriendsVK()
+        getFriendsVK()
     }
 
     private func setupCharacters() {
@@ -115,20 +115,28 @@ final class FriendsUserViewController: UIViewController {
         }
     }
 
-    private func fetchFriendsVK() {
-        vkNetworkService.fetchFriendsVK { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .success(response):
-                self.realmService.saveFriendsData(response)
-                guard let resultsItemPerson = self.realmService.loadData(objectType: ItemPerson.self) else { return }
-                let persons = Array(resultsItemPerson)
-                self.itemPersons = persons
-                self.setupUI(persons: self.itemPersons)
-            case let .failure(error):
-                self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
-            }
+    private func getFriendsVK() {
+        let opq = OperationQueue()
+
+        let getDataOperation = GetDataOperation()
+        opq.addOperation(getDataOperation)
+
+        let parseDataOperation = ParseDataOperation()
+        parseDataOperation.addDependency(getDataOperation)
+        opq.addOperation(parseDataOperation)
+
+        let saveDataOperation = SaveDataOperation()
+        saveDataOperation.addDependency(parseDataOperation)
+        OperationQueue.main.addOperation(saveDataOperation)
+
+        let loadDataOperation = BlockOperation {
+            guard let resultsItemPerson = self.realmService.loadData(objectType: ItemPerson.self) else { return }
+            let persons = Array(resultsItemPerson)
+            self.itemPersons = persons
+            self.setupUI(persons: self.itemPersons)
         }
+        loadDataOperation.addDependency(saveDataOperation)
+        OperationQueue.main.addOperation(loadDataOperation)
     }
 
     private func setupUI(persons: [ItemPerson]) {

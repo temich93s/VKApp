@@ -64,13 +64,13 @@ final class NewsViewController: UIViewController {
         vkNetworkService.fetchUserNewsVK { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case let .success(response):
+            case let .fulfilled(response):
                 self.userNews = []
                 for item in response where (item.type == .post) || (item.type == .photo) {
                     self.userNews.append(item)
                 }
                 self.newsTableView.reloadData()
-            case let .failure(error):
+            case let .rejected(error):
                 self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
             }
         }

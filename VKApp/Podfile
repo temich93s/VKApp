@@ -8,4 +8,5 @@ target 'VKApp' do
   # Pods for VKApp
   pod 'Alamofire'
   pod 'RealmSwift'
+  pod 'PromiseKit', '~> 6.8'
 end

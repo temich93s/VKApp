@@ -1,6 +1,7 @@
 // GroupUserTableViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import PromiseKit
 import RealmSwift
 import UIKit
 
@@ -87,21 +88,21 @@ final class GroupUserTableViewController: UITableViewController {
 
     private func loadData() {
         tableView.reloadData()
-        fetchUserGroupsVK()
+        getUserGroupsVK()
     }
 
-    private func fetchUserGroupsVK() {
-        vkNetworkService.fetchUserGroupsVK { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .success(response):
-                self.realmService.saveGroupVKData(response)
-                guard let resultsVkGroups = self.realmService.loadData(objectType: VKGroups.self) else { return }
-                self.vkGroups = Array(resultsVkGroups)
-                self.tableView.reloadData()
-            case let .failure(error):
-                self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
-            }
+    private func getUserGroupsVK() {
+        firstly {
+            vkNetworkService.fetchDataUserGroupsVK()
+        }.then { data in
+            self.vkNetworkService.parseUserGroupsVK(data: data)
+        }.done { vkGroups in
+            self.realmService.saveGroupVKData(vkGroups)
+            guard let resultsVkGroups = self.realmService.loadData(objectType: VKGroups.self) else { return }
+            self.vkGroups = Array(resultsVkGroups)
+            self.tableView.reloadData()
+        }.catch { error in
+            self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
         }
     }
 

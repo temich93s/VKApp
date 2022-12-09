@@ -36,10 +36,10 @@ final class HeaderNewsTableViewCell: UITableViewCell {
         vkNetworkService.fetchAuthorVK(authorID: "\(news.sourceID)") { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case let .success(response):
+            case let .fulfilled(response):
                 self.imageAuthorImageView.setupImage(urlPath: response.photo100, networkService: vkNetworkService)
                 self.nameAuthorLabel.text = response.fullName
-            case .failure:
+            case .rejected:
                 return
             }
         }
