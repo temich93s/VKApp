@@ -24,6 +24,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0QD-70-6dO">
                                 <rect key="frame" x="8" y="8" width="30" height="30"/>
+                                <color key="backgroundColor" name="WhiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="r5A-Ji-SLs"/>
                                     <constraint firstAttribute="width" constant="30" id="zQ5-Np-JdR"/>
@@ -36,6 +37,7 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ya9-eA-SBa">
                                 <rect key="frame" x="46" y="8" width="41.5" height="30"/>
+                                <color key="backgroundColor" name="WhiteColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="DarkBlueColor"/>
                                 <nil key="highlightedColor"/>
@@ -45,12 +47,14 @@
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0R-vo-Sgr">
                                 <rect key="frame" x="260.5" y="8" width="13.5" height="30"/>
+                                <color key="backgroundColor" name="WhiteColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="DarkBlueColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FPp-0n-5Q8">
                                 <rect key="frame" x="282" y="8" width="30" height="30"/>
+                                <color key="backgroundColor" name="WhiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="Xv2-R4-ZtH"/>
                                     <constraint firstAttribute="height" constant="30" id="bKy-4q-9eT"/>
@@ -88,6 +92,9 @@
         <image name="heart" catalog="system" width="128" height="109"/>
         <namedColor name="DarkBlueColor">
             <color red="0.29199999570846558" green="0.50700002908706665" blue="0.74400001764297485" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="WhiteColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

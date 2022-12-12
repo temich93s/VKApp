@@ -47,6 +47,8 @@ final class VKNetworkService {
         static let countText = "count"
         static let countNumberText = "40"
         static let usersGetText = "users.get"
+        static let startTimeText = "start_time"
+        static let startFromText = "start_from"
     }
 
     // MARK: - Private Properties
@@ -191,6 +193,40 @@ final class VKNetworkService {
         Promise<[VKGroups]> { resolver in
             guard let items = try? JSONDecoder().decode(VKGroup.self, from: data).response.items else { return }
             return resolver.fulfill(items)
+        }
+    }
+
+    func fetchNewNewsVK(startTime: Double, completion: @escaping (Result<[Newsfeed]>) -> Void) {
+        let path = "\(Constants.methodText)\(Constants.newsfeedGetText)"
+        let url = "\(Constants.baseUrl)\(path)"
+        var parametersNewNewsVK = generalParameters
+        parametersNewNewsVK[Constants.startTimeText] = "\(startTime)"
+        AF.request(url, method: .get, parameters: parametersNewNewsVK).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                let items = try JSONDecoder().decode(VKNews.self, from: data).response.items
+                completion(.fulfilled(items))
+            } catch {
+                completion(.rejected(error))
+            }
+        }
+    }
+
+    func fetchNewsVK(nextFrom: String, completion: @escaping (Result<([Newsfeed], String)>) -> Void) {
+        let path = "\(Constants.methodText)\(Constants.newsfeedGetText)"
+        let url = "\(Constants.baseUrl)\(path)"
+        var parametersNewsVK = generalParameters
+        parametersNewsVK[Constants.startFromText] = nextFrom
+        AF.request(url, method: .get, parameters: parametersNewsVK).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                let items = try JSONDecoder().decode(VKNews.self, from: data).response.items
+                let nextFrom = try JSONDecoder().decode(VKNews.self, from: data).response.nextFrom
+                guard let nextFrom = nextFrom else { return }
+                completion(.fulfilled((items, nextFrom)))
+            } catch {
+                completion(.rejected(error))
+            }
         }
     }
 

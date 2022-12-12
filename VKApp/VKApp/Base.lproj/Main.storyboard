@@ -182,15 +182,16 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ff-fU-9PD" customClass="CharacterSetControl" customModule="VKApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="50"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="LightBlueColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="WR5-1U-9j8"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="6mO-Nr-dxd">
                                 <rect key="frame" x="0.0" y="138" width="414" height="675"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Введите текст" id="NbV-8z-Gg2">
+                                <color key="backgroundColor" name="LightBlueColor"/>
+                                <color key="sectionIndexBackgroundColor" name="LightBlueColor"/>
+                                <searchBar key="tableHeaderView" opaque="NO" contentMode="redraw" placeholder="Введите текст" translucent="NO" id="NbV-8z-Gg2">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" name="LightBlueColor"/>
@@ -201,12 +202,13 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendsUserCell" id="JIU-6u-9Mg" customClass="FriendsUserTableViewCell" customModule="VKApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="88.5" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JIU-6u-9Mg" id="9Uz-kl-IQN">
+                                        <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JIU-6u-9Mg" id="9Uz-kl-IQN">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcD-p1-TVI">
+                                                <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcD-p1-TVI">
                                                     <rect key="frame" x="20" y="15" width="332" height="20.5"/>
+                                                    <color key="backgroundColor" name="LightBlueColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -216,6 +218,7 @@
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D8G-Au-qtU">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                            <color key="backgroundColor" name="LightBlueColor"/>
                                                         </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -241,6 +244,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
+                                            <color key="backgroundColor" name="LightBlueColor"/>
                                             <constraints>
                                                 <constraint firstItem="dcD-p1-TVI" firstAttribute="leading" secondItem="9Uz-kl-IQN" secondAttribute="leadingMargin" id="DN1-U1-tZc"/>
                                                 <constraint firstItem="jc9-rp-CnA" firstAttribute="top" secondItem="9Uz-kl-IQN" secondAttribute="top" id="JAI-BR-qqf"/>
@@ -250,7 +254,7 @@
                                                 <constraint firstItem="dcD-p1-TVI" firstAttribute="centerY" secondItem="jc9-rp-CnA" secondAttribute="centerY" id="tcQ-eD-SWU"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="LightBlueColor"/>
                                         <connections>
                                             <outlet property="friendNameLabel" destination="dcD-p1-TVI" id="kDt-K4-rpJ"/>
                                             <outlet property="friendPhotoImageView" destination="D8G-Au-qtU" id="aXw-I2-qc9"/>
@@ -414,6 +418,7 @@
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjz-Yt-quy">
                                             <rect key="frame" x="20" y="0.0" width="332" height="50"/>
+                                            <color key="backgroundColor" name="WhiteColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="fQp-7G-ZEM"/>
                                             </constraints>
@@ -428,6 +433,7 @@
                                             </constraints>
                                         </imageView>
                                     </subviews>
+                                    <color key="backgroundColor" name="WhiteColor"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="sjz-Yt-quy" secondAttribute="bottom" id="6D7-lr-lV9"/>
                                         <constraint firstItem="sjz-Yt-quy" firstAttribute="height" secondItem="agW-DX-eKS" secondAttribute="height" id="IVr-pk-neR"/>
@@ -560,7 +566,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="n51-Hg-QwM">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="WhiteColor"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zyb-qY-PVT"/>
@@ -640,7 +646,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="9Zv-3l-sVj"/>
+        <segue reference="7UE-HU-mYR"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>
