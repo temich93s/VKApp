@@ -15,7 +15,7 @@ final class PhotoNewsTableViewCell: UITableViewCell {
         photoImageView.image = nil
     }
 
-    func configure(image: UIImage?) {
-        photoImageView.image = image
+    func configure(url: String, photoService: PhotoService?, indexPath: IndexPath) {
+        photoImageView.image = photoService?.photo(atIndexpath: indexPath, byUrl: url)
     }
 }

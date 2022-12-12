@@ -49,7 +49,8 @@ final class GroupUserTableViewController: UITableViewController {
         else { return UITableViewCell() }
         cell.configure(
             group: vkGroups[indexPath.row],
-            image: photoService?.photo(atIndexpath: indexPath, byUrl: vkGroups[indexPath.row].photo200)
+            photoService: photoService,
+            indexPath: indexPath
         )
         return cell
     }
