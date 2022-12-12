@@ -36,6 +36,7 @@ final class FriendsUserViewController: UIViewController {
     private var allFriends: [ItemPerson] = []
     private var notificationToken: NotificationToken?
     private var friendsResults: Results<ItemPerson>?
+    private var photoService: PhotoService?
 
     private lazy var scrollFromCharacterHandler: CharacterHandler? = { [weak self] character in
         guard
@@ -67,6 +68,7 @@ final class FriendsUserViewController: UIViewController {
     // MARK: - Private Methods
 
     private func setupView() {
+        photoService = PhotoService(container: friendsTableView)
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
         friendsSearchBar.delegate = self
@@ -203,7 +205,13 @@ extension FriendsUserViewController: UITableViewDelegate, UITableViewDataSource 
             indexPath.section < charactersName.count,
             let friendsForSectionMap = friendsForSectionMap[charactersName[indexPath.section]]
         else { return UITableViewCell() }
-        cell.configure(user: friendsForSectionMap[indexPath.row], networkService: vkNetworkService)
+        cell.configure(
+            user: friendsForSectionMap[indexPath.row],
+            image: photoService?.photo(
+                atIndexpath: indexPath,
+                byUrl: friendsForSectionMap[indexPath.row].photo
+            )
+        )
         return cell
     }
 

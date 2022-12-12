@@ -23,7 +23,9 @@ final class NewsViewController: UIViewController {
     // MARK: - Private Properties
 
     private let vkNetworkService = VKNetworkService()
+
     private var userNews: [Newsfeed] = []
+    private var photoService: PhotoService?
 
     // MARK: - Lifecycle
 
@@ -36,6 +38,7 @@ final class NewsViewController: UIViewController {
     // MARK: - Private Methods
 
     private func setupView() {
+        photoService = PhotoService(container: newsTableView)
         newsTableView.dataSource = self
         newsTableView.rowHeight = UITableView.automaticDimension
         newsTableView.register(
@@ -142,9 +145,10 @@ extension NewsViewController: UITableViewDataSource {
                 withIdentifier: Constants.photoNewsTableViewCellID,
                 for: indexPath
             ) as? PhotoNewsTableViewCell,
+            let url = userNews[indexPath.section].photos?.items.first?.sizes.last?.url,
             indexPath.section < userNews.count
         else { return UITableViewCell() }
-        cell.configure(news: userNews[indexPath.section], networkService: vkNetworkService)
+        cell.configure(url: url, photoService: photoService, indexPath: indexPath)
         return cell
     }
 
