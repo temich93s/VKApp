@@ -12,9 +12,22 @@ final class AnimationService {
         static let transformScaleYText = "transform.scale.y"
         static let opacityText = "opacity"
         static let friendPhotoOneText = "FriendPhotoOne"
+        static let transformScaleText = "transform.scale"
     }
 
     // MARK: - Public Methods
+
+    func animateJumpImageView(imageView: UIImageView) {
+        let animation = CASpringAnimation(keyPath: Constants.transformScaleText)
+        animation.fromValue = 0.5
+        animation.toValue = 1
+        animation.stiffness = 100
+        animation.mass = 2
+        animation.duration = 1
+        animation.beginTime = CACurrentMediaTime()
+        animation.fillMode = CAMediaTimingFillMode.forwards
+        imageView.layer.add(animation, forKey: nil)
+    }
 
     func animateShowImageView(imageView: UIImageView) {
         let animationScaleX = CABasicAnimation(keyPath: Constants.transformScaleXText)

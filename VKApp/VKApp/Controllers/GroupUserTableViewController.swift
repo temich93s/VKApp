@@ -19,6 +19,7 @@ final class GroupUserTableViewController: UITableViewController {
 
     private let vkNetworkService = VKNetworkService()
     private let realmService = RealmService()
+    private let animationService = AnimationService()
 
     private var vkGroups: [VKGroups] = []
     private var notificationToken: NotificationToken?
@@ -67,7 +68,7 @@ final class GroupUserTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? GroupUserTableViewCell else { return }
-        cell.animateGroupPhotoImageView()
+        cell.animateGroupPhotoImageView(animationService: animationService)
     }
 
     // MARK: - IBAction
