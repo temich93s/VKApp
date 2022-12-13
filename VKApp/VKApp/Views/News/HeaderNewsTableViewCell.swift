@@ -7,9 +7,9 @@ import UIKit
 final class HeaderNewsTableViewCell: UITableViewCell {
     // MARK: - Constants
 
-    private enum Constants {
-        static let dateFormatText = "HH:mm   dd MMMM"
-    }
+//    private enum Constants {
+//        static let dateFormatText = "HH:mm   dd MMMM"
+//    }
 
     // MARK: - Private Outlets
 
@@ -25,10 +25,7 @@ final class HeaderNewsTableViewCell: UITableViewCell {
 
     func configure(news: Newsfeed, vkNetworkService: VKNetworkService) {
         nameAuthorLabel.text = "\(news.sourceID)"
-        let date = Date(timeIntervalSinceReferenceDate: Double(news.date))
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = Constants.dateFormatText
-        dateNewsAuthorLabel.text = dateFormatter.string(from: date)
+        dateNewsAuthorLabel.text = DateFormatter.getNewsDate(dateInt: news.date)
         fetchAuthorVK(news: news, vkNetworkService: vkNetworkService)
     }
 
