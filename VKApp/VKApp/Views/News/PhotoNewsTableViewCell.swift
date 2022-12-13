@@ -5,6 +5,12 @@ import UIKit
 
 /// Новость типа фото
 final class PhotoNewsTableViewCell: UITableViewCell {
+    // MARK: - Constants
+
+    private enum Constants {
+        static let oneNumber = 1
+    }
+
     // MARK: - Private Outlets
 
     @IBOutlet private var photoImageView: UIImageView!
@@ -15,7 +21,8 @@ final class PhotoNewsTableViewCell: UITableViewCell {
         photoImageView.image = nil
     }
 
-    func configure(url: String, photoService: PhotoService?, indexPath: IndexPath) {
+    func configure(url: String, photoService: PhotoService?, section: Int) {
+        let indexPath = IndexPath(row: Constants.oneNumber, section: section)
         photoImageView.image = photoService?.photo(atIndexpath: indexPath, byUrl: url)
     }
 }

@@ -192,7 +192,7 @@ extension NewsViewController: UITableViewDataSource {
             let url = userNews[indexPath.section].photos?.items.first?.sizes.last?.url,
             indexPath.section < userNews.count
         else { return UITableViewCell() }
-        cell.configure(url: url, photoService: photoService, indexPath: indexPath)
+        cell.configure(url: url, photoService: photoService, section: indexPath.section)
         return cell
     }
 

@@ -11,7 +11,8 @@ final class PhotosUserCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public Methods
 
-    func configure(url: String, photoService: PhotoService?, indexPath: IndexPath) {
+    func configure(url: String, photoService: PhotoService?, row: Int) {
+        let indexPath = IndexPath(row: row, section: Int.zero)
         friendPhotoImageView.image = photoService?.photo(atIndexpath: indexPath, byUrl: url)
     }
 
