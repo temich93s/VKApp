@@ -312,6 +312,7 @@
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7AU-8M-lTg">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <color key="backgroundColor" name="WhiteColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="7AU-8M-lTg" secondAttribute="height" multiplier="1:1" id="BGk-cd-Sf5"/>
                                             </constraints>
@@ -325,6 +326,7 @@
                                             </constraints>
                                         </view>
                                     </subviews>
+                                    <color key="backgroundColor" name="WhiteColor"/>
                                     <constraints>
                                         <constraint firstItem="7AU-8M-lTg" firstAttribute="top" secondItem="cbS-wH-ZBF" secondAttribute="top" id="0ff-X3-xIV"/>
                                         <constraint firstAttribute="height" secondItem="7AU-8M-lTg" secondAttribute="height" id="98P-d4-QRG"/>
@@ -336,6 +338,7 @@
                                         <constraint firstAttribute="trailing" secondItem="7AU-8M-lTg" secondAttribute="trailing" id="whu-jc-1Xy"/>
                                     </constraints>
                                 </collectionViewCellContentView>
+                                <color key="backgroundColor" name="WhiteColor"/>
                                 <connections>
                                     <outlet property="friendPhotoImageView" destination="7AU-8M-lTg" id="dK8-eC-aIA"/>
                                 </connections>

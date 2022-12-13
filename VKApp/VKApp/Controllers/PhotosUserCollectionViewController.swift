@@ -18,6 +18,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
 
     private let vkNetworkService = VKNetworkService()
     private let realmService = RealmService()
+    private let animationService = AnimationService()
 
     private var currentPerson = ItemPerson()
     private var pressedCellCurrentIndex = 0
@@ -62,7 +63,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
         forItemAt indexPath: IndexPath
     ) {
         guard let cellPhotosUser = cell as? PhotosUserCollectionViewCell else { return }
-        cellPhotosUser.animateShowFriendPhotoImageView()
+        cellPhotosUser.animateShowFriendPhotoImageView(animationService: animationService)
     }
 
     override func collectionView(
@@ -71,7 +72,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
         forItemAt indexPath: IndexPath
     ) {
         guard let cellPhotosUser = cell as? PhotosUserCollectionViewCell else { return }
-        cellPhotosUser.animateHideFriendPhotoImageView()
+        cellPhotosUser.animateHideFriendPhotoImageView(animationService: animationService)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
