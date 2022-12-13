@@ -212,7 +212,7 @@ final class VKNetworkService {
         }
     }
 
-    func fetchNewsVK(nextFrom: String, completion: @escaping (Result<([Newsfeed], String)>) -> Void) {
+    func fetchNewsVK(nextFrom: String, completion: @escaping (Result<ResponseVKNews>) -> Void) {
         let path = "\(Constants.methodText)\(Constants.newsfeedGetText)"
         let url = "\(Constants.baseUrl)\(path)"
         var parametersNewsVK = generalParameters
@@ -220,10 +220,8 @@ final class VKNetworkService {
         AF.request(url, method: .get, parameters: parametersNewsVK).responseData { response in
             guard let data = response.value else { return }
             do {
-                let items = try JSONDecoder().decode(VKNews.self, from: data).response.items
-                let nextFrom = try JSONDecoder().decode(VKNews.self, from: data).response.nextFrom
-                guard let nextFrom = nextFrom else { return }
-                completion(.fulfilled((items, nextFrom)))
+                let response = try JSONDecoder().decode(VKNews.self, from: data).response
+                completion(.fulfilled(response))
             } catch {
                 completion(.rejected(error))
             }

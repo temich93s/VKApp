@@ -78,9 +78,11 @@ final class NewsViewController: UIViewController {
         vkNetworkService.fetchNewsVK(nextFrom: nextFrom) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case let .fulfilled((news, nextFrom)):
-                self.userNews = self.filterNews(news: news)
-                self.nextFrom = nextFrom
+            case let .fulfilled(response):
+                self.userNews = self.filterNews(news: response.items)
+                if let nextFrom = response.nextFrom {
+                    self.nextFrom = nextFrom
+                }
                 self.newsTableView.reloadData()
             case let .rejected(error):
                 self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
@@ -223,11 +225,13 @@ extension NewsViewController: UITableViewDataSourcePrefetching {
         vkNetworkService.fetchNewsVK(nextFrom: nextFrom) { [weak self] results in
             guard let self = self else { return }
             switch results {
-            case let .fulfilled((news, nextFrom)):
-                let indexSet = IndexSet(integersIn: self.userNews.count ..< self.userNews.count + news.count)
-                self.userNews.append(contentsOf: news)
+            case let .fulfilled(response):
+                let indexSet = IndexSet(integersIn: self.userNews.count ..< self.userNews.count + response.items.count)
+                self.userNews.append(contentsOf: response.items)
                 self.newsTableView.insertSections(indexSet, with: .automatic)
-                self.nextFrom = nextFrom
+                if let nextFrom = response.nextFrom {
+                    self.nextFrom = nextFrom
+                }
                 self.isLoading = false
             case .rejected:
                 self.isLoading = false
