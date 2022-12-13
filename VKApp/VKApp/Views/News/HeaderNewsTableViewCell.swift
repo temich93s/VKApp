@@ -5,12 +5,6 @@ import UIKit
 
 /// Ячейка - верний колонтитул новости
 final class HeaderNewsTableViewCell: UITableViewCell {
-    // MARK: - Constants
-
-//    private enum Constants {
-//        static let dateFormatText = "HH:mm   dd MMMM"
-//    }
-
     // MARK: - Private Outlets
 
     @IBOutlet private var imageAuthorImageView: UIImageView!
