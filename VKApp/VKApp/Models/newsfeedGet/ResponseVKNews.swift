@@ -12,7 +12,7 @@ final class ResponseVKNews: Decodable {
 
     // MARK: - CodingKeys
 
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case items
         case nextFrom = "next_from"
     }

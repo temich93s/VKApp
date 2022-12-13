@@ -1,7 +1,7 @@
 // Size.swift
 // Copyright © RoadMap. All rights reserved.
 
-import UIKit
+import Foundation
 
 /// Размер фотографии
 final class Size: Decodable {
@@ -12,8 +12,8 @@ final class Size: Decodable {
     /// Высота фотографии
     let height: Int
     /// Соотношение сторон у фотографии
-    var aspectRatio: CGFloat {
-        CGFloat(height) / CGFloat(width)
+    var aspectRatio: Float {
+        Float(height) / Float(width)
     }
 
     // MARK: - CodingKeys

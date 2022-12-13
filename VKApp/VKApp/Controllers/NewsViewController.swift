@@ -18,7 +18,7 @@ final class NewsViewController: UIViewController {
         static let lightBlueColorText = "LightBlueColor"
         static let okText = "OK"
         static let countCellNumber = 3
-        static let oneNumber: CGFloat = 1
+        static let oneNumber = 1
     }
 
     // MARK: - Private Outlets
@@ -92,7 +92,7 @@ final class NewsViewController: UIViewController {
         newsTableView.refreshControl = UIRefreshControl()
         newsTableView.refreshControl?.attributedTitle = NSAttributedString(string: Constants.refreshText)
         newsTableView.refreshControl?.tintColor = UIColor(named: Constants.lightBlueColorText)
-        newsTableView.refreshControl?.addTarget(self, action: #selector(refreshNews), for: .valueChanged)
+        newsTableView.refreshControl?.addTarget(self, action: #selector(refreshNewsAction), for: .valueChanged)
     }
 
     private func filterNews(news: [Newsfeed]) -> [Newsfeed] {
@@ -103,23 +103,24 @@ final class NewsViewController: UIViewController {
         return filteredNews
     }
 
-    @objc func refreshNews() {
+    @objc private func refreshNewsAction() {
         newsTableView.refreshControl?.beginRefreshing()
         guard let dateInt = userNews.first?.date else { return }
         let mostFreshNewsDate = Double(dateInt)
-        vkNetworkService.fetchNewNewsVK(startTime: mostFreshNewsDate + 1) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .fulfilled(news):
-                self.newsTableView.refreshControl?.endRefreshing()
-                guard news.count > 0 else { return }
-                self.userNews = self.filterNews(news: news) + self.userNews
-                let indexSet = IndexSet(integersIn: 0 ..< news.count)
-                self.newsTableView.insertSections(indexSet, with: .automatic)
-            case .rejected:
-                self.newsTableView.refreshControl?.endRefreshing()
+        vkNetworkService
+            .fetchNewNewsVK(startTime: mostFreshNewsDate + Double(Constants.oneNumber)) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case let .fulfilled(news):
+                    self.newsTableView.refreshControl?.endRefreshing()
+                    guard news.count > 0 else { return }
+                    self.userNews = self.filterNews(news: news) + self.userNews
+                    let indexSet = IndexSet(integersIn: 0 ..< news.count)
+                    self.newsTableView.insertSections(indexSet, with: .automatic)
+                case .rejected:
+                    self.newsTableView.refreshControl?.endRefreshing()
+                }
             }
-        }
     }
 }
 
@@ -242,8 +243,10 @@ extension NewsViewController: UITableViewDelegate {
         switch indexPath.row {
         case 1 where userNews[indexPath.section].type == .photo:
             let tableWidth = newsTableView.bounds.width
-            let aspectRatio = userNews[indexPath.section].photos?.items.first?.sizes.first?.aspectRatio ?? Constants
-                .oneNumber
+            let aspectRatio = CGFloat(
+                userNews[indexPath.section].photos?.items.first?.sizes.first?
+                    .aspectRatio ?? Float(Constants.oneNumber)
+            )
             let cellHeight = tableWidth * aspectRatio
             return cellHeight
         default:

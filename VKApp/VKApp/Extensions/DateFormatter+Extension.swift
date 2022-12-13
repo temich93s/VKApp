@@ -3,6 +3,7 @@
 
 import Foundation
 
+/// форматирование даты
 extension DateFormatter {
     // MARK: - Constants
 

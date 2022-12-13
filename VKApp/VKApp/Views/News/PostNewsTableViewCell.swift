@@ -15,6 +15,8 @@ final class PostNewsTableViewCell: UITableViewCell {
     private enum Constants {
         static let zeroNumber = 0
         static let threeNumber = 3
+        static let showLessText = "Show less..."
+        static let showMoreText = "Show more..."
     }
 
     // MARK: - Private Outlets
@@ -49,7 +51,7 @@ final class PostNewsTableViewCell: UITableViewCell {
 
     private func updateCell() {
         postLabel.numberOfLines = isExpanded ? Constants.zeroNumber : Constants.threeNumber
-        let title = isExpanded ? "Show less..." : "Show more..."
+        let title = isExpanded ? Constants.showLessText : Constants.showMoreText
         showTextButton.setTitle(title, for: .normal)
     }
 }
