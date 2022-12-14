@@ -1,6 +1,7 @@
 // NewsViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import PromiseKit
 import UIKit
 
 /// Экран с новостной лентой
@@ -13,7 +14,11 @@ final class NewsViewController: UIViewController {
         static let headerNewsTableViewCellID = "HeaderNewsTableViewCell"
         static let postNewsTableViewCellID = "PostNewsTableViewCell"
         static let photoNewsTableViewCellID = "PhotoNewsTableViewCell"
+        static let refreshText = "Обновление новостей..."
+        static let lightBlueColorText = "LightBlueColor"
+        static let okText = "OK"
         static let countCellNumber = 3
+        static let oneNumber = 1
     }
 
     // MARK: - Private Outlets
@@ -26,20 +31,30 @@ final class NewsViewController: UIViewController {
 
     private var userNews: [Newsfeed] = []
     private var photoService: PhotoService?
+    private var nextFrom = String()
+    private var isLoading = false
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        fetchUserNewsVK()
+        fetchNewsVK()
     }
 
     // MARK: - Private Methods
 
     private func setupView() {
+        setupRefreshControl()
+        setupTableview()
         photoService = PhotoService(container: newsTableView)
+    }
+
+    private func setupTableview() {
+        newsTableView.rowHeight = UITableView.automaticDimension
         newsTableView.dataSource = self
+        newsTableView.delegate = self
+        newsTableView.prefetchDataSource = self
         newsTableView.rowHeight = UITableView.automaticDimension
         newsTableView.register(
             UINib(nibName: Constants.newsTableViewCellID, bundle: nil),
@@ -63,20 +78,55 @@ final class NewsViewController: UIViewController {
         )
     }
 
-    private func fetchUserNewsVK() {
-        vkNetworkService.fetchUserNewsVK { [weak self] result in
+    private func fetchNewsVK() {
+        vkNetworkService.fetchNewsVK(nextFrom: nextFrom) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .fulfilled(response):
-                self.userNews = []
-                for item in response where (item.type == .post) || (item.type == .photo) {
-                    self.userNews.append(item)
+                self.userNews = self.filterNews(news: response.items)
+                if let nextFrom = response.nextFrom {
+                    self.nextFrom = nextFrom
                 }
                 self.newsTableView.reloadData()
             case let .rejected(error):
                 self.showErrorAlert(alertTitle: nil, message: error.localizedDescription, actionTitle: nil)
             }
         }
+    }
+
+    private func setupRefreshControl() {
+        newsTableView.refreshControl = UIRefreshControl()
+        newsTableView.refreshControl?.attributedTitle = NSAttributedString(string: Constants.refreshText)
+        newsTableView.refreshControl?.tintColor = UIColor(named: Constants.lightBlueColorText)
+        newsTableView.refreshControl?.addTarget(self, action: #selector(refreshNewsAction), for: .valueChanged)
+    }
+
+    private func filterNews(news: [Newsfeed]) -> [Newsfeed] {
+        var filteredNews: [Newsfeed] = []
+        for oneNews in news where (oneNews.type == .post) || (oneNews.type == .photo) {
+            filteredNews.append(oneNews)
+        }
+        return filteredNews
+    }
+
+    @objc private func refreshNewsAction() {
+        newsTableView.refreshControl?.beginRefreshing()
+        guard let dateInt = userNews.first?.date else { return }
+        let mostFreshNewsDate = Double(dateInt)
+        vkNetworkService
+            .fetchNewNewsVK(startTime: mostFreshNewsDate + Double(Constants.oneNumber)) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case let .fulfilled(news):
+                    self.newsTableView.refreshControl?.endRefreshing()
+                    guard news.count > 0 else { return }
+                    self.userNews = self.filterNews(news: news) + self.userNews
+                    let indexSet = IndexSet(integersIn: 0 ..< news.count)
+                    self.newsTableView.insertSections(indexSet, with: .automatic)
+                case .rejected:
+                    self.newsTableView.refreshControl?.endRefreshing()
+                }
+            }
     }
 }
 
@@ -135,6 +185,7 @@ extension NewsViewController: UITableViewDataSource {
             ) as? PostNewsTableViewCell,
             indexPath.section < userNews.count
         else { return UITableViewCell() }
+        cell.delegate = self
         cell.configure(news: userNews[indexPath.section])
         return cell
     }
@@ -162,5 +213,70 @@ extension NewsViewController: UITableViewDataSource {
         else { return UITableViewCell() }
         cell.configure(news: userNews[indexPath.section], vkNetworkService: vkNetworkService)
         return cell
+    }
+}
+
+// MARK: - UITableViewDataSourcePrefetching
+
+extension NewsViewController: UITableViewDataSourcePrefetching {
+    // MARK: - Public Methods
+
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        guard
+            let maxSection = indexPaths.map(\.section).max(),
+            maxSection > userNews.count - Constants.countCellNumber,
+            !isLoading
+        else { return }
+        isLoading = true
+        fetchNewsVK(nextFrom: nextFrom)
+    }
+
+    // MARK: - Private Methods
+
+    private func fetchNewsVK(nextFrom: String) {
+        vkNetworkService.fetchNewsVK(nextFrom: nextFrom) { [weak self] results in
+            guard let self = self else { return }
+            switch results {
+            case let .fulfilled(response):
+                let indexSet = IndexSet(integersIn: self.userNews.count ..< self.userNews.count + response.items.count)
+                self.userNews.append(contentsOf: response.items)
+                self.newsTableView.insertSections(indexSet, with: .automatic)
+                if let nextFrom = response.nextFrom {
+                    self.nextFrom = nextFrom
+                }
+                self.isLoading = false
+            case .rejected:
+                self.isLoading = false
+            }
+        }
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension NewsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 1 where userNews[indexPath.section].type == .photo:
+            let tableWidth = newsTableView.bounds.width
+            let aspectRatio = CGFloat(
+                userNews[indexPath.section].photos?.items.first?.sizes.first?
+                    .aspectRatio ?? Float(Constants.oneNumber)
+            )
+            let cellHeight = tableWidth * aspectRatio
+            return cellHeight
+        default:
+            return UITableView.automaticDimension
+        }
+    }
+}
+
+// MARK: - NewsPostCellDelegate
+
+extension NewsViewController: PostNewsTableCellDelegate {
+    func didTappedShowTextButton(cell: PostNewsTableViewCell) {
+        newsTableView.beginUpdates()
+        cell.isExpanded.toggle()
+        newsTableView.endUpdates()
     }
 }

@@ -5,6 +5,12 @@ import UIKit
 
 /// Новость типа фото
 final class PhotoNewsTableViewCell: UITableViewCell {
+    // MARK: - Constants
+
+    private enum Constants {
+        static let oneNumber = 1
+    }
+
     // MARK: - Private Outlets
 
     @IBOutlet private var photoImageView: UIImageView!
