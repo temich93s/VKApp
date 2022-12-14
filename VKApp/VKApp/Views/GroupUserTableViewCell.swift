@@ -12,10 +12,9 @@ final class GroupUserTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configure(group: VKGroups, photoService: PhotoService?, row: Int) {
+    func configure(group: VKGroups, photoService: PhotoService?, indexPath: IndexPath) {
         selectionStyle = .none
         groupNameLabel.text = group.name
-        let indexPath = IndexPath(row: row, section: Int.zero)
         groupPhotoImageView.image = photoService?.photo(atIndexpath: indexPath, byUrl: group.photo200)
     }
 

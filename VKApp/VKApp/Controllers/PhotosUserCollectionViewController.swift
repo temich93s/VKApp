@@ -53,7 +53,7 @@ final class PhotosUserCollectionViewController: UICollectionViewController {
             ) as? PhotosUserCollectionViewCell,
             indexPath.row < currentPerson.photos.count
         else { return UICollectionViewCell() }
-        cell.configure(url: currentPerson.photos[indexPath.row].url, photoService: photoService, row: indexPath.row)
+        cell.configure(url: currentPerson.photos[indexPath.row].url, photoService: photoService, indexPath: indexPath)
         return cell
     }
 

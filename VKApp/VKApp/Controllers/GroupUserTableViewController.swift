@@ -48,7 +48,7 @@ final class GroupUserTableViewController: UITableViewController {
             ) as? GroupUserTableViewCell,
             indexPath.row < vkGroups.count
         else { return UITableViewCell() }
-        cell.configure(group: vkGroups[indexPath.row], photoService: photoService, row: indexPath.row)
+        cell.configure(group: vkGroups[indexPath.row], photoService: photoService, indexPath: indexPath)
         return cell
     }
 

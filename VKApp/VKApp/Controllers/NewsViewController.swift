@@ -39,14 +39,18 @@ final class NewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        fetchUserNewsVK()
+        fetchNewsVK()
     }
 
     // MARK: - Private Methods
 
     private func setupView() {
         setupRefreshControl()
+        setupTableview()
         photoService = PhotoService(container: newsTableView)
+    }
+
+    private func setupTableview() {
         newsTableView.rowHeight = UITableView.automaticDimension
         newsTableView.dataSource = self
         newsTableView.delegate = self
@@ -74,7 +78,7 @@ final class NewsViewController: UIViewController {
         )
     }
 
-    private func fetchUserNewsVK() {
+    private func fetchNewsVK() {
         vkNetworkService.fetchNewsVK(nextFrom: nextFrom) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -195,7 +199,7 @@ extension NewsViewController: UITableViewDataSource {
             let url = userNews[indexPath.section].photos?.items.first?.sizes.last?.url,
             indexPath.section < userNews.count
         else { return UITableViewCell() }
-        cell.configure(url: url, photoService: photoService, section: indexPath.section)
+        cell.configure(url: url, photoService: photoService, indexPath: indexPath)
         return cell
     }
 
@@ -215,6 +219,8 @@ extension NewsViewController: UITableViewDataSource {
 // MARK: - UITableViewDataSourcePrefetching
 
 extension NewsViewController: UITableViewDataSourcePrefetching {
+    // MARK: - Public Methods
+
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         guard
             let maxSection = indexPaths.map(\.section).max(),
@@ -222,6 +228,12 @@ extension NewsViewController: UITableViewDataSourcePrefetching {
             !isLoading
         else { return }
         isLoading = true
+        fetchNewsVK(nextFrom: nextFrom)
+    }
+
+    // MARK: - Private Methods
+
+    private func fetchNewsVK(nextFrom: String) {
         vkNetworkService.fetchNewsVK(nextFrom: nextFrom) { [weak self] results in
             guard let self = self else { return }
             switch results {
